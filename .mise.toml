@@ -14,3 +14,23 @@ run = ["mise install", "lefthook install", "pnpm install --frozen-lockfile"]
 description = "YAML を検証"
 raw_args = true
 run = "uvx --python-preference only-managed yamllint==1.38.0"
+
+[tasks.lint]
+description = "Lint・整形の確認"
+run = "pnpm exec biome check"
+
+[tasks.fix]
+description = "Lint・整形の修正"
+run = "pnpm exec biome check --write"
+
+[tasks.typecheck]
+description = "型チェックを実行"
+run = "pnpm typecheck"
+
+[tasks.dev]
+description = "開発サーバを起動"
+run = "trap 'exit 0' INT TERM; pnpm dev"
+
+[tasks.build]
+description = "ビルドを実行"
+run = "pnpm build"
