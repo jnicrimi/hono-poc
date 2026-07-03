@@ -37,3 +37,6 @@ run = "trap 'exit 0' INT TERM; pnpm dev"
 [tasks.build]
 description = "ビルドを実行"
 run = "pnpm build"
+
+[task_config]
+includes = ["mise-tasks/vendor.toml", "mise-tasks/view.toml"]

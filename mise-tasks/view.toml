@@ -1,0 +1,10 @@
+["view:api-docs"]
+description = "API ドキュメントをブラウザで開く"
+run = """
+if command -v open >/dev/null 2>&1; then
+  open "http://localhost:$PORT/api-docs"
+else
+  echo "Unsupported platform" >&2
+  exit 1
+fi
+"""
