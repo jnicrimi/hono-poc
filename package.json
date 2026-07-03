@@ -1,0 +1,15 @@
+{
+  "name": "template",
+  "private": true,
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=11"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.1",
+    "@commitlint/cli": "21.1.0",
+    "@commitlint/config-conventional": "21.1.0",
+    "@taplo/cli": "0.7.0",
+    "markdownlint-cli2": "0.22.1"
+  }
+}

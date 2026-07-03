@@ -1,0 +1,32 @@
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm exec commitlint --edit {1}
+
+pre-commit:
+  parallel: true
+  commands:
+    gitleaks:
+      run: gitleaks git --pre-commit --staged
+    biome:
+      run: pnpm exec biome check --staged --no-errors-on-unmatched
+    markdownlint:
+      glob: "*.md"
+      run: pnpm exec markdownlint-cli2 {staged_files}
+    yamllint:
+      glob: "*.{yml,yaml}"
+      run: mise run yamllint --strict {staged_files}
+    actionlint:
+      glob: ".github/workflows/*.{yml,yaml}"
+      run: actionlint {staged_files}
+    zizmor:
+      glob: ".github/workflows/*.{yml,yaml}"
+      run: zizmor --persona=pedantic --offline {staged_files}
+    taplo:
+      glob: "*.toml"
+      run: pnpm exec taplo fmt --check {staged_files}
+
+pre-push:
+  commands:
+    gitleaks:
+      run: gitleaks git --log-opts "origin/main..HEAD"

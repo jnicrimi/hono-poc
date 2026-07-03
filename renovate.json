@@ -1,0 +1,32 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":pinAllExceptPeerDependencies",
+    "customManagers:biomeVersions"
+  ],
+  "timezone": "Asia/Tokyo",
+  "schedule": ["* 12-17 * * *"],
+  "minimumReleaseAge": "3 days",
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "{{manager}} (non-major)",
+      "groupSlug": "{{manager}}-non-major",
+      "automerge": true
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "minimumReleaseAge": "7 days"
+    },
+    {
+      "matchUpdateTypes": ["pin", "pinDigest", "digest"],
+      "minimumReleaseAge": "0 days",
+      "automerge": true
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "minimumReleaseAge": "0 days",
+    "labels": ["security"]
+  }
+}

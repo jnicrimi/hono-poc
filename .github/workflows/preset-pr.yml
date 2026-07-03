@@ -1,0 +1,34 @@
+name: preset-pr
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  set-assignees:
+    name: set-assignees
+    permissions:
+      pull-requests: write  # PR 作成者を assignee に自動設定するため
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: ${{ toJSON(github.event.pull_request.assignees) == '[]' && !endsWith(github.event.pull_request.user.login, '[bot]') }}
+    steps:
+      - name: Set assignees
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        env:
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.addAssignees({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              assignees: [process.env.PR_AUTHOR]
+            });
