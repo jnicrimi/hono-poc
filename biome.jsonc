@@ -1,0 +1,91 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.1/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "includes": ["**"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf"
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "correctness": {
+        // package.json に未宣言の依存を import するのを禁止
+        "noUndeclaredDependencies": "error"
+      },
+      "nursery": {
+        // where 句なしの drizzle delete(全件削除)を禁止
+        "noDrizzleDeleteWithoutWhere": "error",
+        // where 句なしの drizzle update(全件更新)を禁止
+        "noDrizzleUpdateWithoutWhere": "error",
+        // await/return されない放置 Promise(握り潰し)を検出
+        "noFloatingPromises": "error",
+        // if 条件や論理演算など Promise を誤用する箇所を検出
+        "noMisusedPromises": "error",
+        // thenable でない値の await を禁止
+        "useAwaitThenable": "error",
+        // switch が全ケースを網羅しているか強制
+        "useExhaustiveSwitchCases": "error"
+      },
+      "style": {
+        // process.env の直接参照を禁止
+        "noProcessEnv": "error",
+        // ファイル名を kebab-case に統一
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": {
+            // 大文字小文字を厳密に区別
+            "strictCase": true,
+            // ASCII のみ許可
+            "requireAscii": true,
+            "filenameCases": ["kebab-case"]
+          }
+        },
+        // throw は new Error 形式を強制(Error() 呼び出し禁止)
+        "useThrowNewError": "error",
+        // throw できるのは Error 系のみに限定
+        "useThrowOnlyError": "error",
+        // エラー再 throw 時は cause を指定して原因を連鎖させる
+        "useErrorCause": "error"
+      },
+      "suspicious": {
+        // console の使用を禁止
+        "noConsole": "error",
+        // import の循環参照を検出
+        "noImportCycles": "error",
+        // Error 生成時にメッセージを必須とする
+        "useErrorMessage": "error"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.ts", "**/*.tsx", "**/*.mts"],
+      "javascript": {
+        "formatter": {
+          "semicolons": "asNeeded"
+        }
+      }
+    },
+    {
+      "includes": ["apps/api/src/shared/config/env.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noProcessEnv": "off"
+          }
+        }
+      }
+    }
+  ]
+}
