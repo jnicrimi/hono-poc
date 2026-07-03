@@ -22,7 +22,7 @@ export const registerOpenApiDocs = (
   )
 
   app.get("/api-docs/assets/scalar-api-reference.js", (c) =>
-    c.body(js, 200, { "content-type": "application/javascript" }),
+    c.body(js, 200, { "content-type": "text/javascript; charset=utf-8" }),
   )
 
   app.get(
