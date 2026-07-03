@@ -11,7 +11,7 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "passThroughEnv": ["NODE_ENV", "PORT"]
+      "passThroughEnv": ["NODE_ENV", "PORT", "LOG_LEVEL"]
     }
   }
 }

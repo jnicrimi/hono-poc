@@ -3,6 +3,7 @@ import * as z from "zod"
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "production"]),
   PORT: z.coerce.number().int().min(1).max(65535),
+  LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]),
 })
 
 export type Env = z.infer<typeof envSchema>
