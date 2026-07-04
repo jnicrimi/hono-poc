@@ -10,5 +10,9 @@ node_modules/
 # Turborepo
 .turbo/
 
+# Test coverage
+/apps/api/coverage/
+/apps/api/.vitest-reports/
+
 # Claude Code
 **/.claude/settings.local.json

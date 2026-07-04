@@ -1,0 +1,11 @@
+["test-api"]
+description = "API の全テストを実行"
+run = "pnpm --filter @hono-poc/api test"
+
+["test-api:unit"]
+description = "API のユニットテストを実行"
+run = "pnpm --filter @hono-poc/api test:unit"
+
+["test-api:coverage"]
+description = "API のカバレッジを計測"
+run = "pnpm --filter @hono-poc/api test:coverage"
