@@ -33,9 +33,30 @@ jobs:
           path: apps/api/.vitest-reports/*
           include-hidden-files: true
           retention-days: 1
+  integration:
+    name: integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d  # v4.2.0
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: test
+        run: pnpm --filter @hono-poc/api exec vitest run --project integration --coverage --reporter=dot --reporter=blob --outputFile.blob=.vitest-reports/integration.json
+      - name: Upload blob report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        with:
+          name: blob-integration
+          path: apps/api/.vitest-reports/*
+          include-hidden-files: true
+          retention-days: 1
   coverage:
     name: coverage
-    needs: [unit]
+    needs: [unit, integration]
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
