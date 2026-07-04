@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!apps/api/vendor"]
+    "includes": ["**", "!apps/api/vendor", "!apps/api/drizzle"]
   },
   "formatter": {
     "enabled": true,
@@ -78,7 +78,10 @@
       }
     },
     {
-      "includes": ["apps/api/src/shared/config/env.ts"],
+      "includes": [
+        "apps/api/src/shared/config/env.ts",
+        "apps/api/drizzle.config.ts"
+      ],
       "linter": {
         "rules": {
           "style": {
