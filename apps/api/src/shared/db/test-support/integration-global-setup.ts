@@ -17,16 +17,19 @@ let container: StartedPostgreSqlContainer | undefined
 
 export async function setup({ provide }: TestProject) {
   container = await new PostgreSqlContainer("postgres:18-alpine").start()
-  const databaseUrl = container.getConnectionUri()
 
+  const databaseUrl = container.getConnectionUri()
   const sql = postgres(databaseUrl, { max: 1, onnotice: () => {} })
+
   try {
     await migrate(drizzle(sql), { migrationsFolder: "drizzle" })
+    provide("testDatabaseUrl", databaseUrl)
+  } catch (error) {
+    await container.stop()
+    throw error
   } finally {
     await sql.end()
   }
-
-  provide("testDatabaseUrl", databaseUrl)
 }
 
 export async function teardown() {
