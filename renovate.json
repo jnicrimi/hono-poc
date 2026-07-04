@@ -25,6 +25,15 @@
       "automerge": true
     }
   ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^mise\\.toml$/"],
+      "matchStrings": ["yamllint==(?<currentValue>[\\d.]+)"],
+      "depNameTemplate": "yamllint",
+      "datasourceTemplate": "pypi"
+    }
+  ],
   "vulnerabilityAlerts": {
     "minimumReleaseAge": "0 days",
     "labels": ["security"]
