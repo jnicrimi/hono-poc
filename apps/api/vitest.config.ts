@@ -26,6 +26,18 @@ export default defineConfig({
           restoreMocks: true,
         },
       },
+      {
+        test: {
+          name: "integration",
+          environment: "node",
+          include: ["src/**/*.integration.test.ts"],
+          globalSetup: [
+            "src/shared/db/test-support/integration-global-setup.ts",
+          ],
+          setupFiles: ["src/shared/db/test-support/integration-setup.ts"],
+          restoreMocks: true,
+        },
+      },
     ],
   },
 })
