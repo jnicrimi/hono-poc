@@ -11,7 +11,17 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "passThroughEnv": ["NODE_ENV", "PORT", "LOG_LEVEL"]
+      "passThroughEnv": [
+        "NODE_ENV",
+        "PORT",
+        "LOG_LEVEL",
+        "DATABASE_URL",
+        "DB_POOL_MAX",
+        "DB_POOL_IDLE_TIMEOUT_SEC",
+        "DB_POOL_CONNECT_TIMEOUT_SEC",
+        "DB_POOL_MAX_LIFETIME_SEC",
+        "SHUTDOWN_TIMEOUT_MS"
+      ]
     }
   }
 }

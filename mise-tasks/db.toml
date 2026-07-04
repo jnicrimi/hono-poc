@@ -1,0 +1,27 @@
+["db:up"]
+description = "DB を起動"
+run = "docker compose up -d"
+
+["db:down"]
+description = "DB を停止"
+run = "docker compose down"
+
+["db:logs"]
+description = "DB のログを表示"
+run = "trap 'exit 0' INT TERM; docker compose logs -f postgres"
+
+["db:psql"]
+description = "DB に接続"
+run = "docker compose exec postgres psql -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-app}"
+
+["db:generate"]
+description = "マイグレーションを生成"
+run = "pnpm --filter @hono-poc/api db:generate"
+
+["db:migrate"]
+description = "マイグレーションを適用"
+run = "pnpm --filter @hono-poc/api db:migrate"
+
+["db:check"]
+description = "マイグレーションの整合性を検証"
+run = "pnpm --filter @hono-poc/api db:check"

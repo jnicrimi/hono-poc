@@ -39,4 +39,8 @@ description = "ビルドを実行"
 run = "pnpm build"
 
 [task_config]
-includes = ["mise-tasks/vendor.toml", "mise-tasks/view.toml"]
+includes = [
+  "mise-tasks/db.toml",
+  "mise-tasks/vendor.toml",
+  "mise-tasks/view.toml",
+]
