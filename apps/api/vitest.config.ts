@@ -12,6 +12,7 @@ export default defineConfig({
         "src/index.ts",
         "src/shared/config/env.ts",
         "src/shared/db/client.ts",
+        "src/modules/*/infrastructure/schema.ts",
       ],
     },
     projects: [
