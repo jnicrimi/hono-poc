@@ -12,11 +12,11 @@
   },
   "packageManager": "pnpm@11.9.0",
   "devDependencies": {
-    "@biomejs/biome": "2.5.1",
+    "@biomejs/biome": "2.5.2",
     "@commitlint/cli": "21.2.0",
     "@commitlint/config-conventional": "21.2.0",
     "@taplo/cli": "0.7.0",
-    "markdownlint-cli2": "0.22.1",
+    "markdownlint-cli2": "0.23.0",
     "turbo": "2.10.2",
     "typescript": "6.0.3"
   }
