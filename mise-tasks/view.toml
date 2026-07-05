@@ -8,3 +8,19 @@ else
   exit 1
 fi
 """
+
+["view:api-coverage"]
+description = "API のカバレッジレポートをブラウザで開く"
+run = """
+if [ -f apps/api/coverage/index.html ]; then
+  if command -v open >/dev/null 2>&1; then
+    open apps/api/coverage/index.html
+  else
+    echo "Unsupported platform" >&2
+    exit 1
+  fi
+else
+  echo "Coverage report not found" >&2
+  exit 1
+fi
+"""
