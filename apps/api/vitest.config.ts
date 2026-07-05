@@ -8,8 +8,6 @@ export default defineConfig({
       include: ["src/**/*.ts"],
       exclude: [
         "src/**/*.test.ts",
-        "src/**/*.integration.test.ts",
-        "src/**/*.api.test.ts",
         "src/**/test-support/**",
         "src/index.ts",
         "src/shared/config/env.ts",
@@ -21,8 +19,7 @@ export default defineConfig({
         test: {
           name: "unit",
           environment: "node",
-          include: ["src/**/*.test.ts"],
-          exclude: ["src/**/*.integration.test.ts", "src/**/*.api.test.ts"],
+          include: ["src/**/*.unit.test.ts"],
           restoreMocks: true,
         },
       },
