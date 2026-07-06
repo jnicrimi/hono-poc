@@ -13,6 +13,7 @@
     "test:coverage": "vitest run --reporter=dot --coverage",
     "test:unit": "vitest run --reporter=dot --project unit",
     "test:integration": "vitest run --reporter=dot --project integration",
+    "test:api": "vitest run --reporter=dot --project api",
     "test:watch": "vitest"
   },
   "dependencies": {

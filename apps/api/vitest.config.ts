@@ -12,6 +12,7 @@ export default defineConfig({
         "src/index.ts",
         "src/shared/config/env.ts",
         "src/shared/db/client.ts",
+        "src/shared/di/**",
         "src/modules/*/infrastructure/schema.ts",
       ],
     },
@@ -33,6 +34,14 @@ export default defineConfig({
             "src/shared/db/test-support/integration-global-setup.ts",
           ],
           setupFiles: ["src/shared/db/test-support/integration-setup.ts"],
+          restoreMocks: true,
+        },
+      },
+      {
+        test: {
+          name: "api",
+          environment: "node",
+          include: ["src/**/*.api.test.ts"],
           restoreMocks: true,
         },
       },
