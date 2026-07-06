@@ -8,4 +8,11 @@ export type AuthorReadModel = {
 
 export interface AuthorReader {
   findById(id: AuthorId): Promise<AuthorReadModel | null>
+  findMany(params: {
+    readonly limit: number
+    readonly offset: number
+  }): Promise<{
+    readonly items: readonly AuthorReadModel[]
+    readonly total: number
+  }>
 }
