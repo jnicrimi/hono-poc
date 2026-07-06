@@ -5,5 +5,9 @@ export const createAuthorReaderStub = (
   overrides: Partial<AuthorReader> = {},
 ): AuthorReader => ({
   findById: vi.fn().mockResolvedValue(null),
+  findMany: vi.fn().mockResolvedValue({
+    items: [],
+    total: 0,
+  }),
   ...overrides,
 })
