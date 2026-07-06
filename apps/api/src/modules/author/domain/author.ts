@@ -2,17 +2,17 @@ import { AuthorId } from "./author-id"
 import type { AuthorName } from "./author-name"
 
 type AuthorProps = {
-  id: AuthorId
-  name: AuthorName
-  version: number
+  readonly id: AuthorId
+  readonly name: AuthorName
+  readonly version: number
 }
 
 type AuthorCreateParams = {
-  name: AuthorName
+  readonly name: AuthorName
 }
 
 type AuthorUpdateParams = {
-  name: AuthorName
+  readonly name: AuthorName
 }
 
 export class Author {

@@ -2,20 +2,20 @@ import type { ServerType } from "@hono/node-server"
 import type { AppLogger } from "../logger/logger"
 
 type SignalRegistrar = {
-  on: (signal: NodeJS.Signals, listener: () => void) => void
+  readonly on: (signal: NodeJS.Signals, listener: () => void) => void
 }
 
 type ClosableDb = {
-  $client: { end: () => Promise<unknown> }
+  readonly $client: { readonly end: () => Promise<unknown> }
 }
 
 export type GracefulShutdownOptions = {
-  server: ServerType
-  db: ClosableDb
-  logger: AppLogger
-  timeoutMs: number
-  onExit?: (code: number) => void
-  processRef?: SignalRegistrar
+  readonly server: ServerType
+  readonly db: ClosableDb
+  readonly logger: AppLogger
+  readonly timeoutMs: number
+  readonly onExit?: (code: number) => void
+  readonly processRef?: SignalRegistrar
 }
 
 export const registerGracefulShutdown = ({
