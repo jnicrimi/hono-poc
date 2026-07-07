@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm"
 import { describe, expect, it } from "vitest"
 import { runInRollback } from "../../../shared/db/test-support/test-db"
 import { authors } from "../../author/infrastructure/schema"
-import { bookAuthors, books } from "../../book/infrastructure/schema"
+import { bookAuthors, books } from "./schema"
 
 describe("bookAuthors", () => {
   it("book を削除すると関連する行も削除される", () =>
