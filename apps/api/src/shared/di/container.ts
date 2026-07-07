@@ -1,6 +1,7 @@
 import { authorApiTag } from "../../modules/author/presentation/author-router"
 import type { Db } from "../db/client"
 import { registerErrorHandlers } from "../error/register-error-handlers"
+import { registerHealthCheck } from "../health/register-health-check"
 import {
   type HttpBoundaryConfig,
   registerHttpBoundary,
@@ -21,8 +22,7 @@ export const createApp = (
 ) => {
   const app = createOpenApiApp()
 
-  app.get("/health", (c) => c.json({ status: "ok" }, 200))
-
+  registerHealthCheck(app, db)
   registerRequestLogging(app, logger)
   registerErrorHandlers(app, logger)
   registerHttpBoundary(app, options.httpBoundary)
