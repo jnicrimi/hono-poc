@@ -1,4 +1,5 @@
 import { authorApiTag } from "../../modules/author/presentation/author-router"
+import { bookApiTag } from "../../modules/book/presentation/book-router"
 import type { Db } from "../db/client"
 import { registerErrorHandlers } from "../error/register-error-handlers"
 import { registerHealthCheck } from "../health/register-health-check"
@@ -11,6 +12,7 @@ import { registerRequestLogging } from "../logger/register-request-logging"
 import { createOpenApiApp } from "../openapi/create-openapi-app"
 import { registerOpenApiDocs } from "../openapi/register-openapi-docs"
 import { registerAuthorModule } from "./register-author-module"
+import { registerBookModule } from "./register-book-module"
 
 export const createApp = (
   db: Db,
@@ -27,9 +29,10 @@ export const createApp = (
   registerErrorHandlers(app, logger)
   registerHttpBoundary(app, options.httpBoundary)
   registerAuthorModule(app, db)
+  registerBookModule(app, db)
   registerOpenApiDocs(app, {
     enabled: options.enableApiDocs,
-    tags: [authorApiTag],
+    tags: [authorApiTag, bookApiTag],
   })
 
   return app
