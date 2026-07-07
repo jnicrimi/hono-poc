@@ -1,6 +1,6 @@
 import { Hono } from "hono"
 import type { AppEnv } from "../../../shared/app-env"
-import { registerErrorHandlers } from "../../../shared/error/error-handlers"
+import { registerErrorHandlers } from "../../../shared/error/register-error-handlers"
 import { createLoggerStub } from "../../../shared/logger/test-support/logger-stub"
 import type { AuthorReader } from "../application/author-reader"
 import { CreateAuthor } from "../application/create-author"
