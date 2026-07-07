@@ -1,1 +1,1 @@
-export type EntityName = "author"
+export type EntityName = "author" | "book"
