@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest"
 import type { AppEnv } from "../app-env"
 import { createLoggerStub } from "../logger/test-support/logger-stub"
 import { AppError, type ErrorCategory } from "./app-error"
-import { registerErrorHandlers } from "./error-handlers"
+import { registerErrorHandlers } from "./register-error-handlers"
 
 class StubError extends AppError {
   constructor(
