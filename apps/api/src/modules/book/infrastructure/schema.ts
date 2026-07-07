@@ -1,4 +1,13 @@
-import { integer, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core"
+import {
+  index,
+  integer,
+  pgTable,
+  primaryKey,
+  timestamp,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core"
+import { authors } from "../../author/infrastructure/schema"
 import { BOOK_TITLE_MAX_LENGTH } from "../domain/book-title"
 
 export const books = pgTable("books", {
@@ -13,3 +22,19 @@ export const books = pgTable("books", {
     .defaultNow()
     .$onUpdate(() => new Date()),
 })
+
+export const bookAuthors = pgTable(
+  "book_authors",
+  {
+    bookId: uuid("book_id")
+      .notNull()
+      .references(() => books.id, { onDelete: "cascade" }),
+    authorId: uuid("author_id")
+      .notNull()
+      .references(() => authors.id, { onDelete: "cascade" }),
+  },
+  (table) => [
+    primaryKey({ columns: [table.bookId, table.authorId] }),
+    index("book_authors_author_id_index").on(table.authorId),
+  ],
+)
