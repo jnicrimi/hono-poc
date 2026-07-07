@@ -1,6 +1,8 @@
 import { Hono } from "hono"
 import type { AppEnv } from "../../../shared/app-env"
 import { registerErrorHandlers } from "../../../shared/error/register-error-handlers"
+import { registerHttpBoundary } from "../../../shared/http/register-http-boundary"
+import { createHttpBoundaryConfigStub } from "../../../shared/http/test-support/http-boundary-config-stub"
 import { createLoggerStub } from "../../../shared/logger/test-support/logger-stub"
 import type { AuthorReader } from "../application/author-reader"
 import { CreateAuthor } from "../application/create-author"
@@ -27,5 +29,6 @@ export const createAuthorTestApp = (deps: Deps) => {
 
   const app = new Hono<AppEnv>()
   registerErrorHandlers(app, createLoggerStub())
+  registerHttpBoundary(app, createHttpBoundaryConfigStub())
   return app.route("/authors", router)
 }

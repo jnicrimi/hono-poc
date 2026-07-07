@@ -16,6 +16,8 @@
         "PORT",
         "LOG_LEVEL",
         "DATABASE_URL",
+        "BODY_LIMIT_BYTES",
+        "REQUEST_TIMEOUT_MS",
         "DB_POOL_MAX",
         "DB_POOL_IDLE_TIMEOUT_SEC",
         "DB_POOL_CONNECT_TIMEOUT_SEC",

@@ -15,6 +15,10 @@ const db = createDb(env.DATABASE_URL, {
 })
 const app = createApp(db, logger, {
   enableApiDocs: env.NODE_ENV !== "production",
+  httpBoundary: {
+    bodyLimitBytes: env.BODY_LIMIT_BYTES,
+    requestTimeoutMs: env.REQUEST_TIMEOUT_MS,
+  },
 })
 
 const server = serve({ fetch: app.fetch, port: env.PORT }, (info) => {
