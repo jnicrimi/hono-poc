@@ -2,10 +2,11 @@ import { readFileSync } from "node:fs"
 import type { OpenAPIHono } from "@hono/zod-openapi"
 import { Scalar } from "@scalar/hono-api-reference"
 import type { AppEnv } from "../app-env"
+import type { ApiTag } from "./api-tags"
 
 export const registerOpenApiDocs = (
   app: OpenAPIHono<AppEnv>,
-  options: { enabled: boolean },
+  options: { readonly enabled: boolean; readonly tags: readonly ApiTag[] },
 ) => {
   if (!options.enabled) {
     return
@@ -14,6 +15,7 @@ export const registerOpenApiDocs = (
   app.doc("/api-docs/json", {
     openapi: "3.1.0",
     info: { title: "hono-poc API", version: "0.0.0" },
+    tags: [...options.tags],
   })
 
   const js = readFileSync(
