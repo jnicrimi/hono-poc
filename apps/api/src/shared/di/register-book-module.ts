@@ -7,6 +7,7 @@ import { ListBooks } from "../../modules/book/application/list-books"
 import { UpdateBook } from "../../modules/book/application/update-book"
 import { DrizzleBookReader } from "../../modules/book/infrastructure/drizzle-book-reader"
 import { DrizzleBookRepository } from "../../modules/book/infrastructure/drizzle-book-repository"
+import { DrizzleBookUnitOfWork } from "../../modules/book/infrastructure/drizzle-book-unit-of-work"
 import { createBookRouter } from "../../modules/book/presentation/book-router"
 import type { AppEnv } from "../app-env"
 import type { Db } from "../db/client"
@@ -14,13 +15,16 @@ import type { Db } from "../db/client"
 export const registerBookModule = (app: OpenAPIHono<AppEnv>, db: Db) => {
   const repository = new DrizzleBookRepository(db)
   const reader = new DrizzleBookReader(db)
-  const authorReader = new DrizzleAuthorExistenceReader(db)
+  const uow = new DrizzleBookUnitOfWork(
+    db,
+    (d) => new DrizzleAuthorExistenceReader(d),
+  )
 
   const router = createBookRouter({
-    createBook: new CreateBook(repository, authorReader),
+    createBook: new CreateBook(uow),
     listBooks: new ListBooks(reader),
     getBookById: new GetBookById(reader),
-    updateBook: new UpdateBook(repository, authorReader),
+    updateBook: new UpdateBook(uow),
     deleteBook: new DeleteBook(repository),
   })
 

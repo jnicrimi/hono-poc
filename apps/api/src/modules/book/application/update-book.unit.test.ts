@@ -1,11 +1,11 @@
 import { describe, expect, it, vi } from "vitest"
-import { createAuthorExistenceReaderStub } from "../../author/contract/test-support/author-existence-reader-stub"
 import { AuthorId } from "../../author/domain/author-id"
 import { Book } from "../domain/book"
 import { BookId } from "../domain/book-id"
 import { BookNotFoundError } from "../domain/book-not-found-error"
 import { BookTitle } from "../domain/book-title"
 import { createBookRepositoryStub } from "../test-support/book-repository-stub"
+import { createBookUnitOfWorkStub } from "../test-support/book-unit-of-work-stub"
 import { UpdateBook } from "./update-book"
 
 describe("UpdateBook", () => {
@@ -29,10 +29,7 @@ describe("UpdateBook", () => {
       findById: vi.fn().mockResolvedValue(existing),
       update: vi.fn().mockResolvedValue(saved),
     })
-    const useCase = new UpdateBook(
-      repository,
-      createAuthorExistenceReaderStub(),
-    )
+    const useCase = new UpdateBook(createBookUnitOfWorkStub({ repository }))
     const result = await useCase.execute({
       id: id.value,
       title: "更新後の書籍タイトル",
@@ -57,10 +54,7 @@ describe("UpdateBook", () => {
 
   it("存在しない場合は BookNotFoundError を投げる", async () => {
     const repository = createBookRepositoryStub()
-    const useCase = new UpdateBook(
-      repository,
-      createAuthorExistenceReaderStub(),
-    )
+    const useCase = new UpdateBook(createBookUnitOfWorkStub({ repository }))
     await expect(
       useCase.execute({
         id: BookId.generate().value,
