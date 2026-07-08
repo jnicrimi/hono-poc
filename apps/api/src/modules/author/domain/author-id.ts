@@ -11,7 +11,7 @@ export class AuthorId {
   }
 
   static restore(value: string): AuthorId {
-    if (!uuidValidate(value)) {
+    if (!uuidValidate(value) || value !== value.toLowerCase()) {
       throw new InvalidAuthorIdError(
         validationMessages.invalidValue(authorFieldLabels.id),
       )

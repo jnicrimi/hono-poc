@@ -1,7 +1,10 @@
 import { validate as uuidValidate } from "uuid"
 import { describe, expect, it, vi } from "vitest"
 import { OptimisticLockError } from "../../../shared/error/optimistic-lock-error"
-import { VALID_UUID_V7 } from "../../../shared/test-support/uuid-test-data"
+import {
+  UPPERCASE_UUID_V7,
+  VALID_UUID_V7,
+} from "../../../shared/test-support/uuid-test-data"
 import { createAuthorExistenceReaderStub } from "../../author/contract/test-support/author-existence-reader-stub"
 import { BOOK_MAX_AUTHOR_IDS } from "../domain/book"
 import { buildBook } from "../test-support/book-builder"
@@ -100,6 +103,18 @@ describe("POST /books", () => {
       jsonRequest("POST", {
         title: "書籍タイトル",
         authorIds: ["not-a-uuid"],
+      }),
+    )
+    expect(res.status).toBe(422)
+  })
+
+  it("authorIds に大文字の id がある場合は 422 を返す", async () => {
+    const app = createTestApp()
+    const res = await app.request(
+      "/books",
+      jsonRequest("POST", {
+        title: "書籍タイトル",
+        authorIds: [UPPERCASE_UUID_V7],
       }),
     )
     expect(res.status).toBe(422)
@@ -205,6 +220,12 @@ describe("GET /books/{id}", () => {
   it("id が uuid でない場合は 400 を返す", async () => {
     const app = createTestApp()
     const res = await app.request("/books/not-a-uuid")
+    expect(res.status).toBe(400)
+  })
+
+  it("id が大文字の場合は 400 を返す", async () => {
+    const app = createTestApp()
+    const res = await app.request(`/books/${UPPERCASE_UUID_V7}`)
     expect(res.status).toBe(400)
   })
 })
