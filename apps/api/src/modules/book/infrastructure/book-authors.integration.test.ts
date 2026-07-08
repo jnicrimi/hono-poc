@@ -29,7 +29,7 @@ describe("bookAuthors", () => {
       expect(found).toHaveLength(0)
     }))
 
-  it("author を削除すると関連する行も削除される", () =>
+  it("書籍に割り当てられた author は削除できない", () =>
     runInRollback(async (tx) => {
       const authorId = crypto.randomUUID()
       const bookId = crypto.randomUUID()
@@ -45,12 +45,12 @@ describe("bookAuthors", () => {
         bookId: bookId,
         authorId: authorId,
       })
-      await tx.delete(authors).where(eq(authors.id, authorId))
-      const found = await tx
-        .select()
-        .from(bookAuthors)
-        .where(eq(bookAuthors.authorId, authorId))
-      expect(found).toHaveLength(0)
+      const error = await tx
+        .delete(authors)
+        .where(eq(authors.id, authorId))
+        .catch((e) => e)
+      expect(error).toBeInstanceOf(Error)
+      expect((error as Error).cause).toMatchObject({ code: "23001" })
     }))
 
   it("同じ組み合わせは重複登録できない", () =>

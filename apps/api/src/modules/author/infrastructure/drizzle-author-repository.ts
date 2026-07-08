@@ -3,9 +3,20 @@ import type { Db } from "../../../shared/db/client"
 import { OptimisticLockError } from "../../../shared/error/optimistic-lock-error"
 import { Author } from "../domain/author"
 import { AuthorId } from "../domain/author-id"
+import { AuthorInUseError } from "../domain/author-in-use-error"
 import { AuthorName } from "../domain/author-name"
 import type { AuthorRepository } from "../domain/author-repository"
 import { authors } from "./schema"
+
+// SQLSTATE 23001 = restrict_violation（ON DELETE RESTRICT の違反）
+const RESTRICT_VIOLATION = "23001"
+
+const isRestrictViolation = (error: unknown): boolean =>
+  error instanceof Error &&
+  typeof error.cause === "object" &&
+  error.cause !== null &&
+  "code" in error.cause &&
+  error.cause.code === RESTRICT_VIOLATION
 
 export class DrizzleAuthorRepository implements AuthorRepository {
   constructor(private readonly db: Db) {}
@@ -67,6 +78,13 @@ export class DrizzleAuthorRepository implements AuthorRepository {
   }
 
   async delete(id: AuthorId): Promise<void> {
-    await this.db.delete(authors).where(eq(authors.id, id.value))
+    try {
+      await this.db.delete(authors).where(eq(authors.id, id.value))
+    } catch (error) {
+      if (isRestrictViolation(error)) {
+        throw new AuthorInUseError(id.value, { cause: error })
+      }
+      throw error
+    }
   }
 }

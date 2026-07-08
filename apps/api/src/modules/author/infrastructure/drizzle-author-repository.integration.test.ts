@@ -3,8 +3,10 @@ import { describe, expect, it } from "vitest"
 import { runInRollback } from "../../../shared/db/test-support/test-db"
 import { AppError } from "../../../shared/error/app-error"
 import { OptimisticLockError } from "../../../shared/error/optimistic-lock-error"
+import { bookAuthors, books } from "../../book/infrastructure/schema"
 import { Author } from "../domain/author"
 import { AuthorId } from "../domain/author-id"
+import { AuthorInUseError } from "../domain/author-in-use-error"
 import { AuthorName } from "../domain/author-name"
 import { DrizzleAuthorRepository } from "./drizzle-author-repository"
 import { authors } from "./schema"
@@ -92,6 +94,23 @@ describe("DrizzleAuthorRepository", () => {
         await repository.delete(author.id)
         const found = await repository.findById(author.id)
         expect(found).toBeNull()
+      }))
+
+    it("書籍に割り当てられている場合は AuthorInUseError を投げる", () =>
+      runInRollback(async (tx) => {
+        const repository = new DrizzleAuthorRepository(tx)
+        const author = Author.create({
+          name: AuthorName.from("著者名"),
+        })
+        await repository.insert(author)
+        const bookId = crypto.randomUUID()
+        await tx.insert(books).values({ id: bookId, title: "書籍タイトル" })
+        await tx
+          .insert(bookAuthors)
+          .values({ bookId, authorId: author.id.value })
+        await expect(repository.delete(author.id)).rejects.toThrow(
+          AuthorInUseError,
+        )
       }))
   })
 })

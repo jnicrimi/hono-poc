@@ -31,7 +31,7 @@ export const bookAuthors = pgTable(
       .references(() => books.id, { onDelete: "cascade" }),
     authorId: uuid("author_id")
       .notNull()
-      .references(() => authors.id, { onDelete: "cascade" }),
+      .references(() => authors.id, { onDelete: "restrict" }),
   },
   (table) => [
     primaryKey({ columns: [table.bookId, table.authorId] }),
