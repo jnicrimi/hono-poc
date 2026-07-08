@@ -1,9 +1,8 @@
-import type { AuthorExistenceReader } from "../../author/contract/application/author-existence-reader"
 import { BookId } from "../domain/book-id"
 import { BookNotFoundError } from "../domain/book-not-found-error"
-import type { BookRepository } from "../domain/book-repository"
 import { BookTitle } from "../domain/book-title"
 import { resolveAssignableAuthorIds } from "./assignable-author-ids-resolver"
+import type { BookUnitOfWork } from "./book-unit-of-work"
 
 export type UpdateBookCommand = {
   readonly id: string
@@ -20,29 +19,28 @@ export type UpdateBookResult = {
 }
 
 export class UpdateBook {
-  constructor(
-    private readonly repository: BookRepository,
-    private readonly authorReader: AuthorExistenceReader,
-  ) {}
+  constructor(private readonly uow: BookUnitOfWork) {}
 
   async execute(command: UpdateBookCommand): Promise<UpdateBookResult> {
-    const existing = await this.repository.findById(BookId.restore(command.id))
-    if (!existing) {
-      throw new BookNotFoundError(command.id)
-    }
-    const authorIds = await resolveAssignableAuthorIds(
-      this.authorReader,
-      command.authorIds,
-    )
-    const saved = await this.repository.update(
-      existing.update({ title: BookTitle.from(command.title), authorIds }),
-      command.version,
-    )
-    return {
-      id: saved.id.value,
-      title: saved.title.value,
-      authorIds: saved.authorIds.map((id) => id.value),
-      version: saved.version,
-    }
+    return this.uow.run(async ({ repository, authorReader }) => {
+      const existing = await repository.findById(BookId.restore(command.id))
+      if (!existing) {
+        throw new BookNotFoundError(command.id)
+      }
+      const authorIds = await resolveAssignableAuthorIds(
+        authorReader,
+        command.authorIds,
+      )
+      const saved = await repository.update(
+        existing.update({ title: BookTitle.from(command.title), authorIds }),
+        command.version,
+      )
+      return {
+        id: saved.id.value,
+        title: saved.title.value,
+        authorIds: saved.authorIds.map((id) => id.value),
+        version: saved.version,
+      }
+    })
   }
 }

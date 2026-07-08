@@ -13,6 +13,7 @@ import { ListBooks } from "../application/list-books"
 import { UpdateBook } from "../application/update-book"
 import type { BookRepository } from "../domain/book-repository"
 import { createBookRouter } from "../presentation/book-router"
+import { createBookUnitOfWorkStub } from "./book-unit-of-work-stub"
 
 type Deps = {
   readonly repository: BookRepository
@@ -21,11 +22,15 @@ type Deps = {
 }
 
 export const createBookTestApp = (deps: Deps) => {
+  const uow = createBookUnitOfWorkStub({
+    repository: deps.repository,
+    authorReader: deps.authorReader,
+  })
   const router = createBookRouter({
-    createBook: new CreateBook(deps.repository, deps.authorReader),
+    createBook: new CreateBook(uow),
     listBooks: new ListBooks(deps.reader),
     getBookById: new GetBookById(deps.reader),
-    updateBook: new UpdateBook(deps.repository, deps.authorReader),
+    updateBook: new UpdateBook(uow),
     deleteBook: new DeleteBook(deps.repository),
   })
 
