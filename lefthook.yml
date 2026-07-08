@@ -25,8 +25,22 @@ pre-commit:
     taplo:
       glob: "*.toml"
       run: pnpm exec taplo fmt --check {staged_files}
+    drizzle-check:
+      glob: "apps/api/drizzle/*"
+      run: pnpm --filter @hono-poc/api db:check
+    typecheck:
+      glob: "*.{ts,tsx}"
+      run: pnpm typecheck
+    depcruise:
+      glob: "apps/api/src/*.ts"
+      run: pnpm --filter @hono-poc/api depcruise
 
 pre-push:
+  parallel: true
   commands:
     gitleaks:
       run: gitleaks git --log-opts "origin/main..HEAD"
+    test-unit:
+      run: pnpm --filter @hono-poc/api test:unit
+    test-api:
+      run: pnpm --filter @hono-poc/api test:api
