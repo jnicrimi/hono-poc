@@ -1,0 +1,65 @@
+{
+  "forbidden": [
+    {
+      "name": "cross-module-only-via-contract",
+      "comment": "モジュール間参照は contract/** ・ domain/*-id.ts ・ infrastructure/schema.ts のみ許可",
+      "severity": "error",
+      "from": { "path": "^src/modules/([^/]+)/" },
+      "to": {
+        "path": "^src/modules/([^/]+)/",
+        "pathNot": [
+          "^src/modules/$1/",
+          "^src/modules/[^/]+/contract/",
+          "^src/modules/[^/]+/domain/[^/]+-id\\.ts$",
+          "^src/modules/[^/]+/infrastructure/schema\\.ts$"
+        ]
+      }
+    },
+    {
+      "name": "no-self-contract-reference",
+      "comment": "モジュールは自身の contract を参照しない（contract は他モジュール向けの公開窓口専用）",
+      "severity": "error",
+      "from": {
+        "path": "^src/modules/([^/]+)/",
+        "pathNot": "^src/modules/[^/]+/contract/"
+      },
+      "to": { "path": "^src/modules/$1/contract/" }
+    },
+    {
+      "name": "only-di-touches-modules-from-shared",
+      "comment": "shared から modules への依存は合成ルート（shared/di のみ許可）",
+      "severity": "error",
+      "from": { "path": "^src/shared/", "pathNot": "^src/shared/di/" },
+      "to": { "path": "^src/modules/" }
+    },
+    {
+      "name": "domain-must-stay-pure",
+      "comment": "domain は application/infrastructure/presentation に依存しない",
+      "severity": "error",
+      "from": { "path": "^src/modules/[^/]+/domain/" },
+      "to": {
+        "path": "^src/modules/[^/]+/(application|infrastructure|presentation)/"
+      }
+    },
+    {
+      "name": "application-not-to-infrastructure",
+      "comment": "application は同一モジュールの infrastructure に直接依存しない（DI 経由）",
+      "severity": "error",
+      "from": { "path": "^src/modules/([^/]+)/application/" },
+      "to": { "path": "^src/modules/$1/infrastructure/" }
+    },
+    {
+      "name": "presentation-not-to-infrastructure",
+      "comment": "presentation は同一モジュールの infrastructure に直接依存しない（application 経由）",
+      "severity": "error",
+      "from": { "path": "^src/modules/([^/]+)/presentation/" },
+      "to": { "path": "^src/modules/$1/infrastructure/" }
+    }
+  ],
+  "options": {
+    "tsConfig": { "fileName": "tsconfig.json" },
+    "tsPreCompilationDeps": true,
+    "doNotFollow": { "path": "node_modules" },
+    "exclude": { "path": "\\.test\\.ts$" }
+  }
+}
