@@ -1,13 +1,22 @@
 import { eq } from "drizzle-orm"
 import { describe, expect, it } from "vitest"
+import type { Db } from "../../../shared/db/client"
 import { runInRollback } from "../../../shared/db/test-support/test-db"
 import { AppError } from "../../../shared/error/app-error"
 import { OptimisticLockError } from "../../../shared/error/optimistic-lock-error"
+import { AuthorId } from "../../author/domain/author-id"
+import { authors } from "../../author/infrastructure/schema"
 import { Book } from "../domain/book"
 import { BookId } from "../domain/book-id"
 import { BookTitle } from "../domain/book-title"
 import { DrizzleBookRepository } from "./drizzle-book-repository"
 import { books } from "./schema"
+
+const seedAuthor = async (tx: Db): Promise<AuthorId> => {
+  const id = crypto.randomUUID()
+  await tx.insert(authors).values({ id, name: "著者名" })
+  return AuthorId.restore(id)
+}
 
 describe("DrizzleBookRepository", () => {
   describe("findById", () => {
@@ -23,6 +32,7 @@ describe("DrizzleBookRepository", () => {
         const repository = new DrizzleBookRepository(tx)
         const book = Book.create({
           title: BookTitle.from("書籍タイトル"),
+          authorIds: [await seedAuthor(tx)],
         })
         await repository.insert(book)
         await tx
@@ -41,6 +51,22 @@ describe("DrizzleBookRepository", () => {
         const repository = new DrizzleBookRepository(tx)
         const book = Book.create({
           title: BookTitle.from("書籍タイトル"),
+          authorIds: [await seedAuthor(tx)],
+        })
+        await repository.insert(book)
+        const found = await repository.findById(book.id)
+        expect(found).toEqual(book)
+      }))
+
+    it("複数の authorIds を保存した entity をそのまま復元する", () =>
+      runInRollback(async (tx) => {
+        const repository = new DrizzleBookRepository(tx)
+        const authorIds = [await seedAuthor(tx), await seedAuthor(tx)].sort(
+          (a, b) => (a.value < b.value ? -1 : 1),
+        )
+        const book = Book.create({
+          title: BookTitle.from("書籍タイトル"),
+          authorIds,
         })
         await repository.insert(book)
         const found = await repository.findById(book.id)
@@ -54,10 +80,12 @@ describe("DrizzleBookRepository", () => {
         const repository = new DrizzleBookRepository(tx)
         const book = Book.create({
           title: BookTitle.from("書籍タイトル"),
+          authorIds: [await seedAuthor(tx)],
         })
         await repository.insert(book)
         const updated = book.update({
           title: BookTitle.from("更新後の書籍タイトル"),
+          authorIds: book.authorIds,
         })
         const result = await repository.update(updated, updated.version)
         const expected = await repository.findById(updated.id)
@@ -65,16 +93,39 @@ describe("DrizzleBookRepository", () => {
         expect(result.version).toBe(book.version + 1)
       }))
 
+    it("authorIds を置換する", () =>
+      runInRollback(async (tx) => {
+        const repository = new DrizzleBookRepository(tx)
+        const before1 = await seedAuthor(tx)
+        const before2 = await seedAuthor(tx)
+        const after = await seedAuthor(tx)
+        const book = Book.create({
+          title: BookTitle.from("書籍タイトル"),
+          authorIds: [before1, before2],
+        })
+        await repository.insert(book)
+        await repository.update(
+          book.update({ title: book.title, authorIds: [after] }),
+          book.version,
+        )
+        const found = await repository.findById(book.id)
+        expect(found?.authorIds.map((id) => id.value)).toEqual([after.value])
+      }))
+
     it("version 不一致の場合は OptimisticLockError を投げる", () =>
       runInRollback(async (tx) => {
         const repository = new DrizzleBookRepository(tx)
         const book = Book.create({
           title: BookTitle.from("書籍タイトル"),
+          authorIds: [await seedAuthor(tx)],
         })
         await repository.insert(book)
         await expect(
           repository.update(
-            book.update({ title: BookTitle.from("更新後の書籍タイトル") }),
+            book.update({
+              title: BookTitle.from("更新後の書籍タイトル"),
+              authorIds: book.authorIds,
+            }),
             99,
           ),
         ).rejects.toThrow(OptimisticLockError)
@@ -87,6 +138,7 @@ describe("DrizzleBookRepository", () => {
         const repository = new DrizzleBookRepository(tx)
         const book = Book.create({
           title: BookTitle.from("書籍タイトル"),
+          authorIds: [await seedAuthor(tx)],
         })
         await repository.insert(book)
         await repository.delete(book.id)

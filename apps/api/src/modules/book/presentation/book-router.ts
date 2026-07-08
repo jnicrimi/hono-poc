@@ -12,6 +12,7 @@ import {
   bookResponseSchema,
   createBookResponseSchema,
   listBooksResponseSchema,
+  updateBookResponseSchema,
 } from "./book-response-schema"
 import { createBookSchema } from "./create-book-schema"
 import { listBooksQuerySchema } from "./list-books-query-schema"
@@ -53,6 +54,7 @@ const createBookRoute = createRoute({
       content: { "application/json": { schema: createBookResponseSchema } },
       description: "作成した書籍の情報",
     },
+    400: jsonError("著者が存在しない"),
     422: jsonError("リクエストボディが不正"),
   },
 })
@@ -106,10 +108,10 @@ const updateBookRoute = createRoute({
   },
   responses: {
     200: {
-      content: { "application/json": { schema: bookResponseSchema } },
+      content: { "application/json": { schema: updateBookResponseSchema } },
       description: "更新後の書籍の情報",
     },
-    400: jsonError("パスパラメータが不正"),
+    400: jsonError("パスパラメータが不正、または著者が存在しない"),
     404: jsonError("書籍が存在しない"),
     409: jsonError("バージョンが競合"),
     422: jsonError("リクエストボディが不正"),
@@ -137,9 +139,10 @@ export const createBookRouter = (deps: BookRouterDeps) => {
   const router = createOpenApiApp()
 
   router.openapi(createBookRoute, async (c) => {
-    const { title } = c.req.valid("json")
+    const { title, authorIds } = c.req.valid("json")
     const created = await deps.createBook.execute({
       title,
+      authorIds,
     })
     return c.json(created, 201)
   })
@@ -158,8 +161,13 @@ export const createBookRouter = (deps: BookRouterDeps) => {
 
   router.openapi(updateBookRoute, async (c) => {
     const { id } = c.req.valid("param")
-    const { title, version } = c.req.valid("json")
-    const updated = await deps.updateBook.execute({ id, title, version })
+    const { title, authorIds, version } = c.req.valid("json")
+    const updated = await deps.updateBook.execute({
+      id,
+      title,
+      authorIds,
+      version,
+    })
     return c.json(updated, 200)
   })
 

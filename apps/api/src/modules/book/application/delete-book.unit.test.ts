@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest"
+import { AuthorId } from "../../author/domain/author-id"
 import { Book } from "../domain/book"
 import { BookId } from "../domain/book-id"
 import { BookNotFoundError } from "../domain/book-not-found-error"
@@ -12,6 +13,7 @@ describe("DeleteBook", () => {
     const existing = Book.reconstruct({
       id,
       title: BookTitle.from("書籍タイトル"),
+      authorIds: [AuthorId.generate()],
       version: 1,
     })
     const repository = createBookRepositoryStub({
