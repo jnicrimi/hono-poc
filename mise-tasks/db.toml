@@ -25,3 +25,7 @@ run = "pnpm --filter @hono-poc/api db:migrate"
 ["db:check"]
 description = "マイグレーションの整合性を検証"
 run = "pnpm --filter @hono-poc/api db:check"
+
+["db:seed"]
+description = "開発用データを投入"
+run = "pnpm --filter @hono-poc/api seed"
