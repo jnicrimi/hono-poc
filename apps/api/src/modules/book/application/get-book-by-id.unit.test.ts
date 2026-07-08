@@ -10,6 +10,7 @@ describe("GetBookById", () => {
     const readModel: BookReadModel = {
       id: VALID_UUID_V7,
       title: "書籍タイトル",
+      authors: [],
       version: 0,
     }
     const reader = createBookReaderStub({

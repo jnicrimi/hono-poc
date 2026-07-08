@@ -135,7 +135,9 @@ describe("POST /books", () => {
 
 describe("GET /books", () => {
   it("200 と items + pagination を返す", async () => {
-    const items = [{ id: VALID_UUID_V7, title: "書籍タイトル", version: 0 }]
+    const items = [
+      { id: VALID_UUID_V7, title: "書籍タイトル", authors: [], version: 0 },
+    ]
     const reader = createBookReaderStub({
       findMany: vi.fn().mockResolvedValue({ items, total: 1 }),
     })
@@ -176,7 +178,12 @@ describe("GET /books", () => {
 
 describe("GET /books/{id}", () => {
   it("200 と書籍を返す", async () => {
-    const readModel = { id: VALID_UUID_V7, title: "書籍タイトル", version: 0 }
+    const readModel = {
+      id: VALID_UUID_V7,
+      title: "書籍タイトル",
+      authors: [{ id: crypto.randomUUID(), name: "著者名" }],
+      version: 0,
+    }
     const reader = createBookReaderStub({
       findById: vi.fn().mockResolvedValue(readModel),
     })
