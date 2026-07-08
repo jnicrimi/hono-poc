@@ -10,6 +10,7 @@ export default defineConfig({
         "src/**/*.test.ts",
         "src/**/test-support/**",
         "src/index.ts",
+        "src/seed.ts",
         "src/shared/config/env.ts",
         "src/shared/db/client.ts",
         "src/shared/di/**",
