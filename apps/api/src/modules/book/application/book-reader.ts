@@ -1,8 +1,14 @@
 import type { BookId } from "../domain/book-id"
 
+export type BookAuthorReadModel = {
+  readonly id: string
+  readonly name: string
+}
+
 export type BookReadModel = {
   readonly id: string
   readonly title: string
+  readonly authors: readonly BookAuthorReadModel[]
   readonly version: number
 }
 

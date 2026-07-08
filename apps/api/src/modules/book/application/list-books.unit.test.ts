@@ -14,7 +14,7 @@ describe("ListBooks", () => {
 
   it("reader の items に pagination meta を付けて返す", async () => {
     const items: BookReadModel[] = [
-      { id: VALID_UUID_V7, title: "書籍タイトル", version: 0 },
+      { id: VALID_UUID_V7, title: "書籍タイトル", authors: [], version: 0 },
     ]
     const reader = createBookReaderStub({
       findMany: vi.fn().mockResolvedValue({ items, total: 25 }),
