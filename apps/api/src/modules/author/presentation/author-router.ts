@@ -130,6 +130,7 @@ const deleteAuthorRoute = createRoute({
     },
     400: jsonError("パスパラメータが不正"),
     404: jsonError("著者が存在しない"),
+    409: jsonError("著者が書籍に割り当てられている"),
   },
 })
 

@@ -5,6 +5,7 @@ import {
   UPPERCASE_UUID_V7,
   VALID_UUID_V7,
 } from "../../../shared/test-support/uuid-test-data"
+import { AuthorInUseError } from "../domain/author-in-use-error"
 import { buildAuthor } from "../test-support/author-builder"
 import { createAuthorReaderStub } from "../test-support/author-reader-stub"
 import { createAuthorRepositoryStub } from "../test-support/author-repository-stub"
@@ -272,6 +273,24 @@ describe("DELETE /authors/{id}", () => {
     })
     const res = await app.request("/authors/not-a-uuid", { method: "DELETE" })
     expect(res.status).toBe(400)
+  })
+
+  it("書籍に割り当てられている場合は 409 とエラー封筒を返す", async () => {
+    const repository = createAuthorRepositoryStub({
+      findById: vi.fn().mockResolvedValue(buildAuthor({ id: VALID_UUID_V7 })),
+      delete: vi.fn().mockRejectedValue(new AuthorInUseError(VALID_UUID_V7)),
+    })
+    const app = createAuthorTestApp({
+      repository,
+      reader: createAuthorReaderStub(),
+    })
+    const res = await app.request(`/authors/${VALID_UUID_V7}`, {
+      method: "DELETE",
+    })
+    expect(res.status).toBe(409)
+    expect(await res.json()).toEqual({
+      errors: [{ message: "書籍に割り当てられている著者は削除できません" }],
+    })
   })
 })
 

@@ -7,8 +7,8 @@ export type ErrorCategory =
 export abstract class AppError extends Error {
   abstract readonly category: ErrorCategory
 
-  constructor(message: string) {
-    super(message)
+  constructor(message: string, options?: ErrorOptions) {
+    super(message, options)
     this.name = new.target.name
   }
 }
