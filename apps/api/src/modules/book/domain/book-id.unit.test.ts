@@ -1,5 +1,6 @@
 import { validate as uuidValidate } from "uuid"
 import { describe, expect, it } from "vitest"
+import { UPPERCASE_UUID_V7 } from "../../../shared/test-support/uuid-test-data"
 import { BookId } from "./book-id"
 import { InvalidBookIdError } from "./invalid-book-id-error"
 
@@ -19,6 +20,12 @@ describe("BookId", () => {
 
     it("不正な値の場合はエラーを投げる", () => {
       expect(() => BookId.restore("invalid-uuid")).toThrow(InvalidBookIdError)
+    })
+
+    it("大文字を含む場合はエラーを投げる", () => {
+      expect(() => BookId.restore(UPPERCASE_UUID_V7)).toThrow(
+        InvalidBookIdError,
+      )
     })
   })
 })

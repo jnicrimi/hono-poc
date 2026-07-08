@@ -1,7 +1,10 @@
 import { validate as uuidValidate } from "uuid"
 import { describe, expect, it, vi } from "vitest"
 import { OptimisticLockError } from "../../../shared/error/optimistic-lock-error"
-import { VALID_UUID_V7 } from "../../../shared/test-support/uuid-test-data"
+import {
+  UPPERCASE_UUID_V7,
+  VALID_UUID_V7,
+} from "../../../shared/test-support/uuid-test-data"
 import { buildAuthor } from "../test-support/author-builder"
 import { createAuthorReaderStub } from "../test-support/author-reader-stub"
 import { createAuthorRepositoryStub } from "../test-support/author-repository-stub"
@@ -146,6 +149,15 @@ describe("GET /authors/{id}", () => {
       reader: createAuthorReaderStub(),
     })
     const res = await app.request("/authors/not-a-uuid")
+    expect(res.status).toBe(400)
+  })
+
+  it("id が大文字の場合は 400 を返す", async () => {
+    const app = createAuthorTestApp({
+      repository: createAuthorRepositoryStub(),
+      reader: createAuthorReaderStub(),
+    })
+    const res = await app.request(`/authors/${UPPERCASE_UUID_V7}`)
     expect(res.status).toBe(400)
   })
 })

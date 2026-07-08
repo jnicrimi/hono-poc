@@ -11,7 +11,7 @@ export class BookId {
   }
 
   static restore(value: string): BookId {
-    if (!uuidValidate(value)) {
+    if (!uuidValidate(value) || value !== value.toLowerCase()) {
       throw new InvalidBookIdError(
         validationMessages.invalidValue(bookFieldLabels.id),
       )
