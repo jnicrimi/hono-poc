@@ -24,3 +24,15 @@ export const createBookResponseSchema = z
     id: z.uuid().openapi({ description: "作成した書籍のID" }),
   })
   .openapi("CreateBookResult", { description: "書籍の作成結果" })
+
+export const updateBookResponseSchema = z
+  .object({
+    id: z.uuid().openapi({ description: "書籍ID" }),
+    title: z.string().openapi({ description: "書籍タイトル" }),
+    authorIds: z
+      .array(z.uuid())
+      .readonly()
+      .openapi({ description: "著者IDの一覧" }),
+    version: z.number().int().openapi({ description: "バージョン" }),
+  })
+  .openapi("UpdateBookResult", { description: "書籍の更新結果" })
