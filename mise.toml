@@ -30,6 +30,10 @@ run = "pnpm exec biome check --write"
 description = "型チェックを実行"
 run = "pnpm typecheck"
 
+[tasks.depcruise]
+description = "依存関係の境界ルールを検証"
+run = "pnpm --filter @hono-poc/api depcruise"
+
 [tasks.dev]
 description = "開発サーバを起動"
 run = "trap 'exit 0' INT TERM; pnpm dev"
