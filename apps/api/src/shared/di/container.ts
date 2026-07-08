@@ -24,7 +24,7 @@ export const createApp = (
 ) => {
   const app = createOpenApiApp()
 
-  registerHealthCheck(app, db)
+  registerHealthCheck(app, db, logger)
   registerRequestLogging(app, logger)
   registerErrorHandlers(app, logger)
   registerHttpBoundary(app, options.httpBoundary)
