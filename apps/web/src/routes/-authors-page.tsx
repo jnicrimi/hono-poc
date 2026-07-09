@@ -1,3 +1,11 @@
+import { User } from "lucide-react"
+import { PageTitle } from "@/shared/components/page-title"
+import { Button } from "@/shared/ui/button"
+
 export function AuthorsPage() {
-  return <h1 className="font-bold text-2xl">著者</h1>
+  return (
+    <PageTitle icon={User} action={<Button>登録</Button>}>
+      著者
+    </PageTitle>
+  )
 }
