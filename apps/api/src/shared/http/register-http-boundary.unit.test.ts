@@ -7,7 +7,7 @@ import { registerHttpBoundary } from "./register-http-boundary"
 import { createHttpBoundaryConfigStub } from "./test-support/http-boundary-config-stub"
 
 describe("registerHttpBoundary", () => {
-  it("制限を超える body の場合は 413 とエラー封筒を返す", async () => {
+  it("制限を超える body の場合は 413 とエラーレスポンスを返す", async () => {
     const app = new Hono<AppEnv>()
     registerErrorHandlers(app, createLoggerStub())
     registerHttpBoundary(
@@ -26,7 +26,7 @@ describe("registerHttpBoundary", () => {
     })
   })
 
-  it("処理が timeout を超えた場合は 504 とエラー封筒を返す", async () => {
+  it("処理が timeout を超えた場合は 504 とエラーレスポンスを返す", async () => {
     const app = new Hono<AppEnv>()
     registerErrorHandlers(app, createLoggerStub())
     registerHttpBoundary(

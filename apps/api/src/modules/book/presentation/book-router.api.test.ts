@@ -50,7 +50,7 @@ describe("POST /books", () => {
     )
   })
 
-  it("存在しない著者を指定した場合は 400 とエラー封筒を返す", async () => {
+  it("存在しない著者を指定した場合は 400 とエラーレスポンスを返す", async () => {
     const app = createTestApp({
       authorReader: createAuthorExistenceReaderStub({
         findExistingIds: vi.fn().mockResolvedValue([]),
@@ -208,7 +208,7 @@ describe("GET /books/{id}", () => {
     expect(await res.json()).toEqual(readModel)
   })
 
-  it("存在しない場合は 404 とエラー封筒を返す", async () => {
+  it("存在しない場合は 404 とエラーレスポンスを返す", async () => {
     const app = createTestApp()
     const res = await app.request(`/books/${VALID_UUID_V7}`)
     expect(res.status).toBe(404)
@@ -294,7 +294,7 @@ describe("PATCH /books/{id}", () => {
     expect(res.status).toBe(404)
   })
 
-  it("version が競合した場合は 409 とエラー封筒を返す", async () => {
+  it("version が競合した場合は 409 とエラーレスポンスを返す", async () => {
     const repository = createBookRepositoryStub({
       findById: vi.fn().mockResolvedValue(buildBook({ id: VALID_UUID_V7 })),
       update: vi
@@ -370,7 +370,7 @@ describe("DELETE /books/{id}", () => {
 })
 
 describe("想定外のエラー", () => {
-  it("500 とサーバーエラーの封筒を返す", async () => {
+  it("500 とサーバーエラーのレスポンスを返す", async () => {
     const repository = createBookRepositoryStub({
       insert: vi.fn().mockRejectedValue(new Error("boom")),
     })
