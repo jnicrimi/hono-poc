@@ -13,6 +13,9 @@ pre-commit:
     markdownlint:
       glob: "*.md"
       run: pnpm exec markdownlint-cli2 {staged_files}
+    stylelint:
+      glob: "*.css"
+      run: pnpm exec stylelint {staged_files}
     yamllint:
       glob: "*.{yml,yaml}"
       run: mise run yamllint --strict {staged_files}

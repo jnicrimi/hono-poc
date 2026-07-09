@@ -30,6 +30,10 @@ run = "pnpm exec biome check --write"
 description = "型チェックを実行"
 run = "pnpm typecheck"
 
+[tasks.stylelint]
+description = "CSS を検証"
+run = 'pnpm exec stylelint "apps/web/src/**/*.css" --allow-empty-input'
+
 [tasks.depcruise]
 description = "依存関係の境界ルールを検証"
 run = "pnpm --filter @hono-poc/api depcruise"
