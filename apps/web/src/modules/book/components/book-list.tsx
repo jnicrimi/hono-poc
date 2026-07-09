@@ -10,6 +10,7 @@ import {
 } from "@/shared/ui/table"
 import { bookLabels } from "../text/book-labels"
 import { BookPagination } from "./book-pagination"
+import { BookRowActions } from "./book-row-actions"
 
 export function BookList({ page }: { readonly page: number }) {
   const { data } = useGetBooksSuspense({ page })
@@ -33,6 +34,7 @@ export function BookList({ page }: { readonly page: number }) {
               <TableRow>
                 <TableHead>{bookLabels.title}</TableHead>
                 <TableHead>{bookLabels.authors}</TableHead>
+                <TableHead className="w-40" />
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -41,6 +43,9 @@ export function BookList({ page }: { readonly page: number }) {
                   <TableCell>{book.title}</TableCell>
                   <TableCell>
                     {book.authors.map((author) => author.name).join("、")}
+                  </TableCell>
+                  <TableCell>
+                    <BookRowActions book={book} />
                   </TableCell>
                 </TableRow>
               ))}
