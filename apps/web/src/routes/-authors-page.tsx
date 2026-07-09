@@ -3,7 +3,7 @@ import { User } from "lucide-react"
 import { AuthorList } from "@/modules/author/components/author-list"
 import { PageTitle } from "@/shared/components/page-title"
 import { uiLabels } from "@/shared/text/ui-labels"
-import { Button } from "@/shared/ui/button"
+import { buttonVariants } from "@/shared/ui/button"
 
 const route = getRouteApi("/authors")
 
@@ -15,10 +15,9 @@ export function AuthorsPage() {
       <PageTitle
         icon={User}
         action={
-          <Button
-            nativeButton={false}
-            render={<Link to="/authors/new">{uiLabels.create}</Link>}
-          />
+          <Link to="/authors/new" className={buttonVariants()}>
+            {uiLabels.create}
+          </Link>
         }
       >
         著者

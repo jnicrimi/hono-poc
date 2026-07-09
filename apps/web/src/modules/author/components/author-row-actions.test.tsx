@@ -20,10 +20,10 @@ const renderRowActions = () =>
   })
 
 describe("AuthorRowActions", () => {
-  it("編集ボタンが対象著者の編集画面を指す", async () => {
+  it("編集リンクが対象著者の編集画面を指す", async () => {
     renderRowActions()
 
-    const link = await screen.findByRole("button", { name: "編集" })
+    const link = await screen.findByRole("link", { name: "編集" })
     expect(link).toHaveAttribute("href", `/authors/${author.id}`)
   })
 

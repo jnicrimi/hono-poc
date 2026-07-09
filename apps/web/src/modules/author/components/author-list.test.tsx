@@ -79,7 +79,7 @@ describe("AuthorList", () => {
     expect(await screen.findByText("著者が存在しません")).toBeInTheDocument()
   })
 
-  it("2 ページ以上ある場合はページ番号のナビゲーションを表示する", async () => {
+  it("2 ページ以上ある場合はページ番号のリンクを表示する", async () => {
     server.use(
       getGetAuthorsMockHandler(
         getGetAuthorsResponseMock({
@@ -93,7 +93,7 @@ describe("AuthorList", () => {
       routes: [editRouteStub, listRouteStub],
     })
 
-    const pageTwo = await screen.findByRole("button", { name: "2" })
+    const pageTwo = await screen.findByRole("link", { name: "2" })
     expect(pageTwo).toHaveAttribute("href", "/authors?page=2")
   })
 })

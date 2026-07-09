@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router"
-import { Button } from "@/shared/ui/button"
+import { buttonVariants } from "@/shared/ui/button"
 import {
   Pagination,
   PaginationContent,
@@ -24,20 +24,17 @@ export function AuthorPagination({
       <PaginationContent>
         {pages.map((target) => (
           <PaginationItem key={target}>
-            <Button
-              variant={target === page ? "outline" : "ghost"}
-              size="icon"
-              nativeButton={false}
-              render={
-                <Link
-                  to="/authors"
-                  search={{ page: target }}
-                  aria-current={target === page ? "page" : undefined}
-                >
-                  {target}
-                </Link>
-              }
-            />
+            <Link
+              to="/authors"
+              search={{ page: target }}
+              aria-current={target === page ? "page" : undefined}
+              className={buttonVariants({
+                variant: target === page ? "outline" : "ghost",
+                size: "icon",
+              })}
+            >
+              {target}
+            </Link>
           </PaginationItem>
         ))}
       </PaginationContent>

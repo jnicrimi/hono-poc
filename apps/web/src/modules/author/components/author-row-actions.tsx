@@ -12,7 +12,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/shared/ui/alert-dialog"
-import { Button } from "@/shared/ui/button"
+import { Button, buttonVariants } from "@/shared/ui/button"
 import { useDeleteAuthor } from "../hooks/use-delete-author"
 import { authorLabels } from "../text/author-labels"
 
@@ -22,16 +22,13 @@ export function AuthorRowActions({ author }: { readonly author: Author }) {
 
   return (
     <div className="flex justify-end gap-2">
-      <Button
-        variant="outline"
-        size="sm"
-        nativeButton={false}
-        render={
-          <Link to="/authors/$authorId" params={{ authorId: author.id }}>
-            {uiLabels.edit}
-          </Link>
-        }
-      />
+      <Link
+        to="/authors/$authorId"
+        params={{ authorId: author.id }}
+        className={buttonVariants({ variant: "outline", size: "sm" })}
+      >
+        {uiLabels.edit}
+      </Link>
       <Button
         variant="destructive"
         size="sm"
