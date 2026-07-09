@@ -1,0 +1,69 @@
+{
+  "forbidden": [
+    {
+      "name": "modules-do-not-reach-composition",
+      "comment": "modules は組み立て層（app・routes・main）へ逆流しない（routes → modules の一方向）",
+      "severity": "error",
+      "from": { "path": "^src/modules/" },
+      "to": { "path": ["^src/app/", "^src/main\\.tsx$", "^src/routes/"] }
+    },
+    {
+      "name": "shared-stays-self-contained",
+      "comment": "shared は最下層として自己完結する（app・modules・routes・main へ依存しない）",
+      "severity": "error",
+      "from": { "path": "^src/shared/" },
+      "to": {
+        "path": [
+          "^src/app/",
+          "^src/main\\.tsx$",
+          "^src/modules/",
+          "^src/routes/"
+        ]
+      }
+    },
+    {
+      "name": "cross-module-only-via-public-surface",
+      "comment": "モジュール間参照は components/**・hooks/** のみ許可（text/** は各モジュール私有）",
+      "severity": "error",
+      "from": { "path": "^src/modules/([^/]+)/" },
+      "to": {
+        "path": "^src/modules/",
+        "pathNot": [
+          "^src/modules/$1/",
+          "^src/modules/[^/]+/components/",
+          "^src/modules/[^/]+/hooks/"
+        ]
+      }
+    },
+    {
+      "name": "routes-into-app-only-app-shell",
+      "comment": "routes から app 層へは app-shell のみ許可（router・main は route-tree.gen 経由の循環になる）",
+      "severity": "error",
+      "from": { "path": "^src/routes/" },
+      "to": {
+        "path": ["^src/app/", "^src/main\\.tsx$"],
+        "pathNot": "^src/app/app-shell\\.tsx$"
+      }
+    },
+    {
+      "name": "app-does-not-reach-features",
+      "comment": "app は modules・routes を直接参照しない（routes の組み込みは route-tree.gen 経由）",
+      "severity": "error",
+      "from": { "path": "^src/app/" },
+      "to": { "path": ["^src/main\\.tsx$", "^src/modules/", "^src/routes/"] }
+    },
+    {
+      "name": "route-tree-only-feeds-router",
+      "comment": "生成物 route-tree.gen.ts を参照できるのは app/router.tsx のみ（他からの参照は循環になる）",
+      "severity": "error",
+      "from": { "path": "^src/", "pathNot": "^src/app/router\\.tsx$" },
+      "to": { "path": "^src/route-tree\\.gen\\.ts$" }
+    }
+  ],
+  "options": {
+    "tsConfig": { "fileName": "tsconfig.json" },
+    "tsPreCompilationDeps": true,
+    "doNotFollow": { "path": "node_modules" },
+    "exclude": { "path": "\\.test\\.(ts|tsx)$" }
+  }
+}

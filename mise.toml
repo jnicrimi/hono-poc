@@ -36,7 +36,10 @@ run = 'pnpm exec stylelint "apps/web/src/**/*.css" --allow-empty-input'
 
 [tasks.depcruise]
 description = "依存関係の境界ルールを検証"
-run = "pnpm --filter @hono-poc/api depcruise"
+run = [
+  "pnpm --filter @hono-poc/api depcruise",
+  "pnpm --filter @hono-poc/web depcruise",
+]
 
 [tasks.dev]
 description = "開発サーバを起動"

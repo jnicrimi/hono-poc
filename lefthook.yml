@@ -34,9 +34,12 @@ pre-commit:
     typecheck:
       glob: "*.{ts,tsx}"
       run: pnpm typecheck
-    depcruise:
+    depcruise-api:
       glob: "apps/api/src/*.ts"
       run: pnpm --filter @hono-poc/api depcruise
+    depcruise-web:
+      glob: "apps/web/src/*.{ts,tsx}"
+      run: pnpm --filter @hono-poc/web depcruise
 
 pre-push:
   parallel: true
