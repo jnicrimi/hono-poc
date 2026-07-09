@@ -26,37 +26,35 @@ export function BookList({ page }: { readonly page: number }) {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <Card>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>{bookLabels.title}</TableHead>
-                <TableHead>{bookLabels.authors}</TableHead>
-                <TableHead className="w-40" />
+    <Card>
+      <CardContent className="flex flex-col gap-4">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>{bookLabels.title}</TableHead>
+              <TableHead>{bookLabels.authors}</TableHead>
+              <TableHead className="w-40" />
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.items.map((book) => (
+              <TableRow key={book.id}>
+                <TableCell>{book.title}</TableCell>
+                <TableCell>
+                  {book.authors.map((author) => author.name).join("、")}
+                </TableCell>
+                <TableCell>
+                  <BookRowActions book={book} />
+                </TableCell>
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.items.map((book) => (
-                <TableRow key={book.id}>
-                  <TableCell>{book.title}</TableCell>
-                  <TableCell>
-                    {book.authors.map((author) => author.name).join("、")}
-                  </TableCell>
-                  <TableCell>
-                    <BookRowActions book={book} />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
-      <BookPagination
-        page={data.pagination.page}
-        totalPages={data.pagination.totalPages}
-      />
-    </div>
+            ))}
+          </TableBody>
+        </Table>
+        <BookPagination
+          page={data.pagination.page}
+          totalPages={data.pagination.totalPages}
+        />
+      </CardContent>
+    </Card>
   )
 }

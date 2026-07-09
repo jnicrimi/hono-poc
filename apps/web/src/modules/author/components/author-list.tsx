@@ -28,33 +28,31 @@ export function AuthorList({ page }: { readonly page: number }) {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <Card>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>{authorLabels.name}</TableHead>
-                <TableHead className="w-40" />
+    <Card>
+      <CardContent className="flex flex-col gap-4">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>{authorLabels.name}</TableHead>
+              <TableHead className="w-40" />
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.items.map((author) => (
+              <TableRow key={author.id}>
+                <TableCell>{author.name}</TableCell>
+                <TableCell>
+                  <AuthorRowActions author={author} />
+                </TableCell>
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.items.map((author) => (
-                <TableRow key={author.id}>
-                  <TableCell>{author.name}</TableCell>
-                  <TableCell>
-                    <AuthorRowActions author={author} />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
-      <AuthorPagination
-        page={data.pagination.page}
-        totalPages={data.pagination.totalPages}
-      />
-    </div>
+            ))}
+          </TableBody>
+        </Table>
+        <AuthorPagination
+          page={data.pagination.page}
+          totalPages={data.pagination.totalPages}
+        />
+      </CardContent>
+    </Card>
   )
 }

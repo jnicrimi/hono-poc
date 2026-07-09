@@ -29,7 +29,7 @@ export function BookPagination({
               search={{ page: target }}
               aria-current={target === page ? "page" : undefined}
               className={buttonVariants({
-                variant: target === page ? "outline" : "ghost",
+                variant: target === page ? "default" : "ghost",
                 size: "icon",
               })}
             >
