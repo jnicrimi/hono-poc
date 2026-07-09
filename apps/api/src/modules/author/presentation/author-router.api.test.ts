@@ -132,7 +132,7 @@ describe("GET /authors/{id}", () => {
     expect(await res.json()).toEqual(readModel)
   })
 
-  it("存在しない場合は 404 とエラー封筒を返す", async () => {
+  it("存在しない場合は 404 とエラーレスポンスを返す", async () => {
     const app = createAuthorTestApp({
       repository: createAuthorRepositoryStub(),
       reader: createAuthorReaderStub(),
@@ -203,7 +203,7 @@ describe("PATCH /authors/{id}", () => {
     expect(res.status).toBe(404)
   })
 
-  it("version が競合した場合は 409 とエラー封筒を返す", async () => {
+  it("version が競合した場合は 409 とエラーレスポンスを返す", async () => {
     const repository = createAuthorRepositoryStub({
       findById: vi.fn().mockResolvedValue(buildAuthor({ id: VALID_UUID_V7 })),
       update: vi
@@ -275,7 +275,7 @@ describe("DELETE /authors/{id}", () => {
     expect(res.status).toBe(400)
   })
 
-  it("書籍に割り当てられている場合は 409 とエラー封筒を返す", async () => {
+  it("書籍に割り当てられている場合は 409 とエラーレスポンスを返す", async () => {
     const repository = createAuthorRepositoryStub({
       findById: vi.fn().mockResolvedValue(buildAuthor({ id: VALID_UUID_V7 })),
       delete: vi.fn().mockRejectedValue(new AuthorInUseError(VALID_UUID_V7)),
@@ -295,7 +295,7 @@ describe("DELETE /authors/{id}", () => {
 })
 
 describe("想定外のエラー", () => {
-  it("500 とサーバーエラーの封筒を返す", async () => {
+  it("500 とサーバーエラーのレスポンスを返す", async () => {
     const repository = createAuthorRepositoryStub({
       insert: vi.fn().mockRejectedValue(new Error("boom")),
     })
