@@ -44,6 +44,7 @@ run = "pnpm build"
 
 [task_config]
 includes = [
+  "mise-tasks/api-client.toml",
   "mise-tasks/db.toml",
   "mise-tasks/test-api.toml",
   "mise-tasks/vendor.toml",

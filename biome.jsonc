@@ -12,7 +12,8 @@
       "!apps/api/vendor",
       "!apps/api/drizzle",
       "!apps/web/src/shared/ui",
-      "!apps/web/src/route-tree.gen.ts"
+      "!apps/web/src/route-tree.gen.ts",
+      "!apps/web/src/shared/api/generated"
     ]
   },
   "formatter": {

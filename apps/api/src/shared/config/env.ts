@@ -5,6 +5,16 @@ const envSchema = z.object({
   PORT: z.coerce.number().int().min(1).max(65535),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]),
   DATABASE_URL: z.string().min(1),
+  CORS_ALLOWED_ORIGINS: z
+    .string()
+    .min(1)
+    .transform((value) =>
+      value
+        .split(",")
+        .map((origin) => origin.trim())
+        .filter(Boolean),
+    )
+    .refine((origins) => origins.length > 0, "1 つ以上のオリジンが必要です"),
   BODY_LIMIT_BYTES: z.coerce.number().int().positive().default(1_048_576),
   REQUEST_TIMEOUT_MS: z.coerce.number().int().positive().default(30_000),
   SHUTDOWN_TIMEOUT_MS: z.coerce.number().int().positive().default(10_000),
