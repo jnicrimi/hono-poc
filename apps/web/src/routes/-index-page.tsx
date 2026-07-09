@@ -1,3 +1,6 @@
+import { House } from "lucide-react"
+import { PageTitle } from "@/shared/components/page-title"
+
 export function IndexPage() {
-  return <h1 className="font-bold text-2xl">ホーム</h1>
+  return <PageTitle icon={House}>ホーム</PageTitle>
 }
