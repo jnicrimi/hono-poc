@@ -22,4 +22,13 @@ export default defineConfig({
       },
     },
   },
+  honoPocApiZod: {
+    input: { target: SPEC_URL },
+    output: {
+      mode: "tags-split",
+      client: "zod",
+      target: "src/shared/api/generated/endpoints",
+      fileExtension: ".zod.ts",
+    },
+  },
 })

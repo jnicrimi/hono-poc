@@ -1,8 +1,6 @@
 import { env } from "@/shared/config/env"
+import { feedbackMessages } from "@/shared/text/feedback-messages"
 import { ApiError, type ErrorDetail } from "./api-error"
-
-const NETWORK_ERROR_MESSAGE = "ネットワークエラーが発生しました"
-const UNEXPECTED_ERROR_MESSAGE = "予期しないエラーが発生しました"
 
 const isErrorEnvelope = (
   body: unknown,
@@ -20,7 +18,7 @@ const parseErrorDetails = async (
   if (isErrorEnvelope(body)) {
     return body.errors
   }
-  return [{ message: UNEXPECTED_ERROR_MESSAGE }]
+  return [{ message: feedbackMessages.unexpectedError }]
 }
 
 export const customFetch = async <T>(
@@ -29,7 +27,7 @@ export const customFetch = async <T>(
 ): Promise<T> => {
   const response = await fetch(`${env.VITE_API_URL}${url}`, options).catch(
     (error: unknown) => {
-      throw new ApiError(0, [{ message: NETWORK_ERROR_MESSAGE }], {
+      throw new ApiError(0, [{ message: feedbackMessages.networkError }], {
         cause: error,
       })
     },
@@ -46,7 +44,7 @@ export const customFetch = async <T>(
   const body: unknown = await response.json().catch((error: unknown) => {
     throw new ApiError(
       response.status,
-      [{ message: UNEXPECTED_ERROR_MESSAGE }],
+      [{ message: feedbackMessages.unexpectedError }],
       { cause: error },
     )
   })

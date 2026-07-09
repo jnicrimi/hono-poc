@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-router"
 import { render } from "@testing-library/react"
 import { type ReactElement, type ReactNode, Suspense } from "react"
+import { RouteErrorBoundary } from "@/shared/components/route-error-boundary"
 
 const createTestQueryClient = () =>
   new QueryClient({
@@ -48,6 +49,7 @@ export const renderWithRouter = (
   const router = createRouter({
     routeTree: rootRoute.addChildren([indexRoute, ...stubRoutes]),
     history: createMemoryHistory({ initialEntries: [...initialEntries] }),
+    defaultErrorComponent: RouteErrorBoundary,
   })
 
   return {

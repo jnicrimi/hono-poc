@@ -1,7 +1,8 @@
-import { QueryClientProvider } from "@tanstack/react-query"
 import { createRouter } from "@tanstack/react-router"
 import { routeTree } from "@/route-tree.gen"
+import { RouteErrorBoundary } from "@/shared/components/route-error-boundary"
 import { createQueryClient } from "@/shared/lib/query-client"
+import { AppProviders } from "./providers"
 
 const queryClient = createQueryClient()
 
@@ -9,9 +10,10 @@ export const router = createRouter({
   routeTree,
   defaultPreload: "intent",
   defaultPreloadStaleTime: 0,
+  defaultErrorComponent: RouteErrorBoundary,
   context: { queryClient },
   Wrap: ({ children }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <AppProviders queryClient={queryClient}>{children}</AppProviders>
   ),
 })
 
