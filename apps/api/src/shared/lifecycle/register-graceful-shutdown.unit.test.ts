@@ -48,7 +48,7 @@ describe("registerGracefulShutdown", () => {
     vi.useRealTimers()
   })
 
-  it("正常終了時は DB プールを閉じて onExit(0)", async () => {
+  it("正常終了時は DB プールを閉じて onExit(0) を呼ぶ", async () => {
     const onExit = vi.fn()
     const { server, close, closeIdleConnections, triggerClose } = makeServer()
     const { db, end } = makeDb()
@@ -72,7 +72,7 @@ describe("registerGracefulShutdown", () => {
     expect(onExit).toHaveBeenCalledWith(0)
   })
 
-  it("server.close が失敗しても DB プールを閉じて onExit(1)", async () => {
+  it("server.close が失敗しても DB プールを閉じて onExit(1) を呼ぶ", async () => {
     const onExit = vi.fn()
     const { server, triggerClose } = makeServer()
     const { db, end } = makeDb()
@@ -94,7 +94,7 @@ describe("registerGracefulShutdown", () => {
     expect(onExit).toHaveBeenCalledWith(1)
   })
 
-  it("タイムアウト時は強制的に onExit(1)", () => {
+  it("タイムアウト時は強制的に onExit(1) を呼ぶ", () => {
     vi.useFakeTimers()
     const onExit = vi.fn()
     const { server } = makeServer()
@@ -142,7 +142,7 @@ describe("registerGracefulShutdown", () => {
     expect(onExit).toHaveBeenCalledWith(0)
   })
 
-  it("複数シグナルでも shutdown は一度だけ実行", async () => {
+  it("複数シグナルでも shutdown は一度だけ実行する", async () => {
     const onExit = vi.fn()
     const { server, close, closeIdleConnections, triggerClose } = makeServer()
     const { db } = makeDb()
