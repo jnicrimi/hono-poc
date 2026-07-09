@@ -190,6 +190,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: 4.1.9
         version: 4.1.9(vitest@4.1.9)
+      dependency-cruiser:
+        specifier: 18.0.0
+        version: 18.0.0
       jsdom:
         specifier: 29.1.1
         version: 29.1.1

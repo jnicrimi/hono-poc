@@ -25,5 +25,7 @@ jobs:
           install_args: node pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: dependency-cruiser
+      - name: dependency-cruiser (api)
         run: pnpm --filter @hono-poc/api depcruise
+      - name: dependency-cruiser (web)
+        run: pnpm --filter @hono-poc/web depcruise
