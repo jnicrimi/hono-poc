@@ -14,5 +14,9 @@ node_modules/
 /apps/api/coverage/
 /apps/api/.vitest-reports/
 
+# Web build output
+/apps/web/dist/
+/apps/web/.vite/
+
 # Claude Code
 **/.claude/settings.local.json

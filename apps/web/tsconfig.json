@@ -1,0 +1,10 @@
+{
+  "extends": "@hono-poc/typescript-config/react.json",
+  "compilerOptions": {
+    "types": ["vite/client"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"]
+}
