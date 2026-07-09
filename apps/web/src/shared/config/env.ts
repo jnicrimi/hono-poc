@@ -6,7 +6,7 @@ const envSchema = z.object({
 
 export type Env = z.infer<typeof envSchema>
 
-export const loadEnv = (source: ImportMetaEnv = import.meta.env): Env => {
+export const loadEnv = (source: unknown = import.meta.env): Env => {
   const result = envSchema.safeParse(source)
   if (!result.success) {
     throw new Error(

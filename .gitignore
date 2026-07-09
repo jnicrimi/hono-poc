@@ -13,6 +13,8 @@ node_modules/
 # Test coverage
 /apps/api/coverage/
 /apps/api/.vitest-reports/
+/apps/web/coverage/
+/apps/web/.vitest-reports/
 
 # Web build output
 /apps/web/dist/
