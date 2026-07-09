@@ -7,7 +7,12 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!apps/api/vendor", "!apps/api/drizzle"]
+    "includes": [
+      "**",
+      "!apps/api/vendor",
+      "!apps/api/drizzle",
+      "!apps/web/src/shared/ui"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -68,7 +73,18 @@
       }
     }
   },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
   "overrides": [
+    {
+      "includes": ["**/*.css"],
+      "linter": {
+        "enabled": false
+      }
+    },
     {
       "includes": ["**/*.ts", "**/*.tsx", "**/*.mts"],
       "javascript": {
