@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit",
-    "api:generate": "orval --config orval.config.ts"
+    "api:generate": "orval --config orval.config.ts",
+    "test": "vitest run --reporter=dot",
+    "test:coverage": "vitest run --reporter=dot --coverage",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@base-ui/react": "1.6.0",
@@ -25,17 +28,24 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
+    "@faker-js/faker": "10.5.0",
     "@hono-poc/typescript-config": "workspace:*",
     "@tailwindcss/vite": "4.3.2",
     "@tanstack/react-query-devtools": "5.101.2",
     "@tanstack/react-router-devtools": "1.167.0",
     "@tanstack/router-plugin": "1.168.19",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.2",
     "@types/node": "25.9.4",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.3",
+    "@vitest/coverage-v8": "4.1.9",
+    "jsdom": "29.1.1",
+    "msw": "2.15.0",
     "orval": "8.20.0",
     "tailwindcss": "4.3.2",
-    "vite": "8.1.1"
+    "vite": "8.1.1",
+    "vitest": "4.1.9"
   }
 }

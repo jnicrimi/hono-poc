@@ -1,0 +1,7 @@
+["test-web"]
+description = "Web のテストを実行"
+run = "pnpm --filter @hono-poc/web test"
+
+["test-web:coverage"]
+description = "Web のカバレッジを計測"
+run = "pnpm --filter @hono-poc/web test:coverage"

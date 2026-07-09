@@ -44,3 +44,5 @@ pre-push:
       run: pnpm --filter @hono-poc/api test:unit
     test-api:
       run: pnpm --filter @hono-poc/api test:api
+    test-web:
+      run: pnpm --filter @hono-poc/web test

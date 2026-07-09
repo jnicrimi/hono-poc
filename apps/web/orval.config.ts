@@ -11,6 +11,7 @@ export default defineConfig({
       httpClient: "fetch",
       target: "src/shared/api/generated/endpoints",
       schemas: "src/shared/api/generated/models",
+      mock: { generators: [{ type: "msw", delay: false }] },
       override: {
         mutator: {
           path: "./src/shared/api/fetch-mutator.ts",
