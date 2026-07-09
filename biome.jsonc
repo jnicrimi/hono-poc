@@ -11,7 +11,8 @@
       "**",
       "!apps/api/vendor",
       "!apps/api/drizzle",
-      "!apps/web/src/shared/ui"
+      "!apps/web/src/shared/ui",
+      "!apps/web/src/route-tree.gen.ts"
     ]
   },
   "formatter": {
@@ -102,6 +103,16 @@
         "rules": {
           "style": {
             "noProcessEnv": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["apps/web/src/routes/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useFilenamingConvention": "off"
           }
         }
       }
