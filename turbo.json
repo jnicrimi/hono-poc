@@ -16,6 +16,7 @@
         "PORT",
         "LOG_LEVEL",
         "DATABASE_URL",
+        "CORS_ALLOWED_ORIGINS",
         "BODY_LIMIT_BYTES",
         "REQUEST_TIMEOUT_MS",
         "DB_POOL_MAX",

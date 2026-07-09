@@ -15,6 +15,7 @@ const db = createDb(env.DATABASE_URL, {
 })
 const app = createApp(db, logger, {
   enableApiDocs: env.NODE_ENV !== "production",
+  cors: { allowedOrigins: env.CORS_ALLOWED_ORIGINS },
   httpBoundary: {
     bodyLimitBytes: env.BODY_LIMIT_BYTES,
     requestTimeoutMs: env.REQUEST_TIMEOUT_MS,

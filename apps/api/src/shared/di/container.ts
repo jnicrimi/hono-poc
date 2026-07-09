@@ -3,6 +3,7 @@ import { bookApiTag } from "../../modules/book/presentation/book-router"
 import type { Db } from "../db/client"
 import { registerErrorHandlers } from "../error/register-error-handlers"
 import { registerHealthCheck } from "../health/register-health-check"
+import { type CorsConfig, registerCors } from "../http/register-cors"
 import {
   type HttpBoundaryConfig,
   registerHttpBoundary,
@@ -19,6 +20,7 @@ export const createApp = (
   logger: AppLogger,
   options: {
     readonly enableApiDocs: boolean
+    readonly cors: CorsConfig
     readonly httpBoundary: HttpBoundaryConfig
   },
 ) => {
@@ -26,6 +28,7 @@ export const createApp = (
 
   registerHealthCheck(app, db, logger)
   registerRequestLogging(app, logger)
+  registerCors(app, options.cors)
   registerErrorHandlers(app, logger)
   registerHttpBoundary(app, options.httpBoundary)
   registerAuthorModule(app, db)
