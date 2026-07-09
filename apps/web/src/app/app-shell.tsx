@@ -13,7 +13,7 @@ export function AppShell({ children }: { readonly children: ReactNode }) {
     <div className="min-h-svh bg-muted">
       <header className="border-b bg-background">
         <div className="mx-auto flex h-14 max-w-5xl items-center gap-8 px-4">
-          <span className="font-semibold">PoC For Hono</span>
+          <span className="font-semibold">PoC for Hono</span>
           <nav className="flex items-center gap-5">
             {NAV_ITEMS.map((item) => (
               <Link
