@@ -7,6 +7,7 @@ import {
   getGetAuthorsQueryKey,
   usePatchAuthorsId,
 } from "@/shared/api/generated/endpoints/authors/authors"
+import { getGetBooksQueryKey } from "@/shared/api/generated/endpoints/books/books"
 import { getApiErrorMessage } from "@/shared/api/get-api-error-message"
 import { feedbackMessages } from "@/shared/text/feedback-messages"
 import { authorMessages } from "../text/author-messages"
@@ -24,6 +25,9 @@ export const useUpdateAuthor = (authorId: string) => {
         })
         void queryClient.invalidateQueries({
           queryKey: getGetAuthorsQueryKey(),
+        })
+        void queryClient.invalidateQueries({
+          queryKey: getGetBooksQueryKey(),
         })
         void navigate({ to: "/authors", search: true })
       },

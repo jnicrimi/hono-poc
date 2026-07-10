@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event"
 import { HttpResponse, http } from "msw"
 import { toast } from "sonner"
 import { describe, expect, it, vi } from "vitest"
+import { getGetBooksQueryKey } from "@/shared/api/generated/endpoints/books/books"
 import { server } from "@/shared/test-support/msw-server"
 import { renderWithRouter } from "@/shared/test-support/render-with-router"
 import { feedbackMessages } from "@/shared/text/feedback-messages"
@@ -35,7 +36,8 @@ describe("AuthorEditForm", () => {
       }),
     )
 
-    renderEditForm()
+    const { queryClient } = renderEditForm()
+    const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries")
 
     const input = await screen.findByRole("textbox", { name: "著者名" })
     await user.clear(input)
@@ -45,6 +47,9 @@ describe("AuthorEditForm", () => {
     expect(await screen.findByText("著者一覧ページ")).toBeInTheDocument()
     expect(received).toEqual({ name: "著者-2", version: 3 })
     expect(successSpy).toHaveBeenCalledWith(authorMessages.updated)
+    expect(invalidateSpy).toHaveBeenCalledWith({
+      queryKey: getGetBooksQueryKey(),
+    })
   })
 
   it("version が競合した場合は競合トーストを表示し入力を保持する", async () => {
