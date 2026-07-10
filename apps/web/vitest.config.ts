@@ -22,6 +22,7 @@ export default defineConfig({
       include: ["src/**/*.{ts,tsx}"],
       exclude: [
         "src/**/*.test.{ts,tsx}",
+        "src/**/*.stories.{ts,tsx}",
         "src/**/test-support/**",
         "src/shared/api/generated/**",
         "src/shared/ui/**",

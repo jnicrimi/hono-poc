@@ -51,3 +51,14 @@ else
   exit 1
 fi
 """
+
+["view:storybook"]
+description = "Storybook をブラウザで開く"
+run = """
+if command -v open >/dev/null 2>&1; then
+  open "http://localhost:6006/"
+else
+  echo "Unsupported platform" >&2
+  exit 1
+fi
+"""

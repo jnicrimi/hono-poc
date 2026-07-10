@@ -64,6 +64,6 @@
     "tsConfig": { "fileName": "tsconfig.json" },
     "tsPreCompilationDeps": true,
     "doNotFollow": { "path": "node_modules" },
-    "exclude": { "path": "\\.test\\.(ts|tsx)$" }
+    "exclude": { "path": ["\\.test\\.(ts|tsx)$", "\\.stories\\.(ts|tsx)$"] }
   }
 }

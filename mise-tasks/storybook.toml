@@ -1,0 +1,7 @@
+["storybook:dev"]
+description = "Storybook を起動"
+run = "trap 'exit 0' INT TERM; pnpm --filter @hono-poc/web storybook"
+
+["storybook:build"]
+description = "Storybook をビルド"
+run = "pnpm --filter @hono-poc/web exec storybook build --output-dir ../../docs/public/storybook"
