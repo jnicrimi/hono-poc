@@ -1,6 +1,8 @@
 import { defineConfig, devices } from "@playwright/test"
 import { apiPort, apiUrl, webPort, webUrl } from "./e2e/support/servers"
 
+const isCI = !!process.env.CI
+
 const databaseUrl =
   process.env.DATABASE_URL ?? "postgres://postgres:postgres@localhost:5432/app"
 
@@ -8,7 +10,9 @@ export default defineConfig({
   testDir: "./e2e",
   testMatch: "**/*.spec.ts",
   fullyParallel: true,
-  reporter: "list",
+  forbidOnly: isCI,
+  retries: isCI ? 2 : 0,
+  reporter: isCI ? [["list"], ["html", { open: "never" }]] : "list",
   use: {
     baseURL: webUrl,
     trace: "retain-on-failure",
@@ -18,7 +22,7 @@ export default defineConfig({
     {
       command: "pnpm --filter @hono-poc/api dev",
       url: `${apiUrl}/health`,
-      reuseExistingServer: true,
+      reuseExistingServer: !isCI,
       timeout: 120_000,
       env: {
         NODE_ENV: "development",
@@ -31,7 +35,7 @@ export default defineConfig({
     {
       command: `pnpm --filter @hono-poc/web dev -- --port ${webPort} --strictPort`,
       url: webUrl,
-      reuseExistingServer: true,
+      reuseExistingServer: !isCI,
       timeout: 120_000,
       env: {
         VITE_API_URL: apiUrl,
