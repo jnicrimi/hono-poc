@@ -1,11 +1,3 @@
-# template
+# hono-poc
 
-## Setup
-
-```sh
-mise trust
-```
-
-```sh
-mise run setup
-```
+[Hono Poc Docs](https://jnicrimi.github.io/hono-poc/)

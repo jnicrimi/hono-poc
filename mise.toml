@@ -60,6 +60,7 @@ includes = [
   "mise-tasks/api-client.toml",
   "mise-tasks/db.toml",
   "mise-tasks/db-docs.toml",
+  "mise-tasks/dev-docs.toml",
   "mise-tasks/liam.toml",
   "mise-tasks/storybook.toml",
   "mise-tasks/test-api.toml",

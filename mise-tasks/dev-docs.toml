@@ -1,0 +1,9 @@
+["dev-docs:build"]
+description = "開発ドキュメントをビルド"
+depends = ["liam:build", "storybook:build"]
+run = "pnpm exec vitepress build docs"
+
+["dev-docs:preview"]
+description = "開発ドキュメントをプレビュー"
+depends = ["dev-docs:build"]
+run = "trap 'exit 0' INT TERM; pnpm exec vitepress preview docs"

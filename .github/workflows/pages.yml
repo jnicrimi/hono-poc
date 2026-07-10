@@ -1,0 +1,61 @@
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/app?sslmode=disable
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d  # v4.2.0
+        with:
+          install_args: node pnpm tbls npm:@liam-hq/cli
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Start database
+        run: docker compose up -d --wait
+      - name: Run migrations
+        run: pnpm --filter @hono-poc/api db:migrate
+      - name: Generate DB docs
+        run: tbls doc -f
+      - name: Build ERD
+        run: liam erd build --format tbls --input docs/db/schema.json --output-dir docs/public/erd
+      - name: Build Storybook
+        run: pnpm --filter @hono-poc/web exec storybook build --output-dir ../../docs/public/storybook
+      - name: Build docs
+        run: pnpm exec vitepress build docs
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d  # v6.0.0
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9  # v5.0.0
+        with:
+          path: dist
+
+  deploy:
+    name: deploy
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write  # GitHub Pages へデプロイするための書き込み権限
+      id-token: write  # Pages デプロイの OIDC 認証トークン発行権限
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128  # v5.0.0
+        id: deployment
