@@ -1,11 +1,12 @@
 import { useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { ApiError } from "@/shared/api/api-error"
+import type { ApiError } from "@/shared/api/api-error"
 import {
   getGetAuthorsIdQueryKey,
   getGetAuthorsQueryKey,
   useDeleteAuthorsId,
 } from "@/shared/api/generated/endpoints/authors/authors"
+import { getApiErrorMessage } from "@/shared/api/get-api-error-message"
 import { authorMessages } from "../text/author-messages"
 
 export const useDeleteAuthor = () => {
@@ -21,9 +22,7 @@ export const useDeleteAuthor = () => {
         })
       },
       onError: (error) => {
-        const message =
-          error instanceof ApiError ? error.errors[0]?.message : undefined
-        toast.error(message ?? authorMessages.deleteFailed)
+        toast.error(getApiErrorMessage(error) ?? authorMessages.deleteFailed)
       },
     },
   })
