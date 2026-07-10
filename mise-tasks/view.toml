@@ -24,3 +24,19 @@ else
   exit 1
 fi
 """
+
+["view:web-coverage"]
+description = "Web のカバレッジレポートをブラウザで開く"
+run = """
+if [ -f apps/web/coverage/index.html ]; then
+  if command -v open >/dev/null 2>&1; then
+    open apps/web/coverage/index.html
+  else
+    echo "Unsupported platform" >&2
+    exit 1
+  fi
+else
+  echo "Coverage report not found" >&2
+  exit 1
+fi
+"""
