@@ -1,0 +1,4 @@
+["liam:build"]
+description = "Liam ERD を生成"
+depends = ["db-docs:generate"]
+run = "liam erd build --format tbls --input docs/db/schema.json --output-dir docs/public/erd"

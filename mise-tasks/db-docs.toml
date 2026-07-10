@@ -1,0 +1,7 @@
+["db-docs:generate"]
+description = "DB ドキュメントを生成"
+run = "tbls doc -f"
+
+["db-docs:lint"]
+description = "DB ドキュメントの規約を検証"
+run = "tbls lint"
