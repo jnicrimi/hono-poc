@@ -41,6 +41,10 @@ run = [
   "pnpm --filter @hono-poc/web depcruise",
 ]
 
+[tasks.knip]
+description = "未使用コードを検出"
+run = "pnpm exec knip"
+
 [tasks.dev]
 description = "開発サーバを起動"
 run = "trap 'exit 0' INT TERM; pnpm dev"
