@@ -9,6 +9,7 @@
     "ignoreUnknown": false,
     "includes": [
       "**",
+      "!**/.claude",
       "!apps/api/vendor",
       "!apps/api/drizzle",
       "!apps/web/src/shared/ui",
