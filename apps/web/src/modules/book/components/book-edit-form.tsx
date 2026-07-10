@@ -3,14 +3,12 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { AuthorMultiSelect } from "@/modules/author/components/author-multi-select"
 import { useAuthorOptions } from "@/modules/author/hooks/use-author-options"
-import { ApiError } from "@/shared/api/api-error"
 import {
   patchBooksIdBodyAuthorIdsMax,
   patchBooksIdBodyTitleMax,
 } from "@/shared/api/generated/endpoints/books/books.zod"
 import type { Book } from "@/shared/api/generated/models"
 import { FieldError } from "@/shared/components/field-error"
-import { feedbackMessages } from "@/shared/text/feedback-messages"
 import { uiLabels } from "@/shared/text/ui-labels"
 import { validationMessages } from "@/shared/text/validation-messages"
 import { Button } from "@/shared/ui/button"
@@ -43,8 +41,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>
 
 export function BookEditForm({ book }: { readonly book: Book }) {
-  const { mutate, isPending, error } = useUpdateBook(book.id)
-  const isConflict = error instanceof ApiError && error.status === 409
+  const { mutate, isPending } = useUpdateBook(book.id)
   const authors = useAuthorOptions()
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -75,9 +72,6 @@ export function BookEditForm({ book }: { readonly book: Book }) {
         void form.handleSubmit(onSubmit)(event)
       }}
     >
-      <FieldError
-        message={isConflict ? feedbackMessages.conflictReload : undefined}
-      />
       <div className="flex flex-col gap-2">
         <Label htmlFor="book-title">{bookLabels.title}</Label>
         <Input
