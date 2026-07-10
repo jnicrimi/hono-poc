@@ -1,3 +1,14 @@
+["view:app"]
+description = "ローカル環境をブラウザで開く"
+run = """
+if command -v open >/dev/null 2>&1; then
+  open "http://localhost:5173/"
+else
+  echo "Unsupported platform" >&2
+  exit 1
+fi
+"""
+
 ["view:api-docs"]
 description = "API ドキュメントをブラウザで開く"
 run = """
