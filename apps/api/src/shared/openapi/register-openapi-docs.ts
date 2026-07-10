@@ -14,7 +14,7 @@ export const registerOpenApiDocs = (
 
   app.doc("/api-docs/json", {
     openapi: "3.1.0",
-    info: { title: "hono-poc API", version: "0.0.0" },
+    info: { title: "Hono Poc API", version: "0.0.0" },
     tags: [...options.tags],
   })
 
