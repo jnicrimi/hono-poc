@@ -30,5 +30,10 @@ node_modules/
 # Liam ERD
 /docs/public/erd/
 
+# Storybook
+/apps/web/storybook-static/
+/apps/web/*storybook.log
+/docs/public/storybook/
+
 # Claude Code
 **/.claude/settings.local.json
