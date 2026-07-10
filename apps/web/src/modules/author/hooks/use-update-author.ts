@@ -23,7 +23,7 @@ export const useUpdateAuthor = (authorId: string) => {
         void queryClient.invalidateQueries({
           queryKey: getGetAuthorsQueryKey(),
         })
-        void navigate({ to: "/authors" })
+        void navigate({ to: "/authors", search: true })
       },
       onError: (error) => {
         if (error instanceof ApiError && error.status === 409) {

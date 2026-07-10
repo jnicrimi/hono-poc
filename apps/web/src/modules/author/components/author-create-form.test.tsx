@@ -8,9 +8,11 @@ import { renderWithRouter } from "@/shared/test-support/render-with-router"
 import { authorMessages } from "../text/author-messages"
 import { AuthorCreateForm } from "./author-create-form"
 
-const renderCreateForm = () =>
+const renderCreateForm = (
+  initialEntries: readonly string[] = ["/authors/new"],
+) =>
   renderWithRouter(<p>作成前のページ</p>, {
-    initialEntries: ["/authors/new"],
+    initialEntries,
     routes: [
       { path: "/authors/new", component: () => <AuthorCreateForm /> },
       { path: "/authors", component: () => <p>著者一覧ページ</p> },
@@ -38,6 +40,25 @@ describe("AuthorCreateForm", () => {
     expect(await screen.findByText("著者一覧ページ")).toBeInTheDocument()
     expect(received).toEqual({ name: "著者-1" })
     expect(successSpy).toHaveBeenCalledWith(authorMessages.created)
+  })
+
+  it("ページ指定がある場合は登録後も現在のページを保持して一覧へ遷移する", async () => {
+    const user = userEvent.setup()
+    vi.spyOn(toast, "success").mockReturnValue("")
+    server.use(
+      http.post("*/authors", () =>
+        HttpResponse.json({ id: crypto.randomUUID() }, { status: 201 }),
+      ),
+    )
+
+    const { router } = renderCreateForm(["/authors/new?page=3"])
+
+    const input = await screen.findByRole("textbox", { name: "著者名" })
+    await user.type(input, "著者-1")
+    await user.click(screen.getByRole("button", { name: "登録" }))
+
+    expect(await screen.findByText("著者一覧ページ")).toBeInTheDocument()
+    expect(router.state.location.search).toEqual({ page: 3 })
   })
 
   it("著者名が空の場合はバリデーションエラーになり送信しない", async () => {

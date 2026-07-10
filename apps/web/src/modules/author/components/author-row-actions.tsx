@@ -25,6 +25,7 @@ export function AuthorRowActions({ author }: { readonly author: Author }) {
       <Link
         to="/authors/$authorId"
         params={{ authorId: author.id }}
+        search={true}
         className={buttonVariants({ variant: "outline", size: "sm" })}
       >
         {uiLabels.edit}

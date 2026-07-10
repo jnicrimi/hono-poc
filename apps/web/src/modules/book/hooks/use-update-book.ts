@@ -23,7 +23,7 @@ export const useUpdateBook = (bookId: string) => {
         void queryClient.invalidateQueries({
           queryKey: getGetBooksQueryKey(),
         })
-        void navigate({ to: "/books" })
+        void navigate({ to: "/books", search: true })
       },
       onError: (error) => {
         if (error instanceof ApiError && error.status === 409) {

@@ -2,12 +2,7 @@ import { getRouteApi, useNavigate } from "@tanstack/react-router"
 import { AuthorEditForm } from "@/modules/author/components/author-edit-form"
 import { authorLabels } from "@/modules/author/text/author-labels"
 import { useGetAuthorsIdSuspense } from "@/shared/api/generated/endpoints/authors/authors"
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/shared/ui/dialog"
+import { RouteDialog } from "@/shared/components/route-dialog"
 
 const route = getRouteApi("/authors/$authorId")
 
@@ -17,20 +12,13 @@ export function AuthorEditPage() {
   const navigate = useNavigate()
 
   return (
-    <Dialog
-      open
-      onOpenChange={(open) => {
-        if (!open) {
-          void navigate({ to: "/authors" })
-        }
+    <RouteDialog
+      title={authorLabels.editTitle}
+      onClose={() => {
+        void navigate({ to: "/authors", search: true })
       }}
     >
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{authorLabels.editTitle}</DialogTitle>
-        </DialogHeader>
-        <AuthorEditForm author={author} />
-      </DialogContent>
-    </Dialog>
+      <AuthorEditForm author={author} />
+    </RouteDialog>
   )
 }

@@ -19,7 +19,7 @@ export const useCreateAuthor = () => {
         void queryClient.invalidateQueries({
           queryKey: getGetAuthorsQueryKey(),
         })
-        void navigate({ to: "/authors" })
+        void navigate({ to: "/authors", search: true })
       },
       onError: (error) => {
         const message =

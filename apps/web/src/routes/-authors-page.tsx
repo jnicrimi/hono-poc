@@ -15,7 +15,7 @@ export function AuthorsPage() {
       <PageTitle
         icon={User}
         action={
-          <Link to="/authors/new" className={buttonVariants()}>
+          <Link to="/authors/new" search={true} className={buttonVariants()}>
             {uiLabels.create}
           </Link>
         }
