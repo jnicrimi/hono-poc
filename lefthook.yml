@@ -10,6 +10,9 @@ pre-commit:
       run: gitleaks git --pre-commit --staged
     biome:
       run: pnpm exec biome check --staged --no-errors-on-unmatched
+    knip:
+      glob: "*.{ts,tsx}"
+      run: pnpm exec knip
     markdownlint:
       glob: "*.md"
       run: pnpm exec markdownlint-cli2 {staged_files}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
+  "lefthook": {
+    "config": ["lefthook.yml"]
+  },
+  "workspaces": {
+    "apps/api": {
+      "ignoreDependencies": ["pino-pretty"]
+    },
+    "apps/web": {
+      "entry": [
+        "src/shared/api/generated/**",
+        "src/shared/ui/**",
+        "src/routes/**"
+      ],
+      // TanStack Router の自動生成ファイルは解析対象外
+      "ignore": ["src/route-tree.gen.ts"]
+    }
+  }
+}
