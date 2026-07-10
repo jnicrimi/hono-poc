@@ -9,6 +9,7 @@ import {
   patchBooksIdBodyTitleMax,
 } from "@/shared/api/generated/endpoints/books/books.zod"
 import type { Book } from "@/shared/api/generated/models"
+import { FieldError } from "@/shared/components/field-error"
 import { feedbackMessages } from "@/shared/text/feedback-messages"
 import { uiLabels } from "@/shared/text/ui-labels"
 import { validationMessages } from "@/shared/text/validation-messages"
@@ -74,11 +75,9 @@ export function BookEditForm({ book }: { readonly book: Book }) {
         void form.handleSubmit(onSubmit)(event)
       }}
     >
-      {isConflict ? (
-        <p role="alert" className="text-destructive text-sm">
-          {feedbackMessages.conflictReload}
-        </p>
-      ) : null}
+      <FieldError
+        message={isConflict ? feedbackMessages.conflictReload : undefined}
+      />
       <div className="flex flex-col gap-2">
         <Label htmlFor="book-title">{bookLabels.title}</Label>
         <Input
@@ -86,11 +85,7 @@ export function BookEditForm({ book }: { readonly book: Book }) {
           aria-invalid={titleError ? true : undefined}
           {...form.register("title")}
         />
-        {titleError ? (
-          <p role="alert" className="text-destructive text-sm">
-            {titleError.message}
-          </p>
-        ) : null}
+        <FieldError message={titleError?.message} />
       </div>
       <div className="flex flex-col gap-2">
         <Label>{bookLabels.authors}</Label>
@@ -104,11 +99,7 @@ export function BookEditForm({ book }: { readonly book: Book }) {
             })
           }
         />
-        {authorIdsError ? (
-          <p role="alert" className="text-destructive text-sm">
-            {authorIdsError.message}
-          </p>
-        ) : null}
+        <FieldError message={authorIdsError?.message} />
       </div>
       <div className="flex justify-end">
         <Button type="submit" disabled={!form.formState.isDirty || isPending}>
