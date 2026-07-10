@@ -1,11 +1,12 @@
 import { useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
 import { toast } from "sonner"
-import { ApiError } from "@/shared/api/api-error"
+import type { ApiError } from "@/shared/api/api-error"
 import {
   getGetBooksQueryKey,
   usePostBooks,
 } from "@/shared/api/generated/endpoints/books/books"
+import { getApiErrorMessage } from "@/shared/api/get-api-error-message"
 import { bookMessages } from "../text/book-messages"
 
 export const useCreateBook = () => {
@@ -22,9 +23,7 @@ export const useCreateBook = () => {
         void navigate({ to: "/books", search: true })
       },
       onError: (error) => {
-        const message =
-          error instanceof ApiError ? error.errors[0]?.message : undefined
-        toast.error(message ?? bookMessages.createFailed)
+        toast.error(getApiErrorMessage(error) ?? bookMessages.createFailed)
       },
     },
   })

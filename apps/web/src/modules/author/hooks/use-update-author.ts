@@ -7,6 +7,7 @@ import {
   getGetAuthorsQueryKey,
   usePatchAuthorsId,
 } from "@/shared/api/generated/endpoints/authors/authors"
+import { getApiErrorMessage } from "@/shared/api/get-api-error-message"
 import { authorMessages } from "../text/author-messages"
 
 export const useUpdateAuthor = (authorId: string) => {
@@ -29,9 +30,7 @@ export const useUpdateAuthor = (authorId: string) => {
         if (error instanceof ApiError && error.status === 409) {
           return
         }
-        const message =
-          error instanceof ApiError ? error.errors[0]?.message : undefined
-        toast.error(message ?? authorMessages.updateFailed)
+        toast.error(getApiErrorMessage(error) ?? authorMessages.updateFailed)
       },
     },
   })
