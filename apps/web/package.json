@@ -9,6 +9,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit",
     "depcruise": "depcruise src",
     "api:generate": "orval --config orval.config.ts",
+    "e2e": "playwright test",
     "test": "vitest run --reporter=dot",
     "test:coverage": "vitest run --reporter=dot --coverage",
     "test:watch": "vitest"
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@faker-js/faker": "10.5.0",
     "@hono-poc/typescript-config": "workspace:*",
+    "@playwright/test": "1.61.1",
     "@tailwindcss/vite": "4.3.2",
     "@tanstack/react-query-devtools": "5.101.2",
     "@tanstack/react-router-devtools": "1.167.0",

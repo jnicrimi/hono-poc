@@ -1,0 +1,3 @@
+["test-e2e"]
+description = "E2E テストを実行"
+run = "pnpm --filter @hono-poc/web e2e"

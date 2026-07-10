@@ -99,7 +99,8 @@
     {
       "includes": [
         "apps/api/src/shared/config/env.ts",
-        "apps/api/drizzle.config.ts"
+        "apps/api/drizzle.config.ts",
+        "apps/web/playwright.config.ts"
       ],
       "linter": {
         "rules": {
