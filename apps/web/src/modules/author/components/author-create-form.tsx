@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { postAuthorsBodyNameMax } from "@/shared/api/generated/endpoints/authors/authors.zod"
+import { FieldError } from "@/shared/components/field-error"
 import { uiLabels } from "@/shared/text/ui-labels"
 import { validationMessages } from "@/shared/text/validation-messages"
 import { Button } from "@/shared/ui/button"
@@ -50,11 +51,7 @@ export function AuthorCreateForm() {
           aria-invalid={nameError ? true : undefined}
           {...form.register("name")}
         />
-        {nameError ? (
-          <p role="alert" className="text-destructive text-sm">
-            {nameError.message}
-          </p>
-        ) : null}
+        <FieldError message={nameError?.message} />
       </div>
       <div className="flex justify-end">
         <Button type="submit" disabled={isPending}>

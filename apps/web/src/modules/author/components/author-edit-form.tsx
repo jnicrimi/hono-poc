@@ -4,6 +4,7 @@ import * as z from "zod"
 import { ApiError } from "@/shared/api/api-error"
 import { patchAuthorsIdBodyNameMax } from "@/shared/api/generated/endpoints/authors/authors.zod"
 import type { Author } from "@/shared/api/generated/models"
+import { FieldError } from "@/shared/components/field-error"
 import { feedbackMessages } from "@/shared/text/feedback-messages"
 import { uiLabels } from "@/shared/text/ui-labels"
 import { validationMessages } from "@/shared/text/validation-messages"
@@ -60,17 +61,11 @@ export function AuthorEditForm({ author }: { readonly author: Author }) {
           aria-invalid={nameError ? true : undefined}
           {...form.register("name")}
         />
-        {nameError ? (
-          <p role="alert" className="text-destructive text-sm">
-            {nameError.message}
-          </p>
-        ) : null}
+        <FieldError message={nameError?.message} />
       </div>
-      {isConflict ? (
-        <p role="alert" className="text-destructive text-sm">
-          {feedbackMessages.conflictReload}
-        </p>
-      ) : null}
+      <FieldError
+        message={isConflict ? feedbackMessages.conflictReload : undefined}
+      />
       <div className="flex justify-end">
         <Button type="submit" disabled={!form.formState.isDirty || isPending}>
           {uiLabels.update}

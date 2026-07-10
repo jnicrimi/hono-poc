@@ -7,6 +7,7 @@ import {
   postBooksBodyAuthorIdsMax,
   postBooksBodyTitleMax,
 } from "@/shared/api/generated/endpoints/books/books.zod"
+import { FieldError } from "@/shared/components/field-error"
 import { uiLabels } from "@/shared/text/ui-labels"
 import { validationMessages } from "@/shared/text/validation-messages"
 import { Button } from "@/shared/ui/button"
@@ -67,11 +68,7 @@ export function BookCreateForm() {
           aria-invalid={titleError ? true : undefined}
           {...form.register("title")}
         />
-        {titleError ? (
-          <p role="alert" className="text-destructive text-sm">
-            {titleError.message}
-          </p>
-        ) : null}
+        <FieldError message={titleError?.message} />
       </div>
       <div className="flex flex-col gap-2">
         <Label>{bookLabels.authors}</Label>
@@ -85,11 +82,7 @@ export function BookCreateForm() {
             })
           }
         />
-        {authorIdsError ? (
-          <p role="alert" className="text-destructive text-sm">
-            {authorIdsError.message}
-          </p>
-        ) : null}
+        <FieldError message={authorIdsError?.message} />
       </div>
       <div className="flex justify-end">
         <Button type="submit" disabled={isPending}>
