@@ -14,8 +14,9 @@ const author = {
   version: 0,
 }
 
-const renderRowActions = () =>
+const renderRowActions = (initialEntries?: readonly string[]) =>
   renderWithRouter(<AuthorRowActions author={author} />, {
+    initialEntries,
     routes: [{ path: "/authors/$authorId", component: () => null }],
   })
 
@@ -25,6 +26,13 @@ describe("AuthorRowActions", () => {
 
     const link = await screen.findByRole("link", { name: "編集" })
     expect(link).toHaveAttribute("href", `/authors/${author.id}`)
+  })
+
+  it("ページ指定がある場合は編集リンクが現在のページを引き継ぐ", async () => {
+    renderRowActions(["/?page=3"])
+
+    const link = await screen.findByRole("link", { name: "編集" })
+    expect(link).toHaveAttribute("href", `/authors/${author.id}?page=3`)
   })
 
   it("削除を確定すると DELETE を送り、トーストを表示してダイアログを閉じる", async () => {

@@ -19,7 +19,7 @@ export const useCreateBook = () => {
         void queryClient.invalidateQueries({
           queryKey: getGetBooksQueryKey(),
         })
-        void navigate({ to: "/books" })
+        void navigate({ to: "/books", search: true })
       },
       onError: (error) => {
         const message =

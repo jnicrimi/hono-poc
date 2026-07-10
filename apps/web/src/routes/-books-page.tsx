@@ -15,7 +15,7 @@ export function BooksPage() {
       <PageTitle
         icon={Book}
         action={
-          <Link to="/books/new" className={buttonVariants()}>
+          <Link to="/books/new" search={true} className={buttonVariants()}>
             {uiLabels.create}
           </Link>
         }

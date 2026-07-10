@@ -2,12 +2,7 @@ import { getRouteApi, useNavigate } from "@tanstack/react-router"
 import { BookEditForm } from "@/modules/book/components/book-edit-form"
 import { bookLabels } from "@/modules/book/text/book-labels"
 import { useGetBooksIdSuspense } from "@/shared/api/generated/endpoints/books/books"
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/shared/ui/dialog"
+import { RouteDialog } from "@/shared/components/route-dialog"
 
 const route = getRouteApi("/books/$bookId")
 
@@ -17,20 +12,13 @@ export function BookEditPage() {
   const navigate = useNavigate()
 
   return (
-    <Dialog
-      open
-      onOpenChange={(open) => {
-        if (!open) {
-          void navigate({ to: "/books" })
-        }
+    <RouteDialog
+      title={bookLabels.editTitle}
+      onClose={() => {
+        void navigate({ to: "/books", search: true })
       }}
     >
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{bookLabels.editTitle}</DialogTitle>
-        </DialogHeader>
-        <BookEditForm book={book} />
-      </DialogContent>
-    </Dialog>
+      <BookEditForm book={book} />
+    </RouteDialog>
   )
 }
