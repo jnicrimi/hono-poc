@@ -62,3 +62,14 @@ else
   exit 1
 fi
 """
+
+["view:dev-docs"]
+description = "開発ドキュメントをブラウザで開く"
+run = """
+if command -v open >/dev/null 2>&1; then
+  open "http://localhost:4173/hono-poc/"
+else
+  echo "Unsupported platform" >&2
+  exit 1
+fi
+"""

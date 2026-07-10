@@ -35,5 +35,10 @@ node_modules/
 /apps/web/*storybook.log
 /docs/public/storybook/
 
+# VitePress
+.vitepress/cache/
+.vitepress/dist/
+/dist/
+
 # Claude Code
 **/.claude/settings.local.json

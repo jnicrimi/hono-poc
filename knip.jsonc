@@ -4,6 +4,9 @@
     "config": ["lefthook.yml"]
   },
   "workspaces": {
+    ".": {
+      "entry": ["docs/.vitepress/config.mts"]
+    },
     "apps/api": {
       "ignoreDependencies": ["pino-pretty"]
     },
