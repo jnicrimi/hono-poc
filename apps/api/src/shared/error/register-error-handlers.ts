@@ -41,6 +41,4 @@ export const registerErrorHandlers = (
   app.notFound((c) =>
     c.json({ errors: [{ message: httpMessages.routeNotFound }] }, 404),
   )
-
-  return app
 }
