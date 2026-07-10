@@ -2,7 +2,7 @@ import { env } from "@/shared/config/env"
 import { feedbackMessages } from "@/shared/text/feedback-messages"
 import { ApiError, type ErrorDetail } from "./api-error"
 
-const isErrorEnvelope = (
+const isErrorResponse = (
   body: unknown,
 ): body is { errors: readonly ErrorDetail[] } =>
   typeof body === "object" &&
@@ -15,7 +15,7 @@ const parseErrorDetails = async (
   response: Response,
 ): Promise<readonly ErrorDetail[]> => {
   const body: unknown = await response.json().catch(() => null)
-  if (isErrorEnvelope(body)) {
+  if (isErrorResponse(body)) {
     return body.errors
   }
   return [{ message: feedbackMessages.unexpectedError }]
