@@ -8,6 +8,7 @@ import {
   usePatchBooksId,
 } from "@/shared/api/generated/endpoints/books/books"
 import { getApiErrorMessage } from "@/shared/api/get-api-error-message"
+import { feedbackMessages } from "@/shared/text/feedback-messages"
 import { bookMessages } from "../text/book-messages"
 
 export const useUpdateBook = (bookId: string) => {
@@ -28,6 +29,7 @@ export const useUpdateBook = (bookId: string) => {
       },
       onError: (error) => {
         if (error instanceof ApiError && error.status === 409) {
+          toast.error(feedbackMessages.conflictReload)
           return
         }
         toast.error(getApiErrorMessage(error) ?? bookMessages.updateFailed)

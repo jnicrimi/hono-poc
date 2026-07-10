@@ -145,7 +145,7 @@ describe("BookEditForm", () => {
     expect(called).toBe(false)
   })
 
-  it("version が競合した場合は競合メッセージを表示し入力を保持する", async () => {
+  it("version が競合した場合は競合トーストを表示し入力を保持する", async () => {
     const user = userEvent.setup()
     stubAuthorOptions()
     server.use(
@@ -157,7 +157,15 @@ describe("BookEditForm", () => {
       ),
     )
 
-    renderEditForm()
+    renderWithRouter(
+      <>
+        <BookEditForm book={book} />
+        <Toaster />
+      </>,
+      {
+        routes: [{ path: "/books", component: () => null }],
+      },
+    )
 
     const input = await screen.findByRole("textbox", { name: "書籍タイトル" })
     await user.clear(input)

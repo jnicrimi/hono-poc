@@ -1,11 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { ApiError } from "@/shared/api/api-error"
 import { patchAuthorsIdBodyNameMax } from "@/shared/api/generated/endpoints/authors/authors.zod"
 import type { Author } from "@/shared/api/generated/models"
 import { FieldError } from "@/shared/components/field-error"
-import { feedbackMessages } from "@/shared/text/feedback-messages"
 import { uiLabels } from "@/shared/text/ui-labels"
 import { validationMessages } from "@/shared/text/validation-messages"
 import { Button } from "@/shared/ui/button"
@@ -31,8 +29,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>
 
 export function AuthorEditForm({ author }: { readonly author: Author }) {
-  const { mutate, isPending, error } = useUpdateAuthor(author.id)
-  const isConflict = error instanceof ApiError && error.status === 409
+  const { mutate, isPending } = useUpdateAuthor(author.id)
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     values: { name: author.name },
@@ -54,9 +51,6 @@ export function AuthorEditForm({ author }: { readonly author: Author }) {
         void form.handleSubmit(onSubmit)(event)
       }}
     >
-      <FieldError
-        message={isConflict ? feedbackMessages.conflictReload : undefined}
-      />
       <div className="flex flex-col gap-2">
         <Label htmlFor="author-name">{authorLabels.name}</Label>
         <Input

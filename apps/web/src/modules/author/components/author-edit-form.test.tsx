@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react"
+import { screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { HttpResponse, http } from "msw"
 import { toast } from "sonner"
@@ -47,7 +47,7 @@ describe("AuthorEditForm", () => {
     expect(successSpy).toHaveBeenCalledWith(authorMessages.updated)
   })
 
-  it("version が競合した場合は競合メッセージを表示しトーストは出さない", async () => {
+  it("version が競合した場合は競合トーストを表示し入力を保持する", async () => {
     const user = userEvent.setup()
     const errorSpy = vi.spyOn(toast, "error").mockReturnValue("")
     server.use(
@@ -66,9 +66,9 @@ describe("AuthorEditForm", () => {
     await user.type(input, "著者-2")
     await user.click(screen.getByRole("button", { name: "更新" }))
 
-    expect(
-      await screen.findByText(feedbackMessages.conflictReload),
-    ).toBeInTheDocument()
-    expect(errorSpy).not.toHaveBeenCalled()
+    await waitFor(() => {
+      expect(errorSpy).toHaveBeenCalledWith(feedbackMessages.conflictReload)
+    })
+    expect(input).toHaveValue("著者-2")
   })
 })

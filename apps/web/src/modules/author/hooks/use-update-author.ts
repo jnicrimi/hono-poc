@@ -8,6 +8,7 @@ import {
   usePatchAuthorsId,
 } from "@/shared/api/generated/endpoints/authors/authors"
 import { getApiErrorMessage } from "@/shared/api/get-api-error-message"
+import { feedbackMessages } from "@/shared/text/feedback-messages"
 import { authorMessages } from "../text/author-messages"
 
 export const useUpdateAuthor = (authorId: string) => {
@@ -28,6 +29,7 @@ export const useUpdateAuthor = (authorId: string) => {
       },
       onError: (error) => {
         if (error instanceof ApiError && error.status === 409) {
+          toast.error(feedbackMessages.conflictReload)
           return
         }
         toast.error(getApiErrorMessage(error) ?? authorMessages.updateFailed)
