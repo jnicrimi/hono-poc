@@ -4,6 +4,6 @@ export const validationMessages = {
   maxLength: (label: string, max: number) =>
     `${label}は${max}文字以内で入力してください`,
   maxCount: (label: string, max: number) =>
-    `${label}は${max}件まで選択できます`,
+    `${label}は${max}件以内で指定してください`,
   invalidValue: (label: string) => `${label}の値が不正です`,
 } as const

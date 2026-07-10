@@ -54,6 +54,9 @@ export function AuthorEditForm({ author }: { readonly author: Author }) {
         void form.handleSubmit(onSubmit)(event)
       }}
     >
+      <FieldError
+        message={isConflict ? feedbackMessages.conflictReload : undefined}
+      />
       <div className="flex flex-col gap-2">
         <Label htmlFor="author-name">{authorLabels.name}</Label>
         <Input
@@ -63,9 +66,6 @@ export function AuthorEditForm({ author }: { readonly author: Author }) {
         />
         <FieldError message={nameError?.message} />
       </div>
-      <FieldError
-        message={isConflict ? feedbackMessages.conflictReload : undefined}
-      />
       <div className="flex justify-end">
         <Button type="submit" disabled={!form.formState.isDirty || isPending}>
           {uiLabels.update}

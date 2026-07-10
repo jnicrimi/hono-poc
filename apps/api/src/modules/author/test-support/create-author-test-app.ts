@@ -21,8 +21,8 @@ type Deps = {
 export const createAuthorTestApp = (deps: Deps) => {
   const router = createAuthorRouter({
     createAuthor: new CreateAuthor(deps.repository),
-    getAuthorById: new GetAuthorById(deps.reader),
     listAuthors: new ListAuthors(deps.reader),
+    getAuthorById: new GetAuthorById(deps.reader),
     updateAuthor: new UpdateAuthor(deps.repository),
     deleteAuthor: new DeleteAuthor(deps.repository),
   })
