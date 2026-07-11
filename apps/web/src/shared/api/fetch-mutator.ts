@@ -2,6 +2,9 @@ import { env } from "@/shared/config/env"
 import { feedbackMessages } from "@/shared/text/feedback-messages"
 import { ApiError, type ErrorDetail } from "./api-error"
 
+// Orval が生成するエラー型に合わせる
+export type ErrorType<_Error> = ApiError
+
 const isErrorResponse = (
   body: unknown,
 ): body is { errors: readonly ErrorDetail[] } =>

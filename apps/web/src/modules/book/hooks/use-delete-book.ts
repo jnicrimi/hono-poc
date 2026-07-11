@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
-import type { ApiError } from "@/shared/api/api-error"
 import {
   getListBooksQueryKey,
   getShowBookQueryKey,
@@ -12,7 +11,7 @@ import { bookMessages } from "../text/book-messages"
 export const useDeleteBook = () => {
   const queryClient = useQueryClient()
 
-  return useDeleteBookRequest<ApiError>({
+  return useDeleteBookRequest({
     mutation: {
       onSuccess: (_data, { id }) => {
         toast.success(bookMessages.deleted)

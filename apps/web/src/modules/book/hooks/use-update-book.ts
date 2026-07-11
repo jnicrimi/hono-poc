@@ -15,7 +15,7 @@ export const useUpdateBook = (bookId: string) => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
-  return useUpdateBookRequest<ApiError>({
+  return useUpdateBookRequest({
     mutation: {
       onSuccess: () => {
         toast.success(bookMessages.updated)

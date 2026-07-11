@@ -1,7 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
 import { toast } from "sonner"
-import type { ApiError } from "@/shared/api/api-error"
 import {
   getListAuthorsQueryKey,
   useCreateAuthor as useCreateAuthorRequest,
@@ -13,7 +12,7 @@ export const useCreateAuthor = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
-  return useCreateAuthorRequest<ApiError>({
+  return useCreateAuthorRequest({
     mutation: {
       onSuccess: () => {
         toast.success(authorMessages.created)
