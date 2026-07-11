@@ -4,8 +4,8 @@ import type { ApiTag } from "../../../shared/openapi/api-tags"
 import { createOpenApiApp } from "../../../shared/openapi/create-openapi-app"
 import type { CreateAuthor } from "../application/create-author"
 import type { DeleteAuthor } from "../application/delete-author"
-import type { GetAuthorById } from "../application/get-author-by-id"
 import type { ListAuthors } from "../application/list-authors"
+import type { ShowAuthor } from "../application/show-author"
 import type { UpdateAuthor } from "../application/update-author"
 import { authorIdParamSchema } from "./author-id-param-schema"
 import {
@@ -20,7 +20,7 @@ import { updateAuthorSchema } from "./update-author-schema"
 type AuthorRouterDeps = {
   readonly createAuthor: CreateAuthor
   readonly listAuthors: ListAuthors
-  readonly getAuthorById: GetAuthorById
+  readonly showAuthor: ShowAuthor
   readonly updateAuthor: UpdateAuthor
   readonly deleteAuthor: DeleteAuthor
 }
@@ -153,7 +153,7 @@ export const createAuthorRouter = (deps: AuthorRouterDeps) => {
 
   router.openapi(getAuthorRoute, async (c) => {
     const { id } = c.req.valid("param")
-    const author = await deps.getAuthorById.execute({ id })
+    const author = await deps.showAuthor.execute({ id })
     return c.json(author, 200)
   })
 

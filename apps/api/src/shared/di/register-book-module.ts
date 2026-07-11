@@ -2,8 +2,8 @@ import type { OpenAPIHono } from "@hono/zod-openapi"
 import { DrizzleAuthorExistenceReader } from "../../modules/author/contract/infrastructure/drizzle-author-existence-reader"
 import { CreateBook } from "../../modules/book/application/create-book"
 import { DeleteBook } from "../../modules/book/application/delete-book"
-import { GetBookById } from "../../modules/book/application/get-book-by-id"
 import { ListBooks } from "../../modules/book/application/list-books"
+import { ShowBook } from "../../modules/book/application/show-book"
 import { UpdateBook } from "../../modules/book/application/update-book"
 import { DrizzleBookReader } from "../../modules/book/infrastructure/drizzle-book-reader"
 import { DrizzleBookRepository } from "../../modules/book/infrastructure/drizzle-book-repository"
@@ -23,7 +23,7 @@ export const registerBookModule = (app: OpenAPIHono<AppEnv>, db: Db) => {
   const router = createBookRouter({
     createBook: new CreateBook(uow),
     listBooks: new ListBooks(reader),
-    getBookById: new GetBookById(reader),
+    showBook: new ShowBook(reader),
     updateBook: new UpdateBook(uow),
     deleteBook: new DeleteBook(repository),
   })
