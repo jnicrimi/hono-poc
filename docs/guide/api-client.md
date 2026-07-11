@@ -1,14 +1,6 @@
 # API クライアント
 
-API を変更した場合は API クライアントを再生成する。
-
-## 前提
-
-Orval が起動中の API サーバから OpenAPI スペック(`http://localhost:3000/api-docs/json`)を取得するため、API サーバを起動しておく。
-
-```sh
-mise run dev
-```
+API を変更した場合は OpenAPI スペックと API クライアントを再生成する。
 
 ## クライアントの生成
 
@@ -16,15 +8,25 @@ mise run dev
 mise run api-client:generate
 ```
 
-`apps/web/src/shared/api/generated/` にファイルが生成されるので、変更をコミットする。
+ファイルが生成されるので、変更をコミットする。
+
+- `apps/api/openapi.json`
+- `apps/web/src/shared/api/generated/`
 
 ### 生成ファイル
 
+- OpenAPI スペック
 - react-query クライアント
 - zod スキーマ
 - MSW モック
 
 ## API ドキュメントの確認
+
+API サーバを起動する。
+
+```sh
+mise run dev
+```
 
 Scalar をブラウザで開く。
 

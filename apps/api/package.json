@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "seed": "tsx src/seed.ts",
+    "openapi:generate": "tsx src/generate-openapi.ts",
     "typecheck": "tsc --noEmit",
     "depcruise": "depcruise src",
     "db:generate": "drizzle-kit generate",

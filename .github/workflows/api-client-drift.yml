@@ -1,0 +1,36 @@
+name: api-client-drift
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  api-client-drift:
+    name: api-client-drift
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d  # v4.2.0
+        with:
+          install_args: node pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Generate OpenAPI spec
+        run: pnpm --filter @hono-poc/api openapi:generate
+      - name: Generate API client
+        run: pnpm --filter @hono-poc/web api:generate
+      - name: Check drift
+        # --intent-to-add 未追跡の新規生成ファイルをインデックスに登録
+        run: |
+          git add --intent-to-add apps/api/openapi.json apps/web/src/shared/api/generated
+          git diff --exit-code -- apps/api/openapi.json apps/web/src/shared/api/generated

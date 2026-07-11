@@ -1,10 +1,10 @@
 import { defineConfig } from "orval"
 
-const SPEC_URL = "http://localhost:3000/api-docs/json"
+const SPEC_PATH = "../api/openapi.json"
 
 export default defineConfig({
   honoPocApi: {
-    input: { target: SPEC_URL },
+    input: { target: SPEC_PATH },
     output: {
       mode: "tags-split",
       client: "react-query",
@@ -23,7 +23,7 @@ export default defineConfig({
     },
   },
   honoPocApiZod: {
-    input: { target: SPEC_URL },
+    input: { target: SPEC_PATH },
     output: {
       mode: "tags-split",
       client: "zod",

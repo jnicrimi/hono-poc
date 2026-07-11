@@ -12,6 +12,7 @@
       "!**/.claude",
       "!apps/api/vendor",
       "!apps/api/drizzle",
+      "!apps/api/openapi.json",
       "!apps/web/src/shared/ui",
       "!apps/web/src/route-tree.gen.ts",
       "!apps/web/src/shared/api/generated"
