@@ -22,64 +22,64 @@ import type {
 } from '../../models';
 
 
-export const getPostAuthorsResponseMock = (overrideResponse: Partial<Extract<Author, object>> = {}): Author => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}}), version: faker.number.int(), ...overrideResponse})
+export const getCreateAuthorResponseMock = (overrideResponse: Partial<Extract<Author, object>> = {}): Author => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}}), version: faker.number.int(), ...overrideResponse})
 
-export const getGetAuthorsResponseMock = (overrideResponse: Partial<Extract<AuthorList, object>> = {}): AuthorList => ({items: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}}), version: faker.number.int()})), pagination: {page: faker.number.int(), perPage: faker.number.int(), total: faker.number.int(), totalPages: faker.number.int()}, ...overrideResponse})
+export const getListAuthorsResponseMock = (overrideResponse: Partial<Extract<AuthorList, object>> = {}): AuthorList => ({items: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}}), version: faker.number.int()})), pagination: {page: faker.number.int(), perPage: faker.number.int(), total: faker.number.int(), totalPages: faker.number.int()}, ...overrideResponse})
 
-export const getGetAuthorsIdResponseMock = (overrideResponse: Partial<Extract<Author, object>> = {}): Author => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}}), version: faker.number.int(), ...overrideResponse})
+export const getShowAuthorResponseMock = (overrideResponse: Partial<Extract<Author, object>> = {}): Author => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}}), version: faker.number.int(), ...overrideResponse})
 
-export const getPatchAuthorsIdResponseMock = (overrideResponse: Partial<Extract<Author, object>> = {}): Author => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}}), version: faker.number.int(), ...overrideResponse})
+export const getUpdateAuthorResponseMock = (overrideResponse: Partial<Extract<Author, object>> = {}): Author => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}}), version: faker.number.int(), ...overrideResponse})
 
 
-export const getPostAuthorsMockHandler = (overrideResponse?: Author | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<Author> | Author), options?: RequestHandlerOptions) => {
+export const getCreateAuthorMockHandler = (overrideResponse?: Author | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<Author> | Author), options?: RequestHandlerOptions) => {
   return http.post('*/authors', async (info: Parameters<Parameters<typeof http.post>[1]>[0]) => {
 
 
     return HttpResponse.json(overrideResponse !== undefined
     ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse)
-    : getPostAuthorsResponseMock(),
+    : getCreateAuthorResponseMock(),
       { status: 201
       })
   }, options)
 }
 
-export const getGetAuthorsMockHandler = (overrideResponse?: AuthorList | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<AuthorList> | AuthorList), options?: RequestHandlerOptions) => {
+export const getListAuthorsMockHandler = (overrideResponse?: AuthorList | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<AuthorList> | AuthorList), options?: RequestHandlerOptions) => {
   return http.get('*/authors', async (info: Parameters<Parameters<typeof http.get>[1]>[0]) => {
 
 
     return HttpResponse.json(overrideResponse !== undefined
     ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse)
-    : getGetAuthorsResponseMock(),
+    : getListAuthorsResponseMock(),
       { status: 200
       })
   }, options)
 }
 
-export const getGetAuthorsIdMockHandler = (overrideResponse?: Author | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<Author> | Author), options?: RequestHandlerOptions) => {
+export const getShowAuthorMockHandler = (overrideResponse?: Author | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<Author> | Author), options?: RequestHandlerOptions) => {
   return http.get('*/authors/:id', async (info: Parameters<Parameters<typeof http.get>[1]>[0]) => {
 
 
     return HttpResponse.json(overrideResponse !== undefined
     ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse)
-    : getGetAuthorsIdResponseMock(),
+    : getShowAuthorResponseMock(),
       { status: 200
       })
   }, options)
 }
 
-export const getPatchAuthorsIdMockHandler = (overrideResponse?: Author | ((info: Parameters<Parameters<typeof http.patch>[1]>[0]) => Promise<Author> | Author), options?: RequestHandlerOptions) => {
+export const getUpdateAuthorMockHandler = (overrideResponse?: Author | ((info: Parameters<Parameters<typeof http.patch>[1]>[0]) => Promise<Author> | Author), options?: RequestHandlerOptions) => {
   return http.patch('*/authors/:id', async (info: Parameters<Parameters<typeof http.patch>[1]>[0]) => {
 
 
     return HttpResponse.json(overrideResponse !== undefined
     ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse)
-    : getPatchAuthorsIdResponseMock(),
+    : getUpdateAuthorResponseMock(),
       { status: 200
       })
   }, options)
 }
 
-export const getDeleteAuthorsIdMockHandler = (overrideResponse?: void | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<void> | void), options?: RequestHandlerOptions) => {
+export const getDeleteAuthorMockHandler = (overrideResponse?: void | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<void> | void), options?: RequestHandlerOptions) => {
   return http.delete('*/authors/:id', async (info: Parameters<Parameters<typeof http.delete>[1]>[0]) => {
   if (typeof overrideResponse === 'function') {await overrideResponse(info); }
 
@@ -89,9 +89,9 @@ export const getDeleteAuthorsIdMockHandler = (overrideResponse?: void | ((info: 
   }, options)
 }
 export const getAuthorsMock = () => [
-  getPostAuthorsMockHandler(),
-  getGetAuthorsMockHandler(),
-  getGetAuthorsIdMockHandler(),
-  getPatchAuthorsIdMockHandler(),
-  getDeleteAuthorsIdMockHandler()
+  getCreateAuthorMockHandler(),
+  getListAuthorsMockHandler(),
+  getShowAuthorMockHandler(),
+  getUpdateAuthorMockHandler(),
+  getDeleteAuthorMockHandler()
 ]

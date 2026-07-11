@@ -2,9 +2,9 @@ import { useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import type { ApiError } from "@/shared/api/api-error"
 import {
-  getGetBooksIdQueryKey,
-  getGetBooksQueryKey,
-  useDeleteBooksId,
+  getListBooksQueryKey,
+  getShowBookQueryKey,
+  useDeleteBook as useDeleteBookRequest,
 } from "@/shared/api/generated/endpoints/books/books"
 import { getApiErrorMessage } from "@/shared/api/get-api-error-message"
 import { bookMessages } from "../text/book-messages"
@@ -12,13 +12,13 @@ import { bookMessages } from "../text/book-messages"
 export const useDeleteBook = () => {
   const queryClient = useQueryClient()
 
-  return useDeleteBooksId<ApiError>({
+  return useDeleteBookRequest<ApiError>({
     mutation: {
       onSuccess: (_data, { id }) => {
         toast.success(bookMessages.deleted)
-        queryClient.removeQueries({ queryKey: getGetBooksIdQueryKey(id) })
+        queryClient.removeQueries({ queryKey: getShowBookQueryKey(id) })
         void queryClient.invalidateQueries({
-          queryKey: getGetBooksQueryKey(),
+          queryKey: getListBooksQueryKey(),
         })
       },
       onError: (error) => {

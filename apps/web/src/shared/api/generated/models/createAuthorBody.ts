@@ -5,16 +5,11 @@
  * OpenAPI spec version: 0.0.0
  */
 
-export type PatchAuthorsIdBody = {
+export type CreateAuthorBody = {
   /**
      * 著者名
      * @minLength 1
      * @maxLength 100
      */
   name: string;
-  /**
-     * バージョン
-     * @minimum 0
-     */
-  version: number;
 };

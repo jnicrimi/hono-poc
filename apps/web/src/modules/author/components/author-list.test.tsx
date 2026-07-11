@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
 import {
-  getGetAuthorsMockHandler,
-  getGetAuthorsResponseMock,
+  getListAuthorsMockHandler,
+  getListAuthorsResponseMock,
 } from "@/shared/api/generated/endpoints/authors/authors.msw"
 import { server } from "@/shared/test-support/msw-server"
 import { renderWithRouter } from "@/shared/test-support/render-with-router"
@@ -27,8 +27,8 @@ const buildPagination = (total: number, totalPages: number) => ({
 describe("AuthorList", () => {
   it("API から取得した著者を一覧表示する", async () => {
     server.use(
-      getGetAuthorsMockHandler(
-        getGetAuthorsResponseMock({
+      getListAuthorsMockHandler(
+        getListAuthorsResponseMock({
           items: [buildAuthorItem("著者-1"), buildAuthorItem("著者-2")],
           pagination: buildPagination(2, 1),
         }),
@@ -45,8 +45,8 @@ describe("AuthorList", () => {
 
   it("著者が 0 件の場合は空状態メッセージを表示する", async () => {
     server.use(
-      getGetAuthorsMockHandler(
-        getGetAuthorsResponseMock({
+      getListAuthorsMockHandler(
+        getListAuthorsResponseMock({
           items: [],
           pagination: buildPagination(0, 0),
         }),
@@ -64,8 +64,8 @@ describe("AuthorList", () => {
 
   it("存在しないページを指定した場合は不存在メッセージを表示する", async () => {
     server.use(
-      getGetAuthorsMockHandler(
-        getGetAuthorsResponseMock({
+      getListAuthorsMockHandler(
+        getListAuthorsResponseMock({
           items: [],
           pagination: { page: 99, perPage: 10, total: 5, totalPages: 1 },
         }),
@@ -81,8 +81,8 @@ describe("AuthorList", () => {
 
   it("2 ページ以上ある場合はページ番号のリンクを表示する", async () => {
     server.use(
-      getGetAuthorsMockHandler(
-        getGetAuthorsResponseMock({
+      getListAuthorsMockHandler(
+        getListAuthorsResponseMock({
           items: [buildAuthorItem("著者-1")],
           pagination: buildPagination(11, 2),
         }),

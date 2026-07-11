@@ -4,8 +4,8 @@ import { HttpResponse, http } from "msw"
 import { toast } from "sonner"
 import { describe, expect, it, vi } from "vitest"
 import {
-  getGetAuthorsMockHandler,
-  getGetAuthorsResponseMock,
+  getListAuthorsMockHandler,
+  getListAuthorsResponseMock,
 } from "@/shared/api/generated/endpoints/authors/authors.msw"
 import { server } from "@/shared/test-support/msw-server"
 import { renderWithRouter } from "@/shared/test-support/render-with-router"
@@ -16,8 +16,8 @@ const authorId = "550e8400-e29b-41d4-a716-446655440000"
 
 const stubAuthorOptions = () => {
   server.use(
-    getGetAuthorsMockHandler(
-      getGetAuthorsResponseMock({
+    getListAuthorsMockHandler(
+      getListAuthorsResponseMock({
         items: [{ id: authorId, name: "著者-1", version: 0 }],
         pagination: { page: 1, perPage: 100, total: 1, totalPages: 1 },
       }),

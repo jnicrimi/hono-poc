@@ -5,7 +5,7 @@
  * OpenAPI spec version: 0.0.0
  */
 
-export type PostBooksBody = {
+export type UpdateBookBody = {
   /**
      * 書籍タイトル
      * @minLength 1
@@ -18,4 +18,9 @@ export type PostBooksBody = {
      * @maxItems 10
      */
   authorIds: string[];
+  /**
+     * バージョン
+     * @minimum 0
+     */
+  version: number;
 };

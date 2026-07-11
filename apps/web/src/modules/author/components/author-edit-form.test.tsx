@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event"
 import { HttpResponse, http } from "msw"
 import { toast } from "sonner"
 import { describe, expect, it, vi } from "vitest"
-import { getGetBooksQueryKey } from "@/shared/api/generated/endpoints/books/books"
+import { getListBooksQueryKey } from "@/shared/api/generated/endpoints/books/books"
 import { server } from "@/shared/test-support/msw-server"
 import { renderWithRouter } from "@/shared/test-support/render-with-router"
 import { feedbackMessages } from "@/shared/text/feedback-messages"
@@ -48,7 +48,7 @@ describe("AuthorEditForm", () => {
     expect(received).toEqual({ name: "著者-2", version: 3 })
     expect(successSpy).toHaveBeenCalledWith(authorMessages.updated)
     expect(invalidateSpy).toHaveBeenCalledWith({
-      queryKey: getGetBooksQueryKey(),
+      queryKey: getListBooksQueryKey(),
     })
   })
 

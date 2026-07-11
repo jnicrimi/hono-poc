@@ -5,7 +5,7 @@
  * OpenAPI spec version: 0.0.0
  */
 
-export type PatchBooksIdBody = {
+export type CreateBookBody = {
   /**
      * 書籍タイトル
      * @minLength 1
@@ -18,9 +18,4 @@ export type PatchBooksIdBody = {
      * @maxItems 10
      */
   authorIds: string[];
-  /**
-     * バージョン
-     * @minimum 0
-     */
-  version: number;
 };

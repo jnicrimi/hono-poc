@@ -5,7 +5,7 @@
  * OpenAPI spec version: 0.0.0
  */
 
-export type GetBooksParams = {
+export type ListBooksParams = {
 /**
  * ページ番号
  * @minimum 1

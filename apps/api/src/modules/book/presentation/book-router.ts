@@ -38,6 +38,7 @@ const tags = [bookApiTag.name]
 
 const createBookRoute = createRoute({
   tags,
+  operationId: "createBook",
   summary: "書籍を作成",
   method: "post",
   path: "/",
@@ -59,6 +60,7 @@ const createBookRoute = createRoute({
 
 const listBooksRoute = createRoute({
   tags,
+  operationId: "listBooks",
   summary: "書籍一覧を取得",
   method: "get",
   path: "/",
@@ -76,6 +78,7 @@ const listBooksRoute = createRoute({
 
 const getBookRoute = createRoute({
   tags,
+  operationId: "showBook",
   summary: "書籍を取得",
   method: "get",
   path: "/{id}",
@@ -94,6 +97,7 @@ const getBookRoute = createRoute({
 
 const updateBookRoute = createRoute({
   tags,
+  operationId: "updateBook",
   summary: "書籍を更新",
   method: "patch",
   path: "/{id}",
@@ -118,6 +122,7 @@ const updateBookRoute = createRoute({
 
 const deleteBookRoute = createRoute({
   tags,
+  operationId: "deleteBook",
   summary: "書籍を削除",
   method: "delete",
   path: "/{id}",

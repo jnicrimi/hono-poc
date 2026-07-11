@@ -3,8 +3,8 @@ import { useNavigate } from "@tanstack/react-router"
 import { toast } from "sonner"
 import type { ApiError } from "@/shared/api/api-error"
 import {
-  getGetAuthorsQueryKey,
-  usePostAuthors,
+  getListAuthorsQueryKey,
+  useCreateAuthor as useCreateAuthorRequest,
 } from "@/shared/api/generated/endpoints/authors/authors"
 import { getApiErrorMessage } from "@/shared/api/get-api-error-message"
 import { authorMessages } from "../text/author-messages"
@@ -13,12 +13,12 @@ export const useCreateAuthor = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
-  return usePostAuthors<ApiError>({
+  return useCreateAuthorRequest<ApiError>({
     mutation: {
       onSuccess: () => {
         toast.success(authorMessages.created)
         void queryClient.invalidateQueries({
-          queryKey: getGetAuthorsQueryKey(),
+          queryKey: getListAuthorsQueryKey(),
         })
         void navigate({ to: "/authors", search: true })
       },

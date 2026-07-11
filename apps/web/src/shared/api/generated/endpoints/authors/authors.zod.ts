@@ -10,15 +10,15 @@ import * as zod from 'zod';
 /**
  * @summary 著者を作成
  */
-export const postAuthorsBodyNameMax = 100;
+export const createAuthorBodyNameMax = 100;
 
 
 
-export const PostAuthorsBody = zod.object({
-  "name": zod.string().min(1).max(postAuthorsBodyNameMax).describe('著者名')
+export const CreateAuthorBody = zod.object({
+  "name": zod.string().min(1).max(createAuthorBodyNameMax).describe('著者名')
 })
 
-export const PostAuthorsResponse = zod.object({
+export const CreateAuthorResponse = zod.object({
   "id": zod.uuid().describe('著者ID'),
   "name": zod.string().describe('著者名'),
   "version": zod.number().describe('バージョン')
@@ -27,19 +27,19 @@ export const PostAuthorsResponse = zod.object({
 /**
  * @summary 著者一覧を取得
  */
-export const getAuthorsQueryPageDefault = 1;
+export const listAuthorsQueryPageDefault = 1;
 
-export const getAuthorsQueryPerPageDefault = 10;
-export const getAuthorsQueryPerPageMax = 100;
+export const listAuthorsQueryPerPageDefault = 10;
+export const listAuthorsQueryPerPageMax = 100;
 
 
 
-export const GetAuthorsQueryParams = zod.object({
-  "page": zod.number().min(1).default(getAuthorsQueryPageDefault).describe('ページ番号'),
-  "perPage": zod.number().min(1).max(getAuthorsQueryPerPageMax).default(getAuthorsQueryPerPageDefault).describe('1 ページあたりの件数')
+export const ListAuthorsQueryParams = zod.object({
+  "page": zod.number().min(1).default(listAuthorsQueryPageDefault).describe('ページ番号'),
+  "perPage": zod.number().min(1).max(listAuthorsQueryPerPageMax).default(listAuthorsQueryPerPageDefault).describe('1 ページあたりの件数')
 })
 
-export const GetAuthorsResponse = zod.object({
+export const ListAuthorsResponse = zod.object({
   "items": zod.array(zod.object({
   "id": zod.uuid().describe('著者ID'),
   "name": zod.string().describe('著者名'),
@@ -56,11 +56,11 @@ export const GetAuthorsResponse = zod.object({
 /**
  * @summary 著者を取得
  */
-export const GetAuthorsIdParams = zod.object({
+export const ShowAuthorParams = zod.object({
   "id": zod.uuid().describe('著者ID')
 })
 
-export const GetAuthorsIdResponse = zod.object({
+export const ShowAuthorResponse = zod.object({
   "id": zod.uuid().describe('著者ID'),
   "name": zod.string().describe('著者名'),
   "version": zod.number().describe('バージョン')
@@ -69,22 +69,22 @@ export const GetAuthorsIdResponse = zod.object({
 /**
  * @summary 著者を更新
  */
-export const PatchAuthorsIdParams = zod.object({
+export const UpdateAuthorParams = zod.object({
   "id": zod.uuid().describe('著者ID')
 })
 
-export const patchAuthorsIdBodyNameMax = 100;
+export const updateAuthorBodyNameMax = 100;
 
-export const patchAuthorsIdBodyVersionMin = 0;
+export const updateAuthorBodyVersionMin = 0;
 
 
 
-export const PatchAuthorsIdBody = zod.object({
-  "name": zod.string().min(1).max(patchAuthorsIdBodyNameMax).describe('著者名'),
-  "version": zod.number().min(patchAuthorsIdBodyVersionMin).describe('バージョン')
+export const UpdateAuthorBody = zod.object({
+  "name": zod.string().min(1).max(updateAuthorBodyNameMax).describe('著者名'),
+  "version": zod.number().min(updateAuthorBodyVersionMin).describe('バージョン')
 })
 
-export const PatchAuthorsIdResponse = zod.object({
+export const UpdateAuthorResponse = zod.object({
   "id": zod.uuid().describe('著者ID'),
   "name": zod.string().describe('著者名'),
   "version": zod.number().describe('バージョン')
@@ -93,9 +93,9 @@ export const PatchAuthorsIdResponse = zod.object({
 /**
  * @summary 著者を削除
  */
-export const DeleteAuthorsIdParams = zod.object({
+export const DeleteAuthorParams = zod.object({
   "id": zod.uuid().describe('著者ID')
 })
 
-export const DeleteAuthorsIdResponse = zod.void()
+export const DeleteAuthorResponse = zod.void()
 

@@ -4,8 +4,8 @@ import { HttpResponse, http } from "msw"
 import { Toaster, toast } from "sonner"
 import { describe, expect, it, vi } from "vitest"
 import {
-  getGetAuthorsMockHandler,
-  getGetAuthorsResponseMock,
+  getListAuthorsMockHandler,
+  getListAuthorsResponseMock,
 } from "@/shared/api/generated/endpoints/authors/authors.msw"
 import { server } from "@/shared/test-support/msw-server"
 import { renderWithRouter } from "@/shared/test-support/render-with-router"
@@ -25,8 +25,8 @@ const book = {
 
 const stubAuthorOptions = () => {
   server.use(
-    getGetAuthorsMockHandler(
-      getGetAuthorsResponseMock({
+    getListAuthorsMockHandler(
+      getListAuthorsResponseMock({
         items: [
           { id: authorId1, name: "著者-1", version: 0 },
           { id: authorId2, name: "著者-2", version: 0 },

@@ -4,8 +4,8 @@ import * as z from "zod"
 import { AuthorMultiSelect } from "@/modules/author/components/author-multi-select"
 import { useAuthorOptions } from "@/modules/author/hooks/use-author-options"
 import {
-  postBooksBodyAuthorIdsMax,
-  postBooksBodyTitleMax,
+  createBookBodyAuthorIdsMax,
+  createBookBodyTitleMax,
 } from "@/shared/api/generated/endpoints/books/books.zod"
 import { FieldError } from "@/shared/components/field-error"
 import { uiLabels } from "@/shared/text/ui-labels"
@@ -22,17 +22,17 @@ const formSchema = z.object({
     .trim()
     .min(1, validationMessages.required(bookLabels.title))
     .max(
-      postBooksBodyTitleMax,
-      validationMessages.maxLength(bookLabels.title, postBooksBodyTitleMax),
+      createBookBodyTitleMax,
+      validationMessages.maxLength(bookLabels.title, createBookBodyTitleMax),
     ),
   authorIds: z
     .array(z.uuid(validationMessages.invalidValue(bookLabels.authors)))
     .min(1, validationMessages.requiredSelection(bookLabels.authors))
     .max(
-      postBooksBodyAuthorIdsMax,
+      createBookBodyAuthorIdsMax,
       validationMessages.maxCount(
         bookLabels.authors,
-        postBooksBodyAuthorIdsMax,
+        createBookBodyAuthorIdsMax,
       ),
     ),
 })
