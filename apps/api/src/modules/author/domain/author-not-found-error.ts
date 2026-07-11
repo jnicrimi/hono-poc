@@ -1,11 +1,11 @@
-import { entityLabels } from "../../../shared/entity-labels"
 import { AppError, type ErrorCategory } from "../../../shared/error/app-error"
 import { entityMessages } from "../../../shared/error/entity-messages"
+import { authorEntityLabel } from "./author-entity-label"
 
 export class AuthorNotFoundError extends AppError {
   readonly category: ErrorCategory = "NOT_FOUND"
 
-  constructor(readonly authorId: string) {
-    super(entityMessages.notFound(entityLabels.author))
+  constructor() {
+    super(entityMessages.notFound(authorEntityLabel))
   }
 }

@@ -13,7 +13,7 @@ export class DeleteAuthor {
     const authorId = AuthorId.restore(command.id)
     const existing = await this.repository.findById(authorId)
     if (!existing) {
-      throw new AuthorNotFoundError(command.id)
+      throw new AuthorNotFoundError()
     }
     await this.repository.delete(authorId)
   }
