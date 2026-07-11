@@ -1,11 +1,10 @@
 import { Link } from "@tanstack/react-router"
-import { Book, House, User } from "lucide-react"
+import { Book, User } from "lucide-react"
 import type { ReactNode } from "react"
 
 const NAV_ITEMS = [
-  { to: "/", label: "ホーム", icon: House, exact: true },
-  { to: "/authors", label: "著者", icon: User, exact: false },
-  { to: "/books", label: "書籍", icon: Book, exact: false },
+  { to: "/authors", label: "著者", icon: User },
+  { to: "/books", label: "書籍", icon: Book },
 ] as const
 
 export function AppShell({ children }: { readonly children: ReactNode }) {
@@ -13,13 +12,18 @@ export function AppShell({ children }: { readonly children: ReactNode }) {
     <div className="min-h-svh bg-muted">
       <header className="border-b bg-background">
         <div className="mx-auto flex h-14 max-w-5xl items-center gap-8 px-4">
-          <span className="font-semibold">Hono Poc</span>
+          <Link
+            to="/"
+            activeOptions={{ exact: true }}
+            className="font-semibold"
+          >
+            Hono Poc
+          </Link>
           <nav className="flex items-center gap-5">
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
-                activeOptions={{ exact: item.exact }}
                 className="flex items-center gap-1.5 text-sm transition-colors"
                 activeProps={{ className: "font-medium text-foreground" }}
                 inactiveProps={{

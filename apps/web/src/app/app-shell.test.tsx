@@ -16,10 +16,9 @@ describe("AppShell", () => {
         ],
       },
     )
-    expect(await screen.findByRole("link", { name: "ホーム" })).toHaveAttribute(
-      "href",
-      "/",
-    )
+    expect(
+      await screen.findByRole("link", { name: "Hono Poc" }),
+    ).toHaveAttribute("href", "/")
     expect(screen.getByRole("link", { name: "著者" })).toHaveAttribute(
       "href",
       "/authors",
@@ -47,7 +46,7 @@ describe("AppShell", () => {
     })
     const active = await screen.findByRole("link", { name: "書籍" })
     expect(active).toHaveAttribute("data-status", "active")
-    expect(screen.getByRole("link", { name: "ホーム" })).not.toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Hono Poc" })).not.toHaveAttribute(
       "data-status",
       "active",
     )
