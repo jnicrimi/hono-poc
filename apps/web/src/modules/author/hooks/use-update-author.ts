@@ -16,7 +16,7 @@ export const useUpdateAuthor = (authorId: string) => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
-  return useUpdateAuthorRequest<ApiError>({
+  return useUpdateAuthorRequest({
     mutation: {
       onSuccess: () => {
         toast.success(authorMessages.updated)

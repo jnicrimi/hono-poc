@@ -1,6 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
-import type { ApiError } from "@/shared/api/api-error"
 import {
   getListAuthorsQueryKey,
   getShowAuthorQueryKey,
@@ -12,7 +11,7 @@ import { authorMessages } from "../text/author-messages"
 export const useDeleteAuthor = () => {
   const queryClient = useQueryClient()
 
-  return useDeleteAuthorRequest<ApiError>({
+  return useDeleteAuthorRequest({
     mutation: {
       onSuccess: (_data, { id }) => {
         toast.success(authorMessages.deleted)

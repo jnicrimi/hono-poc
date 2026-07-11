@@ -36,6 +36,7 @@ import type {
 } from '../../models';
 
 import { customFetch } from '../../../fetch-mutator';
+import type { ErrorType } from '../../../fetch-mutator';
 
 type AwaitedInput<T> = PromiseLike<T> | T;
 
@@ -87,7 +88,7 @@ export const createBook = async (createBookBody: CreateBookBody, options?: Reque
 
 
 
-export const getCreateBookMutationOptions = <TError = ErrorResponse,
+export const getCreateBookMutationOptions = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createBook>>, TError,{data: CreateBookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof createBook>>, TError,{data: CreateBookBody}, TContext> => {
 
@@ -116,12 +117,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CreateBookMutationResult = NonNullable<Awaited<ReturnType<typeof createBook>>>
     export type CreateBookMutationBody = CreateBookBody
-    export type CreateBookMutationError = ErrorResponse
+    export type CreateBookMutationError = ErrorType<ErrorResponse>
 
     /**
  * @summary 書籍を作成
  */
-export const useCreateBook = <TError = ErrorResponse,
+export const useCreateBook = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createBook>>, TError,{data: CreateBookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof createBook>>,
@@ -171,7 +172,7 @@ export const getListBooksQueryKey = (params?: ListBooksParams,) => {
     }
 
 
-export const getListBooksQueryOptions = <TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorResponse>(params?: ListBooksParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListBooksQueryOptions = <TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(params?: ListBooksParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -190,10 +191,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListBooksQueryResult = NonNullable<Awaited<ReturnType<typeof listBooks>>>
-export type ListBooksQueryError = ErrorResponse
+export type ListBooksQueryError = ErrorType<ErrorResponse>
 
 
-export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorResponse>(
+export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params: undefined |  ListBooksParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listBooks>>,
@@ -203,7 +204,7 @@ export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TErr
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorResponse>(
+export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params?: ListBooksParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listBooks>>,
@@ -213,7 +214,7 @@ export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TErr
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorResponse>(
+export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params?: ListBooksParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -221,7 +222,7 @@ export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TErr
  * @summary 書籍一覧を取得
  */
 
-export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorResponse>(
+export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params?: ListBooksParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -238,7 +239,7 @@ export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TErr
 
 
 
-export const getListBooksSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorResponse>(params?: ListBooksParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListBooksSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(params?: ListBooksParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -257,18 +258,18 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListBooksSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof listBooks>>>
-export type ListBooksSuspenseQueryError = ErrorResponse
+export type ListBooksSuspenseQueryError = ErrorType<ErrorResponse>
 
 
-export function useListBooksSuspense<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorResponse>(
+export function useListBooksSuspense<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params: undefined |  ListBooksParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListBooksSuspense<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorResponse>(
+export function useListBooksSuspense<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params?: ListBooksParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListBooksSuspense<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorResponse>(
+export function useListBooksSuspense<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params?: ListBooksParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -276,7 +277,7 @@ export function useListBooksSuspense<TData = Awaited<ReturnType<typeof listBooks
  * @summary 書籍一覧を取得
  */
 
-export function useListBooksSuspense<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorResponse>(
+export function useListBooksSuspense<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params?: ListBooksParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -326,7 +327,7 @@ export const getShowBookQueryKey = (id: string,) => {
     }
 
 
-export const getShowBookQueryOptions = <TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getShowBookQueryOptions = <TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -345,10 +346,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ShowBookQueryResult = NonNullable<Awaited<ReturnType<typeof showBook>>>
-export type ShowBookQueryError = ErrorResponse
+export type ShowBookQueryError = ErrorType<ErrorResponse>
 
 
-export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorResponse>(
+export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof showBook>>,
@@ -358,7 +359,7 @@ export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorResponse>(
+export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof showBook>>,
@@ -368,7 +369,7 @@ export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorResponse>(
+export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -376,7 +377,7 @@ export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError
  * @summary 書籍を取得
  */
 
-export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorResponse>(
+export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -393,7 +394,7 @@ export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError
 
 
 
-export const getShowBookSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorResponse>(id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getShowBookSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -412,18 +413,18 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ShowBookSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof showBook>>>
-export type ShowBookSuspenseQueryError = ErrorResponse
+export type ShowBookSuspenseQueryError = ErrorType<ErrorResponse>
 
 
-export function useShowBookSuspense<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorResponse>(
+export function useShowBookSuspense<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useShowBookSuspense<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorResponse>(
+export function useShowBookSuspense<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useShowBookSuspense<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorResponse>(
+export function useShowBookSuspense<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -431,7 +432,7 @@ export function useShowBookSuspense<TData = Awaited<ReturnType<typeof showBook>>
  * @summary 書籍を取得
  */
 
-export function useShowBookSuspense<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorResponse>(
+export function useShowBookSuspense<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -475,7 +476,7 @@ export const updateBook = async (id: string,
 
 
 
-export const getUpdateBookMutationOptions = <TError = ErrorResponse,
+export const getUpdateBookMutationOptions = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateBook>>, TError,{id: string;data: UpdateBookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof updateBook>>, TError,{id: string;data: UpdateBookBody}, TContext> => {
 
@@ -504,12 +505,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type UpdateBookMutationResult = NonNullable<Awaited<ReturnType<typeof updateBook>>>
     export type UpdateBookMutationBody = UpdateBookBody
-    export type UpdateBookMutationError = ErrorResponse
+    export type UpdateBookMutationError = ErrorType<ErrorResponse>
 
     /**
  * @summary 書籍を更新
  */
-export const useUpdateBook = <TError = ErrorResponse,
+export const useUpdateBook = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateBook>>, TError,{id: string;data: UpdateBookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof updateBook>>,
@@ -545,7 +546,7 @@ export const deleteBook = async (id: string, options?: RequestInit): Promise<voi
 
 
 
-export const getDeleteBookMutationOptions = <TError = ErrorResponse,
+export const getDeleteBookMutationOptions = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteBook>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof deleteBook>>, TError,{id: string}, TContext> => {
 
@@ -574,12 +575,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type DeleteBookMutationResult = NonNullable<Awaited<ReturnType<typeof deleteBook>>>
 
-    export type DeleteBookMutationError = ErrorResponse
+    export type DeleteBookMutationError = ErrorType<ErrorResponse>
 
     /**
  * @summary 書籍を削除
  */
-export const useDeleteBook = <TError = ErrorResponse,
+export const useDeleteBook = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteBook>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof deleteBook>>,

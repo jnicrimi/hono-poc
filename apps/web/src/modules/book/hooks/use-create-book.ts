@@ -1,7 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "@tanstack/react-router"
 import { toast } from "sonner"
-import type { ApiError } from "@/shared/api/api-error"
 import {
   getListBooksQueryKey,
   useCreateBook as useCreateBookRequest,
@@ -13,7 +12,7 @@ export const useCreateBook = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
-  return useCreateBookRequest<ApiError>({
+  return useCreateBookRequest({
     mutation: {
       onSuccess: () => {
         toast.success(bookMessages.created)
