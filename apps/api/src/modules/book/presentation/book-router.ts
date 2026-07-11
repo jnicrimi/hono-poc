@@ -4,8 +4,8 @@ import type { ApiTag } from "../../../shared/openapi/api-tags"
 import { createOpenApiApp } from "../../../shared/openapi/create-openapi-app"
 import type { CreateBook } from "../application/create-book"
 import type { DeleteBook } from "../application/delete-book"
-import type { GetBookById } from "../application/get-book-by-id"
 import type { ListBooks } from "../application/list-books"
+import type { ShowBook } from "../application/show-book"
 import type { UpdateBook } from "../application/update-book"
 import { bookIdParamSchema } from "./book-id-param-schema"
 import {
@@ -20,7 +20,7 @@ import { updateBookSchema } from "./update-book-schema"
 type BookRouterDeps = {
   readonly createBook: CreateBook
   readonly listBooks: ListBooks
-  readonly getBookById: GetBookById
+  readonly showBook: ShowBook
   readonly updateBook: UpdateBook
   readonly deleteBook: DeleteBook
 }
@@ -154,7 +154,7 @@ export const createBookRouter = (deps: BookRouterDeps) => {
 
   router.openapi(getBookRoute, async (c) => {
     const { id } = c.req.valid("param")
-    const book = await deps.getBookById.execute({ id })
+    const book = await deps.showBook.execute({ id })
     return c.json(book, 200)
   })
 

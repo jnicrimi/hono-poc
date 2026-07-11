@@ -8,8 +8,8 @@ import type { AuthorExistenceReader } from "../../author/contract/application/au
 import type { BookReader } from "../application/book-reader"
 import { CreateBook } from "../application/create-book"
 import { DeleteBook } from "../application/delete-book"
-import { GetBookById } from "../application/get-book-by-id"
 import { ListBooks } from "../application/list-books"
+import { ShowBook } from "../application/show-book"
 import { UpdateBook } from "../application/update-book"
 import type { BookRepository } from "../domain/book-repository"
 import { createBookRouter } from "../presentation/book-router"
@@ -30,7 +30,7 @@ export const createBookTestApp = (deps: Deps) => {
   const router = createBookRouter({
     createBook: new CreateBook(uow),
     listBooks: new ListBooks(deps.reader),
-    getBookById: new GetBookById(deps.reader),
+    showBook: new ShowBook(deps.reader),
     updateBook: new UpdateBook(uow),
     deleteBook: new DeleteBook(deps.repository),
   })

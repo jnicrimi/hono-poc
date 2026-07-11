@@ -7,8 +7,8 @@ import { createLoggerStub } from "../../../shared/logger/test-support/logger-stu
 import type { AuthorReader } from "../application/author-reader"
 import { CreateAuthor } from "../application/create-author"
 import { DeleteAuthor } from "../application/delete-author"
-import { GetAuthorById } from "../application/get-author-by-id"
 import { ListAuthors } from "../application/list-authors"
+import { ShowAuthor } from "../application/show-author"
 import { UpdateAuthor } from "../application/update-author"
 import type { AuthorRepository } from "../domain/author-repository"
 import { createAuthorRouter } from "../presentation/author-router"
@@ -22,7 +22,7 @@ export const createAuthorTestApp = (deps: Deps) => {
   const router = createAuthorRouter({
     createAuthor: new CreateAuthor(deps.repository),
     listAuthors: new ListAuthors(deps.reader),
-    getAuthorById: new GetAuthorById(deps.reader),
+    showAuthor: new ShowAuthor(deps.reader),
     updateAuthor: new UpdateAuthor(deps.repository),
     deleteAuthor: new DeleteAuthor(deps.repository),
   })

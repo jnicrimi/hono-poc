@@ -1,8 +1,8 @@
 import type { OpenAPIHono } from "@hono/zod-openapi"
 import { CreateAuthor } from "../../modules/author/application/create-author"
 import { DeleteAuthor } from "../../modules/author/application/delete-author"
-import { GetAuthorById } from "../../modules/author/application/get-author-by-id"
 import { ListAuthors } from "../../modules/author/application/list-authors"
+import { ShowAuthor } from "../../modules/author/application/show-author"
 import { UpdateAuthor } from "../../modules/author/application/update-author"
 import { DrizzleAuthorReader } from "../../modules/author/infrastructure/drizzle-author-reader"
 import { DrizzleAuthorRepository } from "../../modules/author/infrastructure/drizzle-author-repository"
@@ -17,7 +17,7 @@ export const registerAuthorModule = (app: OpenAPIHono<AppEnv>, db: Db) => {
   const router = createAuthorRouter({
     createAuthor: new CreateAuthor(repository),
     listAuthors: new ListAuthors(reader),
-    getAuthorById: new GetAuthorById(reader),
+    showAuthor: new ShowAuthor(reader),
     updateAuthor: new UpdateAuthor(repository),
     deleteAuthor: new DeleteAuthor(repository),
   })
