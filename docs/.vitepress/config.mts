@@ -51,6 +51,13 @@ export default defineConfig({
           items: [
             { text: "初期設定", link: "/guide/setup" },
             { text: "環境構築", link: "/guide/environment" },
+            { text: "DB", link: "/guide/db" },
+            { text: "API クライアント", link: "/guide/api-client" },
+            { text: "静的解析", link: "/guide/checks" },
+            { text: "テスト", link: "/guide/test" },
+            { text: "VitePress", link: "/guide/dev-docs" },
+            { text: "Storybook", link: "/guide/storybook" },
+            { text: "Scalar", link: "/guide/scalar" },
           ],
         },
       ],

@@ -6,7 +6,7 @@
 cp .env.example .env
 ```
 
-## データベースの起動
+## DB の起動
 
 ```sh
 mise run db:up
@@ -24,7 +24,7 @@ mise run db:migrate
 mise run dev
 ```
 
-## ローカル環境をブラウザで表示
+## ブラウザで表示
 
 ```sh
 mise run view:app

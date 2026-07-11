@@ -3,7 +3,7 @@
 ## Homebrew
 
 ```sh
-brew install uv mise
+brew install mise uv jq
 ```
 
 ## Setup
