@@ -1,9 +1,7 @@
 ["vendor:scalar"]
-description = "Scalar standalone バンドルを取得・更新"
+description = "Scalar standalone バンドルを最新版に更新"
 run = """
 set -eu
-SCALAR_VERSION="1.62.4"
-curl -fsSL "https://cdn.jsdelivr.net/npm/@scalar/api-reference@${SCALAR_VERSION}/dist/browser/standalone.js" \
+curl -fsSL "https://cdn.jsdelivr.net/npm/@scalar/api-reference" \
   -o apps/api/vendor/scalar/standalone.js
-echo "Downloaded @scalar/api-reference@${SCALAR_VERSION}"
 """
