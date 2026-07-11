@@ -29,9 +29,3 @@ export const listBooksResponseSchema = z
     pagination: paginationMetaSchema,
   })
   .openapi("BookList", { description: "書籍一覧のレスポンス" })
-
-export const createBookResponseSchema = z
-  .object({
-    id: z.uuid().openapi({ description: "作成した書籍のID" }),
-  })
-  .openapi("CreateBookResult", { description: "書籍の作成結果" })

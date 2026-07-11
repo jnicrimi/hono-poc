@@ -16,19 +16,29 @@
   ],
   "components": {
     "schemas": {
-      "CreateAuthorResult": {
+      "Author": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "format": "uuid",
-            "description": "作成した著者のID"
+            "description": "著者ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "著者名"
+          },
+          "version": {
+            "type": "integer",
+            "description": "バージョン"
           }
         },
         "required": [
-          "id"
+          "id",
+          "name",
+          "version"
         ],
-        "description": "著者の作成結果"
+        "description": "著者"
       },
       "ErrorResponse": {
         "type": "object",
@@ -84,30 +94,6 @@
         ],
         "description": "著者一覧のレスポンス"
       },
-      "Author": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "description": "著者ID"
-          },
-          "name": {
-            "type": "string",
-            "description": "著者名"
-          },
-          "version": {
-            "type": "integer",
-            "description": "バージョン"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "version"
-        ],
-        "description": "著者"
-      },
       "PaginationMeta": {
         "type": "object",
         "properties": {
@@ -135,40 +121,6 @@
           "totalPages"
         ],
         "description": "ページネーションのメタ情報"
-      },
-      "CreateBookResult": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "description": "作成した書籍のID"
-          }
-        },
-        "required": [
-          "id"
-        ],
-        "description": "書籍の作成結果"
-      },
-      "BookList": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Book"
-            },
-            "description": "書籍の一覧"
-          },
-          "pagination": {
-            "$ref": "#/components/schemas/PaginationMeta"
-          }
-        },
-        "required": [
-          "items",
-          "pagination"
-        ],
-        "description": "書籍一覧のレスポンス"
       },
       "Book": {
         "type": "object",
@@ -220,6 +172,26 @@
           "name"
         ],
         "description": "著者の要約"
+      },
+      "BookList": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Book"
+            },
+            "description": "書籍の一覧"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          }
+        },
+        "required": [
+          "items",
+          "pagination"
+        ],
+        "description": "書籍一覧のレスポンス"
       }
     },
     "parameters": {}
@@ -258,7 +230,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateAuthorResult"
+                  "$ref": "#/components/schemas/Author"
                 }
               }
             }
@@ -585,7 +557,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateBookResult"
+                  "$ref": "#/components/schemas/Book"
                 }
               }
             }

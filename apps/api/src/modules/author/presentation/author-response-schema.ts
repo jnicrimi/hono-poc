@@ -18,9 +18,3 @@ export const listAuthorsResponseSchema = z
     pagination: paginationMetaSchema,
   })
   .openapi("AuthorList", { description: "著者一覧のレスポンス" })
-
-export const createAuthorResponseSchema = z
-  .object({
-    id: z.uuid().openapi({ description: "作成した著者のID" }),
-  })
-  .openapi("CreateAuthorResult", { description: "著者の作成結果" })

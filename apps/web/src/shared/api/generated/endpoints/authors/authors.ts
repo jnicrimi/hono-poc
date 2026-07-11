@@ -29,7 +29,6 @@ import type {
 import type {
   Author,
   AuthorList,
-  CreateAuthorResult,
   ErrorResponse,
   GetAuthorsParams,
   PatchAuthorsIdBody,
@@ -73,9 +72,9 @@ export const getPostAuthorsUrl = () => {
 /**
  * @summary 著者を作成
  */
-export const postAuthors = async (postAuthorsBody: PostAuthorsBody, options?: RequestInit): Promise<CreateAuthorResult> => {
+export const postAuthors = async (postAuthorsBody: PostAuthorsBody, options?: RequestInit): Promise<Author> => {
 
-  return customFetch<CreateAuthorResult>(getPostAuthorsUrl(),
+  return customFetch<Author>(getPostAuthorsUrl(),
   {
     ...options,
     method: 'POST',

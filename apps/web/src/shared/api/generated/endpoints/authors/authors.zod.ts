@@ -19,8 +19,10 @@ export const PostAuthorsBody = zod.object({
 })
 
 export const PostAuthorsResponse = zod.object({
-  "id": zod.uuid().describe('作成した著者のID')
-}).describe('著者の作成結果')
+  "id": zod.uuid().describe('著者ID'),
+  "name": zod.string().describe('著者名'),
+  "version": zod.number().describe('バージョン')
+}).describe('著者')
 
 /**
  * @summary 著者一覧を取得

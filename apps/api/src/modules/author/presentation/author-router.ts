@@ -10,7 +10,6 @@ import type { UpdateAuthor } from "../application/update-author"
 import { authorIdParamSchema } from "./author-id-param-schema"
 import {
   authorResponseSchema,
-  createAuthorResponseSchema,
   listAuthorsResponseSchema,
 } from "./author-response-schema"
 import { createAuthorSchema } from "./create-author-schema"
@@ -50,7 +49,7 @@ const createAuthorRoute = createRoute({
   },
   responses: {
     201: {
-      content: { "application/json": { schema: createAuthorResponseSchema } },
+      content: { "application/json": { schema: authorResponseSchema } },
       description: "作成した著者の情報",
     },
     422: jsonError("リクエストボディが不正"),

@@ -15,10 +15,10 @@ export const registerAuthorModule = (app: OpenAPIHono<AppEnv>, db: Db) => {
   const reader = new DrizzleAuthorReader(db)
 
   const router = createAuthorRouter({
-    createAuthor: new CreateAuthor(repository),
+    createAuthor: new CreateAuthor(repository, reader),
     listAuthors: new ListAuthors(reader),
     showAuthor: new ShowAuthor(reader),
-    updateAuthor: new UpdateAuthor(repository),
+    updateAuthor: new UpdateAuthor(repository, reader),
     deleteAuthor: new DeleteAuthor(repository),
   })
 

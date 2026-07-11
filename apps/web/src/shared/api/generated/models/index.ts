@@ -10,8 +10,6 @@ export * from './authorList';
 export * from './authorSummary';
 export * from './book';
 export * from './bookList';
-export * from './createAuthorResult';
-export * from './createBookResult';
 export * from './errorDetail';
 export * from './errorResponse';
 export * from './getAuthorsParams';

@@ -10,13 +10,19 @@ export type CreateBookCommand = {
 
 export type CreateBookResult = {
   readonly id: string
+  readonly title: string
+  readonly authors: readonly {
+    readonly id: string
+    readonly name: string
+  }[]
+  readonly version: number
 }
 
 export class CreateBook {
   constructor(private readonly uow: BookUnitOfWork) {}
 
   async execute(command: CreateBookCommand): Promise<CreateBookResult> {
-    return this.uow.run(async ({ repository, authorReader }) => {
+    return this.uow.run(async ({ repository, authorReader, reader }) => {
       const authorIds = await resolveAssignableAuthorIds(
         authorReader,
         command.authorIds,
@@ -26,7 +32,19 @@ export class CreateBook {
         authorIds,
       })
       await repository.insert(book)
-      return { id: book.id.value }
+      const created = await reader.findById(book.id)
+      if (!created) {
+        throw new Error(`作成後の書籍の取得に失敗しました: ${book.id.value}`)
+      }
+      return {
+        id: created.id,
+        title: created.title,
+        authors: created.authors.map((author) => ({
+          id: author.id,
+          name: author.name,
+        })),
+        version: created.version,
+      }
     })
   }
 }

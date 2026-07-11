@@ -29,7 +29,6 @@ import type {
 import type {
   Book,
   BookList,
-  CreateBookResult,
   ErrorResponse,
   GetBooksParams,
   PatchBooksIdBody,
@@ -73,9 +72,9 @@ export const getPostBooksUrl = () => {
 /**
  * @summary 書籍を作成
  */
-export const postBooks = async (postBooksBody: PostBooksBody, options?: RequestInit): Promise<CreateBookResult> => {
+export const postBooks = async (postBooksBody: PostBooksBody, options?: RequestInit): Promise<Book> => {
 
-  return customFetch<CreateBookResult>(getPostBooksUrl(),
+  return customFetch<Book>(getPostBooksUrl(),
   {
     ...options,
     method: 'POST',
