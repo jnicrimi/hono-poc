@@ -1,4 +1,4 @@
-import { useGetBooksSuspense } from "@/shared/api/generated/endpoints/books/books"
+import { useListBooksSuspense } from "@/shared/api/generated/endpoints/books/books"
 import { Card, CardContent } from "@/shared/ui/card"
 import {
   Table,
@@ -13,7 +13,7 @@ import { BookPagination } from "./book-pagination"
 import { BookRowActions } from "./book-row-actions"
 
 export function BookList({ page }: { readonly page: number }) {
-  const { data } = useGetBooksSuspense({ page })
+  const { data } = useListBooksSuspense({ page })
 
   if (data.items.length === 0) {
     return (

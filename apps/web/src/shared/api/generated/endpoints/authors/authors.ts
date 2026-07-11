@@ -29,10 +29,10 @@ import type {
 import type {
   Author,
   AuthorList,
+  CreateAuthorBody,
   ErrorResponse,
-  GetAuthorsParams,
-  PatchAuthorsIdBody,
-  PostAuthorsBody
+  ListAuthorsParams,
+  UpdateAuthorBody
 } from '../../models';
 
 import { customFetch } from '../../../fetch-mutator';
@@ -61,7 +61,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   return result;
 };
 
-export const getPostAuthorsUrl = () => {
+export const getCreateAuthorUrl = () => {
 
 
 
@@ -72,14 +72,14 @@ export const getPostAuthorsUrl = () => {
 /**
  * @summary 著者を作成
  */
-export const postAuthors = async (postAuthorsBody: PostAuthorsBody, options?: RequestInit): Promise<Author> => {
+export const createAuthor = async (createAuthorBody: CreateAuthorBody, options?: RequestInit): Promise<Author> => {
 
-  return customFetch<Author>(getPostAuthorsUrl(),
+  return customFetch<Author>(getCreateAuthorUrl(),
   {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(postAuthorsBody)
+    body: JSON.stringify(createAuthorBody)
   }
 );}
 
@@ -87,11 +87,11 @@ export const postAuthors = async (postAuthorsBody: PostAuthorsBody, options?: Re
 
 
 
-export const getPostAuthorsMutationOptions = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postAuthors>>, TError,{data: PostAuthorsBody}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof postAuthors>>, TError,{data: PostAuthorsBody}, TContext> => {
+export const getCreateAuthorMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createAuthor>>, TError,{data: CreateAuthorBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createAuthor>>, TError,{data: CreateAuthorBody}, TContext> => {
 
-const mutationKey = ['postAuthors'];
+const mutationKey = ['createAuthor'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -101,10 +101,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof postAuthors>>, {data: PostAuthorsBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createAuthor>>, {data: CreateAuthorBody}> = (props) => {
           const {data} = props ?? {};
 
-          return  postAuthors(data,requestOptions)
+          return  createAuthor(data,requestOptions)
         }
 
 
@@ -114,24 +114,24 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PostAuthorsMutationResult = NonNullable<Awaited<ReturnType<typeof postAuthors>>>
-    export type PostAuthorsMutationBody = PostAuthorsBody
-    export type PostAuthorsMutationError = ErrorResponse
+    export type CreateAuthorMutationResult = NonNullable<Awaited<ReturnType<typeof createAuthor>>>
+    export type CreateAuthorMutationBody = CreateAuthorBody
+    export type CreateAuthorMutationError = ErrorResponse
 
     /**
  * @summary 著者を作成
  */
-export const usePostAuthors = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postAuthors>>, TError,{data: PostAuthorsBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+export const useCreateAuthor = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createAuthor>>, TError,{data: CreateAuthorBody}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof postAuthors>>,
+        Awaited<ReturnType<typeof createAuthor>>,
         TError,
-        {data: PostAuthorsBody},
+        {data: CreateAuthorBody},
         TContext
       > => {
-      return useMutation(getPostAuthorsMutationOptions(options), queryClient);
+      return useMutation(getCreateAuthorMutationOptions(options), queryClient);
     }
-    export const getGetAuthorsUrl = (params?: GetAuthorsParams,) => {
+    export const getListAuthorsUrl = (params?: ListAuthorsParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -149,9 +149,9 @@ export const usePostAuthors = <TError = ErrorResponse,
 /**
  * @summary 著者一覧を取得
  */
-export const getAuthors = async (params?: GetAuthorsParams, options?: RequestInit): Promise<AuthorList> => {
+export const listAuthors = async (params?: ListAuthorsParams, options?: RequestInit): Promise<AuthorList> => {
 
-  return customFetch<AuthorList>(getGetAuthorsUrl(params),
+  return customFetch<AuthorList>(getListAuthorsUrl(params),
   {
     ...options,
     method: 'GET'
@@ -164,69 +164,69 @@ export const getAuthors = async (params?: GetAuthorsParams, options?: RequestIni
 
 
 
-export const getGetAuthorsQueryKey = (params?: GetAuthorsParams,) => {
+export const getListAuthorsQueryKey = (params?: ListAuthorsParams,) => {
     return [
     `/authors`, ...(params ? [params] : [])
     ] as const;
     }
 
 
-export const getGetAuthorsQueryOptions = <TData = Awaited<ReturnType<typeof getAuthors>>, TError = ErrorResponse>(params?: GetAuthorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListAuthorsQueryOptions = <TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorResponse>(params?: ListAuthorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetAuthorsQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getListAuthorsQueryKey(params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAuthors>>> = ({ signal }) => getAuthors(params, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listAuthors>>> = ({ signal }) => listAuthors(params, { signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAuthors>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetAuthorsQueryResult = NonNullable<Awaited<ReturnType<typeof getAuthors>>>
-export type GetAuthorsQueryError = ErrorResponse
+export type ListAuthorsQueryResult = NonNullable<Awaited<ReturnType<typeof listAuthors>>>
+export type ListAuthorsQueryError = ErrorResponse
 
 
-export function useGetAuthors<TData = Awaited<ReturnType<typeof getAuthors>>, TError = ErrorResponse>(
- params: undefined |  GetAuthorsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthors>>, TError, TData>> & Pick<
+export function useListAuthors<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorResponse>(
+ params: undefined |  ListAuthorsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getAuthors>>,
+          Awaited<ReturnType<typeof listAuthors>>,
           TError,
-          Awaited<ReturnType<typeof getAuthors>>
+          Awaited<ReturnType<typeof listAuthors>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAuthors<TData = Awaited<ReturnType<typeof getAuthors>>, TError = ErrorResponse>(
- params?: GetAuthorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthors>>, TError, TData>> & Pick<
+export function useListAuthors<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorResponse>(
+ params?: ListAuthorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getAuthors>>,
+          Awaited<ReturnType<typeof listAuthors>>,
           TError,
-          Awaited<ReturnType<typeof getAuthors>>
+          Awaited<ReturnType<typeof listAuthors>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAuthors<TData = Awaited<ReturnType<typeof getAuthors>>, TError = ErrorResponse>(
- params?: GetAuthorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useListAuthors<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorResponse>(
+ params?: ListAuthorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary 著者一覧を取得
  */
 
-export function useGetAuthors<TData = Awaited<ReturnType<typeof getAuthors>>, TError = ErrorResponse>(
- params?: GetAuthorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useListAuthors<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorResponse>(
+ params?: ListAuthorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetAuthorsQueryOptions(params,options)
+  const queryOptions = getListAuthorsQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -238,50 +238,50 @@ export function useGetAuthors<TData = Awaited<ReturnType<typeof getAuthors>>, TE
 
 
 
-export const getGetAuthorsSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getAuthors>>, TError = ErrorResponse>(params?: GetAuthorsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getListAuthorsSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorResponse>(params?: ListAuthorsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetAuthorsQueryKey(params);
+  const queryKey =  queryOptions?.queryKey ?? getListAuthorsQueryKey(params);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAuthors>>> = ({ signal }) => getAuthors(params, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listAuthors>>> = ({ signal }) => listAuthors(params, { signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAuthors>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetAuthorsSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getAuthors>>>
-export type GetAuthorsSuspenseQueryError = ErrorResponse
+export type ListAuthorsSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof listAuthors>>>
+export type ListAuthorsSuspenseQueryError = ErrorResponse
 
 
-export function useGetAuthorsSuspense<TData = Awaited<ReturnType<typeof getAuthors>>, TError = ErrorResponse>(
- params: undefined |  GetAuthorsParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useListAuthorsSuspense<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorResponse>(
+ params: undefined |  ListAuthorsParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAuthorsSuspense<TData = Awaited<ReturnType<typeof getAuthors>>, TError = ErrorResponse>(
- params?: GetAuthorsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useListAuthorsSuspense<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorResponse>(
+ params?: ListAuthorsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAuthorsSuspense<TData = Awaited<ReturnType<typeof getAuthors>>, TError = ErrorResponse>(
- params?: GetAuthorsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useListAuthorsSuspense<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorResponse>(
+ params?: ListAuthorsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary 著者一覧を取得
  */
 
-export function useGetAuthorsSuspense<TData = Awaited<ReturnType<typeof getAuthors>>, TError = ErrorResponse>(
- params?: GetAuthorsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useListAuthorsSuspense<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorResponse>(
+ params?: ListAuthorsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetAuthorsSuspenseQueryOptions(params,options)
+  const queryOptions = getListAuthorsSuspenseQueryOptions(params,options)
 
   const query = useSuspenseQuery(queryOptions, queryClient) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -293,7 +293,7 @@ export function useGetAuthorsSuspense<TData = Awaited<ReturnType<typeof getAutho
 
 
 
-export const getGetAuthorsIdUrl = (id: string,) => {
+export const getShowAuthorUrl = (id: string,) => {
 
 
 
@@ -304,9 +304,9 @@ export const getGetAuthorsIdUrl = (id: string,) => {
 /**
  * @summary 著者を取得
  */
-export const getAuthorsId = async (id: string, options?: RequestInit): Promise<Author> => {
+export const showAuthor = async (id: string, options?: RequestInit): Promise<Author> => {
 
-  return customFetch<Author>(getGetAuthorsIdUrl(id),
+  return customFetch<Author>(getShowAuthorUrl(id),
   {
     ...options,
     method: 'GET'
@@ -319,69 +319,69 @@ export const getAuthorsId = async (id: string, options?: RequestInit): Promise<A
 
 
 
-export const getGetAuthorsIdQueryKey = (id: string,) => {
+export const getShowAuthorQueryKey = (id: string,) => {
     return [
     `/authors/${id}`
     ] as const;
     }
 
 
-export const getGetAuthorsIdQueryOptions = <TData = Awaited<ReturnType<typeof getAuthorsId>>, TError = ErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthorsId>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getShowAuthorQueryOptions = <TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorResponse>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetAuthorsIdQueryKey(id);
+  const queryKey =  queryOptions?.queryKey ?? getShowAuthorQueryKey(id);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAuthorsId>>> = ({ signal }) => getAuthorsId(id, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof showAuthor>>> = ({ signal }) => showAuthor(id, { signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAuthorsId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetAuthorsIdQueryResult = NonNullable<Awaited<ReturnType<typeof getAuthorsId>>>
-export type GetAuthorsIdQueryError = ErrorResponse
+export type ShowAuthorQueryResult = NonNullable<Awaited<ReturnType<typeof showAuthor>>>
+export type ShowAuthorQueryError = ErrorResponse
 
 
-export function useGetAuthorsId<TData = Awaited<ReturnType<typeof getAuthorsId>>, TError = ErrorResponse>(
- id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthorsId>>, TError, TData>> & Pick<
+export function useShowAuthor<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorResponse>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getAuthorsId>>,
+          Awaited<ReturnType<typeof showAuthor>>,
           TError,
-          Awaited<ReturnType<typeof getAuthorsId>>
+          Awaited<ReturnType<typeof showAuthor>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAuthorsId<TData = Awaited<ReturnType<typeof getAuthorsId>>, TError = ErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthorsId>>, TError, TData>> & Pick<
+export function useShowAuthor<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorResponse>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getAuthorsId>>,
+          Awaited<ReturnType<typeof showAuthor>>,
           TError,
-          Awaited<ReturnType<typeof getAuthorsId>>
+          Awaited<ReturnType<typeof showAuthor>>
         > , 'initialData'
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAuthorsId<TData = Awaited<ReturnType<typeof getAuthorsId>>, TError = ErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthorsId>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useShowAuthor<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorResponse>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary 著者を取得
  */
 
-export function useGetAuthorsId<TData = Awaited<ReturnType<typeof getAuthorsId>>, TError = ErrorResponse>(
- id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAuthorsId>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useShowAuthor<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorResponse>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetAuthorsIdQueryOptions(id,options)
+  const queryOptions = getShowAuthorQueryOptions(id,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -393,50 +393,50 @@ export function useGetAuthorsId<TData = Awaited<ReturnType<typeof getAuthorsId>>
 
 
 
-export const getGetAuthorsIdSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getAuthorsId>>, TError = ErrorResponse>(id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAuthorsId>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export const getShowAuthorSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorResponse>(id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetAuthorsIdQueryKey(id);
+  const queryKey =  queryOptions?.queryKey ?? getShowAuthorQueryKey(id);
 
 
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAuthorsId>>> = ({ signal }) => getAuthorsId(id, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof showAuthor>>> = ({ signal }) => showAuthor(id, { signal, ...requestOptions });
 
 
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAuthorsId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
 }
 
-export type GetAuthorsIdSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getAuthorsId>>>
-export type GetAuthorsIdSuspenseQueryError = ErrorResponse
+export type ShowAuthorSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof showAuthor>>>
+export type ShowAuthorSuspenseQueryError = ErrorResponse
 
 
-export function useGetAuthorsIdSuspense<TData = Awaited<ReturnType<typeof getAuthorsId>>, TError = ErrorResponse>(
- id: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAuthorsId>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useShowAuthorSuspense<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorResponse>(
+ id: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAuthorsIdSuspense<TData = Awaited<ReturnType<typeof getAuthorsId>>, TError = ErrorResponse>(
- id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAuthorsId>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useShowAuthorSuspense<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorResponse>(
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAuthorsIdSuspense<TData = Awaited<ReturnType<typeof getAuthorsId>>, TError = ErrorResponse>(
- id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAuthorsId>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useShowAuthorSuspense<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorResponse>(
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
  * @summary 著者を取得
  */
 
-export function useGetAuthorsIdSuspense<TData = Awaited<ReturnType<typeof getAuthorsId>>, TError = ErrorResponse>(
- id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAuthorsId>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+export function useShowAuthorSuspense<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorResponse>(
+ id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getGetAuthorsIdSuspenseQueryOptions(id,options)
+  const queryOptions = getShowAuthorSuspenseQueryOptions(id,options)
 
   const query = useSuspenseQuery(queryOptions, queryClient) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
@@ -448,7 +448,7 @@ export function useGetAuthorsIdSuspense<TData = Awaited<ReturnType<typeof getAut
 
 
 
-export const getPatchAuthorsIdUrl = (id: string,) => {
+export const getUpdateAuthorUrl = (id: string,) => {
 
 
 
@@ -459,15 +459,15 @@ export const getPatchAuthorsIdUrl = (id: string,) => {
 /**
  * @summary 著者を更新
  */
-export const patchAuthorsId = async (id: string,
-    patchAuthorsIdBody: PatchAuthorsIdBody, options?: RequestInit): Promise<Author> => {
+export const updateAuthor = async (id: string,
+    updateAuthorBody: UpdateAuthorBody, options?: RequestInit): Promise<Author> => {
 
-  return customFetch<Author>(getPatchAuthorsIdUrl(id),
+  return customFetch<Author>(getUpdateAuthorUrl(id),
   {
     ...options,
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(patchAuthorsIdBody)
+    body: JSON.stringify(updateAuthorBody)
   }
 );}
 
@@ -475,11 +475,11 @@ export const patchAuthorsId = async (id: string,
 
 
 
-export const getPatchAuthorsIdMutationOptions = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchAuthorsId>>, TError,{id: string;data: PatchAuthorsIdBody}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof patchAuthorsId>>, TError,{id: string;data: PatchAuthorsIdBody}, TContext> => {
+export const getUpdateAuthorMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateAuthor>>, TError,{id: string;data: UpdateAuthorBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateAuthor>>, TError,{id: string;data: UpdateAuthorBody}, TContext> => {
 
-const mutationKey = ['patchAuthorsId'];
+const mutationKey = ['updateAuthor'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -489,10 +489,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof patchAuthorsId>>, {id: string;data: PatchAuthorsIdBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateAuthor>>, {id: string;data: UpdateAuthorBody}> = (props) => {
           const {id,data} = props ?? {};
 
-          return  patchAuthorsId(id,data,requestOptions)
+          return  updateAuthor(id,data,requestOptions)
         }
 
 
@@ -502,24 +502,24 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type PatchAuthorsIdMutationResult = NonNullable<Awaited<ReturnType<typeof patchAuthorsId>>>
-    export type PatchAuthorsIdMutationBody = PatchAuthorsIdBody
-    export type PatchAuthorsIdMutationError = ErrorResponse
+    export type UpdateAuthorMutationResult = NonNullable<Awaited<ReturnType<typeof updateAuthor>>>
+    export type UpdateAuthorMutationBody = UpdateAuthorBody
+    export type UpdateAuthorMutationError = ErrorResponse
 
     /**
  * @summary 著者を更新
  */
-export const usePatchAuthorsId = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof patchAuthorsId>>, TError,{id: string;data: PatchAuthorsIdBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+export const useUpdateAuthor = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateAuthor>>, TError,{id: string;data: UpdateAuthorBody}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof patchAuthorsId>>,
+        Awaited<ReturnType<typeof updateAuthor>>,
         TError,
-        {id: string;data: PatchAuthorsIdBody},
+        {id: string;data: UpdateAuthorBody},
         TContext
       > => {
-      return useMutation(getPatchAuthorsIdMutationOptions(options), queryClient);
+      return useMutation(getUpdateAuthorMutationOptions(options), queryClient);
     }
-    export const getDeleteAuthorsIdUrl = (id: string,) => {
+    export const getDeleteAuthorUrl = (id: string,) => {
 
 
 
@@ -530,9 +530,9 @@ export const usePatchAuthorsId = <TError = ErrorResponse,
 /**
  * @summary 著者を削除
  */
-export const deleteAuthorsId = async (id: string, options?: RequestInit): Promise<void> => {
+export const deleteAuthor = async (id: string, options?: RequestInit): Promise<void> => {
 
-  return customFetch<void>(getDeleteAuthorsIdUrl(id),
+  return customFetch<void>(getDeleteAuthorUrl(id),
   {
     ...options,
     method: 'DELETE'
@@ -545,11 +545,11 @@ export const deleteAuthorsId = async (id: string, options?: RequestInit): Promis
 
 
 
-export const getDeleteAuthorsIdMutationOptions = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAuthorsId>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteAuthorsId>>, TError,{id: string}, TContext> => {
+export const getDeleteAuthorMutationOptions = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAuthor>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteAuthor>>, TError,{id: string}, TContext> => {
 
-const mutationKey = ['deleteAuthorsId'];
+const mutationKey = ['deleteAuthor'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -559,10 +559,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteAuthorsId>>, {id: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteAuthor>>, {id: string}> = (props) => {
           const {id} = props ?? {};
 
-          return  deleteAuthorsId(id,requestOptions)
+          return  deleteAuthor(id,requestOptions)
         }
 
 
@@ -572,20 +572,20 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type DeleteAuthorsIdMutationResult = NonNullable<Awaited<ReturnType<typeof deleteAuthorsId>>>
+    export type DeleteAuthorMutationResult = NonNullable<Awaited<ReturnType<typeof deleteAuthor>>>
 
-    export type DeleteAuthorsIdMutationError = ErrorResponse
+    export type DeleteAuthorMutationError = ErrorResponse
 
     /**
  * @summary 著者を削除
  */
-export const useDeleteAuthorsId = <TError = ErrorResponse,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAuthorsId>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+export const useDeleteAuthor = <TError = ErrorResponse,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAuthor>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof deleteAuthorsId>>,
+        Awaited<ReturnType<typeof deleteAuthor>>,
         TError,
         {id: string},
         TContext
       > => {
-      return useMutation(getDeleteAuthorsIdMutationOptions(options), queryClient);
+      return useMutation(getDeleteAuthorMutationOptions(options), queryClient);
     }

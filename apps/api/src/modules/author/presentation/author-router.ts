@@ -38,6 +38,7 @@ const tags = [authorApiTag.name]
 
 const createAuthorRoute = createRoute({
   tags,
+  operationId: "createAuthor",
   summary: "著者を作成",
   method: "post",
   path: "/",
@@ -58,6 +59,7 @@ const createAuthorRoute = createRoute({
 
 const listAuthorsRoute = createRoute({
   tags,
+  operationId: "listAuthors",
   summary: "著者一覧を取得",
   method: "get",
   path: "/",
@@ -75,6 +77,7 @@ const listAuthorsRoute = createRoute({
 
 const getAuthorRoute = createRoute({
   tags,
+  operationId: "showAuthor",
   summary: "著者を取得",
   method: "get",
   path: "/{id}",
@@ -93,6 +96,7 @@ const getAuthorRoute = createRoute({
 
 const updateAuthorRoute = createRoute({
   tags,
+  operationId: "updateAuthor",
   summary: "著者を更新",
   method: "patch",
   path: "/{id}",
@@ -117,6 +121,7 @@ const updateAuthorRoute = createRoute({
 
 const deleteAuthorRoute = createRoute({
   tags,
+  operationId: "deleteAuthor",
   summary: "著者を削除",
   method: "delete",
   path: "/{id}",

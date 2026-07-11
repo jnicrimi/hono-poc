@@ -1,4 +1,4 @@
-import { useGetAuthorsSuspense } from "@/shared/api/generated/endpoints/authors/authors"
+import { useListAuthorsSuspense } from "@/shared/api/generated/endpoints/authors/authors"
 import { Card, CardContent } from "@/shared/ui/card"
 import {
   Table,
@@ -13,7 +13,7 @@ import { AuthorPagination } from "./author-pagination"
 import { AuthorRowActions } from "./author-row-actions"
 
 export function AuthorList({ page }: { readonly page: number }) {
-  const { data } = useGetAuthorsSuspense({ page })
+  const { data } = useListAuthorsSuspense({ page })
 
   if (data.items.length === 0) {
     return (

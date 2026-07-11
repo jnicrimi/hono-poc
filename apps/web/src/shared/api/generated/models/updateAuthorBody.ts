@@ -5,11 +5,16 @@
  * OpenAPI spec version: 0.0.0
  */
 
-export type PostAuthorsBody = {
+export type UpdateAuthorBody = {
   /**
      * 著者名
      * @minLength 1
      * @maxLength 100
      */
   name: string;
+  /**
+     * バージョン
+     * @minimum 0
+     */
+  version: number;
 };

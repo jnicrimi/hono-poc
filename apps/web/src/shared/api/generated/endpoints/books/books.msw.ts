@@ -22,64 +22,64 @@ import type {
 } from '../../models';
 
 
-export const getPostBooksResponseMock = (overrideResponse: Partial<Extract<Book, object>> = {}): Book => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int(), ...overrideResponse})
+export const getCreateBookResponseMock = (overrideResponse: Partial<Extract<Book, object>> = {}): Book => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int(), ...overrideResponse})
 
-export const getGetBooksResponseMock = (overrideResponse: Partial<Extract<BookList, object>> = {}): BookList => ({items: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int()})), pagination: {page: faker.number.int(), perPage: faker.number.int(), total: faker.number.int(), totalPages: faker.number.int()}, ...overrideResponse})
+export const getListBooksResponseMock = (overrideResponse: Partial<Extract<BookList, object>> = {}): BookList => ({items: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int()})), pagination: {page: faker.number.int(), perPage: faker.number.int(), total: faker.number.int(), totalPages: faker.number.int()}, ...overrideResponse})
 
-export const getGetBooksIdResponseMock = (overrideResponse: Partial<Extract<Book, object>> = {}): Book => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int(), ...overrideResponse})
+export const getShowBookResponseMock = (overrideResponse: Partial<Extract<Book, object>> = {}): Book => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int(), ...overrideResponse})
 
-export const getPatchBooksIdResponseMock = (overrideResponse: Partial<Extract<Book, object>> = {}): Book => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int(), ...overrideResponse})
+export const getUpdateBookResponseMock = (overrideResponse: Partial<Extract<Book, object>> = {}): Book => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int(), ...overrideResponse})
 
 
-export const getPostBooksMockHandler = (overrideResponse?: Book | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
+export const getCreateBookMockHandler = (overrideResponse?: Book | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
   return http.post('*/books', async (info: Parameters<Parameters<typeof http.post>[1]>[0]) => {
 
 
     return HttpResponse.json(overrideResponse !== undefined
     ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse)
-    : getPostBooksResponseMock(),
+    : getCreateBookResponseMock(),
       { status: 201
       })
   }, options)
 }
 
-export const getGetBooksMockHandler = (overrideResponse?: BookList | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<BookList> | BookList), options?: RequestHandlerOptions) => {
+export const getListBooksMockHandler = (overrideResponse?: BookList | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<BookList> | BookList), options?: RequestHandlerOptions) => {
   return http.get('*/books', async (info: Parameters<Parameters<typeof http.get>[1]>[0]) => {
 
 
     return HttpResponse.json(overrideResponse !== undefined
     ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse)
-    : getGetBooksResponseMock(),
+    : getListBooksResponseMock(),
       { status: 200
       })
   }, options)
 }
 
-export const getGetBooksIdMockHandler = (overrideResponse?: Book | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
+export const getShowBookMockHandler = (overrideResponse?: Book | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
   return http.get('*/books/:id', async (info: Parameters<Parameters<typeof http.get>[1]>[0]) => {
 
 
     return HttpResponse.json(overrideResponse !== undefined
     ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse)
-    : getGetBooksIdResponseMock(),
+    : getShowBookResponseMock(),
       { status: 200
       })
   }, options)
 }
 
-export const getPatchBooksIdMockHandler = (overrideResponse?: Book | ((info: Parameters<Parameters<typeof http.patch>[1]>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
+export const getUpdateBookMockHandler = (overrideResponse?: Book | ((info: Parameters<Parameters<typeof http.patch>[1]>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
   return http.patch('*/books/:id', async (info: Parameters<Parameters<typeof http.patch>[1]>[0]) => {
 
 
     return HttpResponse.json(overrideResponse !== undefined
     ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse)
-    : getPatchBooksIdResponseMock(),
+    : getUpdateBookResponseMock(),
       { status: 200
       })
   }, options)
 }
 
-export const getDeleteBooksIdMockHandler = (overrideResponse?: void | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<void> | void), options?: RequestHandlerOptions) => {
+export const getDeleteBookMockHandler = (overrideResponse?: void | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<void> | void), options?: RequestHandlerOptions) => {
   return http.delete('*/books/:id', async (info: Parameters<Parameters<typeof http.delete>[1]>[0]) => {
   if (typeof overrideResponse === 'function') {await overrideResponse(info); }
 
@@ -89,9 +89,9 @@ export const getDeleteBooksIdMockHandler = (overrideResponse?: void | ((info: Pa
   }, options)
 }
 export const getBooksMock = () => [
-  getPostBooksMockHandler(),
-  getGetBooksMockHandler(),
-  getGetBooksIdMockHandler(),
-  getPatchBooksIdMockHandler(),
-  getDeleteBooksIdMockHandler()
+  getCreateBookMockHandler(),
+  getListBooksMockHandler(),
+  getShowBookMockHandler(),
+  getUpdateBookMockHandler(),
+  getDeleteBookMockHandler()
 ]

@@ -5,7 +5,7 @@
  * OpenAPI spec version: 0.0.0
  */
 
-export type GetAuthorsParams = {
+export type ListAuthorsParams = {
 /**
  * ページ番号
  * @minimum 1

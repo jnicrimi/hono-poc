@@ -10,18 +10,18 @@ import * as zod from 'zod';
 /**
  * @summary 書籍を作成
  */
-export const postBooksBodyTitleMax = 200;
+export const createBookBodyTitleMax = 200;
 
-export const postBooksBodyAuthorIdsMax = 10;
+export const createBookBodyAuthorIdsMax = 10;
 
 
 
-export const PostBooksBody = zod.object({
-  "title": zod.string().min(1).max(postBooksBodyTitleMax).describe('書籍タイトル'),
-  "authorIds": zod.array(zod.uuid()).min(1).max(postBooksBodyAuthorIdsMax).describe('著者IDの一覧')
+export const CreateBookBody = zod.object({
+  "title": zod.string().min(1).max(createBookBodyTitleMax).describe('書籍タイトル'),
+  "authorIds": zod.array(zod.uuid()).min(1).max(createBookBodyAuthorIdsMax).describe('著者IDの一覧')
 })
 
-export const PostBooksResponse = zod.object({
+export const CreateBookResponse = zod.object({
   "id": zod.uuid().describe('書籍ID'),
   "title": zod.string().describe('書籍タイトル'),
   "authors": zod.array(zod.object({
@@ -34,19 +34,19 @@ export const PostBooksResponse = zod.object({
 /**
  * @summary 書籍一覧を取得
  */
-export const getBooksQueryPageDefault = 1;
+export const listBooksQueryPageDefault = 1;
 
-export const getBooksQueryPerPageDefault = 10;
-export const getBooksQueryPerPageMax = 100;
+export const listBooksQueryPerPageDefault = 10;
+export const listBooksQueryPerPageMax = 100;
 
 
 
-export const GetBooksQueryParams = zod.object({
-  "page": zod.number().min(1).default(getBooksQueryPageDefault).describe('ページ番号'),
-  "perPage": zod.number().min(1).max(getBooksQueryPerPageMax).default(getBooksQueryPerPageDefault).describe('1 ページあたりの件数')
+export const ListBooksQueryParams = zod.object({
+  "page": zod.number().min(1).default(listBooksQueryPageDefault).describe('ページ番号'),
+  "perPage": zod.number().min(1).max(listBooksQueryPerPageMax).default(listBooksQueryPerPageDefault).describe('1 ページあたりの件数')
 })
 
-export const GetBooksResponse = zod.object({
+export const ListBooksResponse = zod.object({
   "items": zod.array(zod.object({
   "id": zod.uuid().describe('書籍ID'),
   "title": zod.string().describe('書籍タイトル'),
@@ -67,11 +67,11 @@ export const GetBooksResponse = zod.object({
 /**
  * @summary 書籍を取得
  */
-export const GetBooksIdParams = zod.object({
+export const ShowBookParams = zod.object({
   "id": zod.uuid().describe('書籍ID')
 })
 
-export const GetBooksIdResponse = zod.object({
+export const ShowBookResponse = zod.object({
   "id": zod.uuid().describe('書籍ID'),
   "title": zod.string().describe('書籍タイトル'),
   "authors": zod.array(zod.object({
@@ -84,25 +84,25 @@ export const GetBooksIdResponse = zod.object({
 /**
  * @summary 書籍を更新
  */
-export const PatchBooksIdParams = zod.object({
+export const UpdateBookParams = zod.object({
   "id": zod.uuid().describe('書籍ID')
 })
 
-export const patchBooksIdBodyTitleMax = 200;
+export const updateBookBodyTitleMax = 200;
 
-export const patchBooksIdBodyAuthorIdsMax = 10;
+export const updateBookBodyAuthorIdsMax = 10;
 
-export const patchBooksIdBodyVersionMin = 0;
+export const updateBookBodyVersionMin = 0;
 
 
 
-export const PatchBooksIdBody = zod.object({
-  "title": zod.string().min(1).max(patchBooksIdBodyTitleMax).describe('書籍タイトル'),
-  "authorIds": zod.array(zod.uuid()).min(1).max(patchBooksIdBodyAuthorIdsMax).describe('著者IDの一覧'),
-  "version": zod.number().min(patchBooksIdBodyVersionMin).describe('バージョン')
+export const UpdateBookBody = zod.object({
+  "title": zod.string().min(1).max(updateBookBodyTitleMax).describe('書籍タイトル'),
+  "authorIds": zod.array(zod.uuid()).min(1).max(updateBookBodyAuthorIdsMax).describe('著者IDの一覧'),
+  "version": zod.number().min(updateBookBodyVersionMin).describe('バージョン')
 })
 
-export const PatchBooksIdResponse = zod.object({
+export const UpdateBookResponse = zod.object({
   "id": zod.uuid().describe('書籍ID'),
   "title": zod.string().describe('書籍タイトル'),
   "authors": zod.array(zod.object({
@@ -115,9 +115,9 @@ export const PatchBooksIdResponse = zod.object({
 /**
  * @summary 書籍を削除
  */
-export const DeleteBooksIdParams = zod.object({
+export const DeleteBookParams = zod.object({
   "id": zod.uuid().describe('書籍ID')
 })
 
-export const DeleteBooksIdResponse = zod.void()
+export const DeleteBookResponse = zod.void()
 

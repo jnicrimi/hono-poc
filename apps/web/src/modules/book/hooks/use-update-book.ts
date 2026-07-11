@@ -3,9 +3,9 @@ import { useNavigate } from "@tanstack/react-router"
 import { toast } from "sonner"
 import { ApiError } from "@/shared/api/api-error"
 import {
-  getGetBooksIdQueryKey,
-  getGetBooksQueryKey,
-  usePatchBooksId,
+  getListBooksQueryKey,
+  getShowBookQueryKey,
+  useUpdateBook as useUpdateBookRequest,
 } from "@/shared/api/generated/endpoints/books/books"
 import { getApiErrorMessage } from "@/shared/api/get-api-error-message"
 import { feedbackMessages } from "@/shared/text/feedback-messages"
@@ -15,15 +15,15 @@ export const useUpdateBook = (bookId: string) => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
-  return usePatchBooksId<ApiError>({
+  return useUpdateBookRequest<ApiError>({
     mutation: {
       onSuccess: () => {
         toast.success(bookMessages.updated)
         void queryClient.invalidateQueries({
-          queryKey: getGetBooksIdQueryKey(bookId),
+          queryKey: getShowBookQueryKey(bookId),
         })
         void queryClient.invalidateQueries({
-          queryKey: getGetBooksQueryKey(),
+          queryKey: getListBooksQueryKey(),
         })
         void navigate({ to: "/books", search: true })
       },

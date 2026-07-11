@@ -1,9 +1,9 @@
-import { useGetAuthorsSuspense } from "@/shared/api/generated/endpoints/authors/authors"
-import { getAuthorsQueryPerPageMax } from "@/shared/api/generated/endpoints/authors/authors.zod"
+import { useListAuthorsSuspense } from "@/shared/api/generated/endpoints/authors/authors"
+import { listAuthorsQueryPerPageMax } from "@/shared/api/generated/endpoints/authors/authors.zod"
 
 export const useAuthorOptions = () => {
-  const { data } = useGetAuthorsSuspense({
-    perPage: getAuthorsQueryPerPageMax,
+  const { data } = useListAuthorsSuspense({
+    perPage: listAuthorsQueryPerPageMax,
   })
   return data.items
 }

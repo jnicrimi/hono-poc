@@ -3,11 +3,11 @@ import { useNavigate } from "@tanstack/react-router"
 import { toast } from "sonner"
 import { ApiError } from "@/shared/api/api-error"
 import {
-  getGetAuthorsIdQueryKey,
-  getGetAuthorsQueryKey,
-  usePatchAuthorsId,
+  getListAuthorsQueryKey,
+  getShowAuthorQueryKey,
+  useUpdateAuthor as useUpdateAuthorRequest,
 } from "@/shared/api/generated/endpoints/authors/authors"
-import { getGetBooksQueryKey } from "@/shared/api/generated/endpoints/books/books"
+import { getListBooksQueryKey } from "@/shared/api/generated/endpoints/books/books"
 import { getApiErrorMessage } from "@/shared/api/get-api-error-message"
 import { feedbackMessages } from "@/shared/text/feedback-messages"
 import { authorMessages } from "../text/author-messages"
@@ -16,18 +16,18 @@ export const useUpdateAuthor = (authorId: string) => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
-  return usePatchAuthorsId<ApiError>({
+  return useUpdateAuthorRequest<ApiError>({
     mutation: {
       onSuccess: () => {
         toast.success(authorMessages.updated)
         void queryClient.invalidateQueries({
-          queryKey: getGetAuthorsIdQueryKey(authorId),
+          queryKey: getShowAuthorQueryKey(authorId),
         })
         void queryClient.invalidateQueries({
-          queryKey: getGetAuthorsQueryKey(),
+          queryKey: getListAuthorsQueryKey(),
         })
         void queryClient.invalidateQueries({
-          queryKey: getGetBooksQueryKey(),
+          queryKey: getListBooksQueryKey(),
         })
         void navigate({ to: "/authors", search: true })
       },

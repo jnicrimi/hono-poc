@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { patchAuthorsIdBodyNameMax } from "@/shared/api/generated/endpoints/authors/authors.zod"
+import { updateAuthorBodyNameMax } from "@/shared/api/generated/endpoints/authors/authors.zod"
 import type { Author } from "@/shared/api/generated/models"
 import { FieldError } from "@/shared/components/field-error"
 import { uiLabels } from "@/shared/text/ui-labels"
@@ -18,11 +18,8 @@ const formSchema = z.object({
     .trim()
     .min(1, validationMessages.required(authorLabels.name))
     .max(
-      patchAuthorsIdBodyNameMax,
-      validationMessages.maxLength(
-        authorLabels.name,
-        patchAuthorsIdBodyNameMax,
-      ),
+      updateAuthorBodyNameMax,
+      validationMessages.maxLength(authorLabels.name, updateAuthorBodyNameMax),
     ),
 })
 
