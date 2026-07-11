@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router"
+import { cn } from "@/shared/lib/utils"
 import { buttonVariants } from "@/shared/ui/button"
 import {
   Pagination,
@@ -28,10 +29,12 @@ export function BookPagination({
               to="/books"
               search={{ page: target }}
               aria-current={target === page ? "page" : undefined}
-              className={buttonVariants({
-                variant: target === page ? "default" : "ghost",
-                size: "icon",
-              })}
+              className={cn(
+                buttonVariants({
+                  variant: target === page ? "default" : "ghost",
+                  size: "icon",
+                }),
+              )}
             >
               {target}
             </Link>

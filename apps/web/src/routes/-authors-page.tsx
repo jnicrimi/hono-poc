@@ -2,6 +2,7 @@ import { getRouteApi, Link, Outlet } from "@tanstack/react-router"
 import { User } from "lucide-react"
 import { AuthorList } from "@/modules/author/components/author-list"
 import { PageTitle } from "@/shared/components/page-title"
+import { cn } from "@/shared/lib/utils"
 import { uiLabels } from "@/shared/text/ui-labels"
 import { buttonVariants } from "@/shared/ui/button"
 
@@ -15,7 +16,11 @@ export function AuthorsPage() {
       <PageTitle
         icon={User}
         action={
-          <Link to="/authors/new" search={true} className={buttonVariants()}>
+          <Link
+            to="/authors/new"
+            search={true}
+            className={cn(buttonVariants())}
+          >
             {uiLabels.create}
           </Link>
         }
