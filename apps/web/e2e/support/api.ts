@@ -1,7 +1,12 @@
 import type { APIRequestContext } from "@playwright/test"
+import { listAuthorsQueryPerPageDefault } from "../../src/shared/api/generated/endpoints/authors/authors.zod"
+import { listBooksQueryPerPageDefault } from "../../src/shared/api/generated/endpoints/books/books.zod"
 import { apiUrl } from "./servers"
 
-const listPerPage = 10
+const listPerPage = {
+  authors: listAuthorsQueryPerPageDefault,
+  books: listBooksQueryPerPageDefault,
+} as const
 
 type ListItem = { readonly id: string }
 type ListResponse = {
@@ -122,7 +127,7 @@ export const resolveListPage = async (
   if (index === -1) {
     throw new Error(`${resource} not found in list: ${id}`)
   }
-  return Math.floor(index / listPerPage) + 1
+  return Math.floor(index / listPerPage[resource]) + 1
 }
 
 const fetchAllItems = async (

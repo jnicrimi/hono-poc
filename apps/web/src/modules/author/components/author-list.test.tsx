@@ -8,7 +8,6 @@ import { server } from "@/shared/test-support/msw-server"
 import { renderWithRouter } from "@/shared/test-support/render-with-router"
 import { AuthorList } from "./author-list"
 
-const editRouteStub = { path: "/authors/$authorId", component: () => null }
 const listRouteStub = { path: "/authors", component: () => null }
 
 const buildAuthorItem = (name: string) => ({
@@ -36,7 +35,7 @@ describe("AuthorList", () => {
     )
 
     renderWithRouter(<AuthorList page={1} />, {
-      routes: [editRouteStub, listRouteStub],
+      routes: [listRouteStub],
     })
 
     expect(await screen.findByText("著者-1")).toBeInTheDocument()
@@ -54,7 +53,7 @@ describe("AuthorList", () => {
     )
 
     renderWithRouter(<AuthorList page={1} />, {
-      routes: [editRouteStub, listRouteStub],
+      routes: [listRouteStub],
     })
 
     expect(
@@ -73,7 +72,7 @@ describe("AuthorList", () => {
     )
 
     renderWithRouter(<AuthorList page={99} />, {
-      routes: [editRouteStub, listRouteStub],
+      routes: [listRouteStub],
     })
 
     expect(await screen.findByText("著者が存在しません")).toBeInTheDocument()
@@ -90,7 +89,7 @@ describe("AuthorList", () => {
     )
 
     renderWithRouter(<AuthorList page={1} />, {
-      routes: [editRouteStub, listRouteStub],
+      routes: [listRouteStub],
     })
 
     const pageTwo = await screen.findByRole("link", { name: "2" })

@@ -1,7 +1,7 @@
-import { screen } from "@testing-library/react"
+import { screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { HttpResponse, http } from "msw"
-import { Toaster, toast } from "sonner"
+import { toast } from "sonner"
 import { describe, expect, it, vi } from "vitest"
 import {
   getListAuthorsMockHandler,
@@ -147,6 +147,7 @@ describe("BookEditForm", () => {
 
   it("version が競合した場合は競合トーストを表示し入力を保持する", async () => {
     const user = userEvent.setup()
+    const errorSpy = vi.spyOn(toast, "error").mockReturnValue("")
     stubAuthorOptions()
     server.use(
       http.patch("*/books/:id", () =>
@@ -157,29 +158,22 @@ describe("BookEditForm", () => {
       ),
     )
 
-    renderWithRouter(
-      <>
-        <BookEditForm book={book} />
-        <Toaster />
-      </>,
-      {
-        routes: [{ path: "/books", component: () => null }],
-      },
-    )
+    renderEditForm()
 
     const input = await screen.findByRole("textbox", { name: "書籍タイトル" })
     await user.clear(input)
     await user.type(input, "書籍-2")
     await user.click(screen.getByRole("button", { name: "更新" }))
 
-    expect(
-      await screen.findByText(feedbackMessages.conflictReload),
-    ).toBeInTheDocument()
+    await waitFor(() => {
+      expect(errorSpy).toHaveBeenCalledWith(feedbackMessages.conflictReload)
+    })
     expect(input).toHaveValue("書籍-2")
   })
 
   it("409 以外のエラーはトーストを表示し入力を保持する", async () => {
     const user = userEvent.setup()
+    const errorSpy = vi.spyOn(toast, "error").mockReturnValue("")
     stubAuthorOptions()
     server.use(
       http.patch("*/books/:id", () =>
@@ -190,25 +184,17 @@ describe("BookEditForm", () => {
       ),
     )
 
-    renderWithRouter(
-      <>
-        <BookEditForm book={book} />
-        <Toaster />
-      </>,
-      {
-        routes: [{ path: "/books", component: () => null }],
-      },
-    )
+    renderEditForm()
 
     const input = await screen.findByRole("textbox", { name: "書籍タイトル" })
     await user.clear(input)
     await user.type(input, "書籍-2")
     await user.click(screen.getByRole("button", { name: "更新" }))
 
-    expect(await screen.findByText("サーバーエラーです")).toBeInTheDocument()
-    expect(
-      screen.queryByText(feedbackMessages.conflictReload),
-    ).not.toBeInTheDocument()
+    await waitFor(() => {
+      expect(errorSpy).toHaveBeenCalledWith("サーバーエラーです")
+    })
+    expect(errorSpy).not.toHaveBeenCalledWith(feedbackMessages.conflictReload)
     expect(input).toHaveValue("書籍-2")
   })
 })
