@@ -11,7 +11,7 @@ export class ShowAuthor {
   async execute(query: ShowAuthorQuery): Promise<ShowAuthorResult> {
     const author = await this.reader.findById(AuthorId.restore(query.id))
     if (!author) {
-      throw new AuthorNotFoundError(query.id)
+      throw new AuthorNotFoundError()
     }
     return author
   }

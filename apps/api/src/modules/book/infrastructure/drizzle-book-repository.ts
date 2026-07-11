@@ -3,6 +3,7 @@ import type { Db } from "../../../shared/db/client"
 import { OptimisticLockError } from "../../../shared/error/optimistic-lock-error"
 import { AuthorId } from "../../author/domain/author-id"
 import { Book } from "../domain/book"
+import { bookEntityLabel } from "../domain/book-entity-label"
 import { BookId } from "../domain/book-id"
 import type { BookRepository } from "../domain/book-repository"
 import { BookTitle } from "../domain/book-title"
@@ -68,7 +69,7 @@ export class DrizzleBookRepository implements BookRepository {
       .returning({ version: books.version })
     const row = updated[0]
     if (!row) {
-      throw new OptimisticLockError("book", book.id.value)
+      throw new OptimisticLockError(bookEntityLabel)
     }
     await this.db
       .delete(bookAuthors)

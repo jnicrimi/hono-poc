@@ -10,9 +10,8 @@ export const resolveAssignableAuthorIds = async (
   const existing = new Set(
     (await reader.findExistingIds(authorIds)).map((id) => id.value),
   )
-  const missing = authorIds.filter((id) => !existing.has(id.value))
-  if (missing.length > 0) {
-    throw new AuthorsNotAssignableError(missing.map((id) => id.value))
+  if (authorIds.some((id) => !existing.has(id.value))) {
+    throw new AuthorsNotAssignableError()
   }
   return authorIds
 }

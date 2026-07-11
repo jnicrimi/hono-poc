@@ -2,6 +2,7 @@ import { and, eq, sql } from "drizzle-orm"
 import type { Db } from "../../../shared/db/client"
 import { OptimisticLockError } from "../../../shared/error/optimistic-lock-error"
 import { Author } from "../domain/author"
+import { authorEntityLabel } from "../domain/author-entity-label"
 import { AuthorId } from "../domain/author-id"
 import { AuthorInUseError } from "../domain/author-in-use-error"
 import { AuthorName } from "../domain/author-name"
@@ -72,7 +73,7 @@ export class DrizzleAuthorRepository implements AuthorRepository {
       .returning({ version: authors.version })
     const row = updated[0]
     if (!row) {
-      throw new OptimisticLockError("author", author.id.value)
+      throw new OptimisticLockError(authorEntityLabel)
     }
     return Author.reconstruct({ ...author, version: row.version })
   }
@@ -82,7 +83,8 @@ export class DrizzleAuthorRepository implements AuthorRepository {
       await this.db.delete(authors).where(eq(authors.id, id.value))
     } catch (error) {
       if (isRestrictViolation(error)) {
-        throw new AuthorInUseError(id.value, { cause: error })
+        // biome-ignore lint/style/useErrorCause: cause is passed via the constructor's first argument
+        throw new AuthorInUseError({ cause: error })
       }
       throw error
     }

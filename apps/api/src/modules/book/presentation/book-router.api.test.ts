@@ -7,6 +7,7 @@ import {
 } from "../../../shared/test-support/uuid-test-data"
 import { createAuthorExistenceReaderStub } from "../../author/contract/test-support/author-existence-reader-stub"
 import { BOOK_MAX_AUTHOR_IDS } from "../domain/book"
+import { bookEntityLabel } from "../domain/book-entity-label"
 import { buildBook } from "../test-support/book-builder"
 import { createBookReaderStub } from "../test-support/book-reader-stub"
 import { createBookRepositoryStub } from "../test-support/book-repository-stub"
@@ -323,7 +324,7 @@ describe("PATCH /books/{id}", () => {
       findById: vi.fn().mockResolvedValue(buildBook({ id: VALID_UUID_V7 })),
       update: vi
         .fn()
-        .mockRejectedValue(new OptimisticLockError("book", VALID_UUID_V7)),
+        .mockRejectedValue(new OptimisticLockError(bookEntityLabel)),
     })
     const app = createTestApp({ repository })
     const res = await app.request(

@@ -13,7 +13,7 @@ export class DeleteBook {
     const bookId = BookId.restore(command.id)
     const existing = await this.repository.findById(bookId)
     if (!existing) {
-      throw new BookNotFoundError(command.id)
+      throw new BookNotFoundError()
     }
     await this.repository.delete(bookId)
   }

@@ -5,6 +5,7 @@ import {
   UPPERCASE_UUID_V7,
   VALID_UUID_V7,
 } from "../../../shared/test-support/uuid-test-data"
+import { authorEntityLabel } from "../domain/author-entity-label"
 import { AuthorInUseError } from "../domain/author-in-use-error"
 import { buildAuthor } from "../test-support/author-builder"
 import { createAuthorReaderStub } from "../test-support/author-reader-stub"
@@ -217,7 +218,7 @@ describe("PATCH /authors/{id}", () => {
       findById: vi.fn().mockResolvedValue(buildAuthor({ id: VALID_UUID_V7 })),
       update: vi
         .fn()
-        .mockRejectedValue(new OptimisticLockError("author", VALID_UUID_V7)),
+        .mockRejectedValue(new OptimisticLockError(authorEntityLabel)),
     })
     const app = createAuthorTestApp({
       repository,
@@ -287,7 +288,7 @@ describe("DELETE /authors/{id}", () => {
   it("書籍に割り当てられている場合は 409 とエラーレスポンスを返す", async () => {
     const repository = createAuthorRepositoryStub({
       findById: vi.fn().mockResolvedValue(buildAuthor({ id: VALID_UUID_V7 })),
-      delete: vi.fn().mockRejectedValue(new AuthorInUseError(VALID_UUID_V7)),
+      delete: vi.fn().mockRejectedValue(new AuthorInUseError()),
     })
     const app = createAuthorTestApp({
       repository,

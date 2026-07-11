@@ -11,7 +11,7 @@ export class ShowBook {
   async execute(query: ShowBookQuery): Promise<ShowBookResult> {
     const book = await this.reader.findById(BookId.restore(query.id))
     if (!book) {
-      throw new BookNotFoundError(query.id)
+      throw new BookNotFoundError()
     }
     return book
   }

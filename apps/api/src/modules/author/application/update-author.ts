@@ -27,7 +27,7 @@ export class UpdateAuthor {
       AuthorId.restore(command.id),
     )
     if (!existing) {
-      throw new AuthorNotFoundError(command.id)
+      throw new AuthorNotFoundError()
     }
     const name = AuthorName.from(command.name)
     const saved = await this.repository.update(

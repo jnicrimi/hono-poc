@@ -28,7 +28,7 @@ export class UpdateBook {
     return this.uow.run(async ({ repository, authorReader, reader }) => {
       const existing = await repository.findById(BookId.restore(command.id))
       if (!existing) {
-        throw new BookNotFoundError(command.id)
+        throw new BookNotFoundError()
       }
       const authorIds = await resolveAssignableAuthorIds(
         authorReader,
