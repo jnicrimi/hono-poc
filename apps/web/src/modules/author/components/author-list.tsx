@@ -1,4 +1,5 @@
 import { useListAuthorsSuspense } from "@/shared/api/generated/endpoints/authors/authors"
+import { ListPagination } from "@/shared/components/list-pagination"
 import { Card, CardContent } from "@/shared/ui/card"
 import {
   Table,
@@ -9,7 +10,6 @@ import {
   TableRow,
 } from "@/shared/ui/table"
 import { authorLabels } from "../text/author-labels"
-import { AuthorPagination } from "./author-pagination"
 import { AuthorRowActions } from "./author-row-actions"
 
 export function AuthorList({ page }: { readonly page: number }) {
@@ -48,7 +48,8 @@ export function AuthorList({ page }: { readonly page: number }) {
             ))}
           </TableBody>
         </Table>
-        <AuthorPagination
+        <ListPagination
+          to="/authors"
           page={data.pagination.page}
           totalPages={data.pagination.totalPages}
         />
