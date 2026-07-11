@@ -7,8 +7,8 @@
 
 export * from './author';
 export * from './authorList';
+export * from './authorSummary';
 export * from './book';
-export * from './bookAuthorsItem';
 export * from './bookList';
 export * from './createAuthorResult';
 export * from './createBookResult';
@@ -21,4 +21,3 @@ export * from './patchAuthorsIdBody';
 export * from './patchBooksIdBody';
 export * from './postAuthorsBody';
 export * from './postBooksBody';
-export * from './updateBookResult';

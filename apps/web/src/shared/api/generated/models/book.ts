@@ -4,7 +4,7 @@
  * Hono Poc API
  * OpenAPI spec version: 0.0.0
  */
-import type { BookAuthorsItem } from './bookAuthorsItem';
+import type { AuthorSummary } from './authorSummary';
 
 /**
  * 書籍
@@ -15,7 +15,7 @@ export interface Book {
   /** 書籍タイトル */
   title: string;
   /** 著者の一覧 */
-  authors: BookAuthorsItem[];
+  authors: AuthorSummary[];
   /** バージョン */
   version: number;
 }

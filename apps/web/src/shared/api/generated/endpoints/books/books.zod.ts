@@ -47,7 +47,7 @@ export const GetBooksResponse = zod.object({
   "authors": zod.array(zod.object({
   "id": zod.uuid().describe('著者ID'),
   "name": zod.string().describe('著者名')
-})).describe('著者の一覧'),
+}).describe('著者の要約')).describe('著者の一覧'),
   "version": zod.number().describe('バージョン')
 }).describe('書籍')).describe('書籍の一覧'),
   "pagination": zod.object({
@@ -71,7 +71,7 @@ export const GetBooksIdResponse = zod.object({
   "authors": zod.array(zod.object({
   "id": zod.uuid().describe('著者ID'),
   "name": zod.string().describe('著者名')
-})).describe('著者の一覧'),
+}).describe('著者の要約')).describe('著者の一覧'),
   "version": zod.number().describe('バージョン')
 }).describe('書籍')
 
@@ -99,9 +99,12 @@ export const PatchBooksIdBody = zod.object({
 export const PatchBooksIdResponse = zod.object({
   "id": zod.uuid().describe('書籍ID'),
   "title": zod.string().describe('書籍タイトル'),
-  "authorIds": zod.array(zod.uuid()).describe('著者IDの一覧'),
+  "authors": zod.array(zod.object({
+  "id": zod.uuid().describe('著者ID'),
+  "name": zod.string().describe('著者名')
+}).describe('著者の要約')).describe('著者の一覧'),
   "version": zod.number().describe('バージョン')
-}).describe('書籍の更新結果')
+}).describe('書籍')
 
 /**
  * @summary 書籍を削除

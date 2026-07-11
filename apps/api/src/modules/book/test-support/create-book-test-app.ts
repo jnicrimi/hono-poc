@@ -25,6 +25,7 @@ export const createBookTestApp = (deps: Deps) => {
   const uow = createBookUnitOfWorkStub({
     repository: deps.repository,
     authorReader: deps.authorReader,
+    reader: deps.reader,
   })
   const router = createBookRouter({
     createBook: new CreateBook(uow),

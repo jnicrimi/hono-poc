@@ -242,7 +242,15 @@ describe("PATCH /books/{id}", () => {
         }),
       ),
     })
-    const app = createTestApp({ repository })
+    const reader = createBookReaderStub({
+      findById: vi.fn().mockResolvedValue({
+        id: VALID_UUID_V7,
+        title: "更新後の書籍タイトル",
+        authors: [{ id: VALID_UUID_V7, name: "著者名" }],
+        version: 1,
+      }),
+    })
+    const app = createTestApp({ repository, reader })
     const res = await app.request(
       `/books/${VALID_UUID_V7}`,
       jsonRequest("PATCH", {
@@ -255,7 +263,7 @@ describe("PATCH /books/{id}", () => {
     expect(await res.json()).toEqual({
       id: VALID_UUID_V7,
       title: "更新後の書籍タイトル",
-      authorIds: [VALID_UUID_V7],
+      authors: [{ id: VALID_UUID_V7, name: "著者名" }],
       version: 1,
     })
   })
