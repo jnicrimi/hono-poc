@@ -11,9 +11,15 @@ import {
 import type { AppLogger } from "../logger/logger"
 import { registerRequestLogging } from "../logger/register-request-logging"
 import { createOpenApiApp } from "../openapi/create-openapi-app"
+import { buildOpenApiDocConfig } from "../openapi/openapi-doc-config"
 import { registerOpenApiDocs } from "../openapi/register-openapi-docs"
 import { registerAuthorModule } from "./register-author-module"
 import { registerBookModule } from "./register-book-module"
+
+export const openApiDocConfig = buildOpenApiDocConfig([
+  authorApiTag,
+  bookApiTag,
+])
 
 export const createApp = (
   db: Db,
@@ -35,7 +41,7 @@ export const createApp = (
   registerBookModule(app, db)
   registerOpenApiDocs(app, {
     enabled: options.enableApiDocs,
-    tags: [authorApiTag, bookApiTag],
+    config: openApiDocConfig,
   })
 
   return app

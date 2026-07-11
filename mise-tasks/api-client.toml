@@ -1,3 +1,6 @@
 ["api-client:generate"]
 description = "API クライアントを生成"
-run = "pnpm --filter @hono-poc/web api:generate"
+run = [
+  "pnpm --filter @hono-poc/api openapi:generate",
+  "pnpm --filter @hono-poc/web api:generate",
+]

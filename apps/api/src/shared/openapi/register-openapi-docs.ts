@@ -2,21 +2,17 @@ import { readFileSync } from "node:fs"
 import type { OpenAPIHono } from "@hono/zod-openapi"
 import { Scalar } from "@scalar/hono-api-reference"
 import type { AppEnv } from "../app-env"
-import type { ApiTag } from "./api-tags"
+import type { OpenApiDocConfig } from "./openapi-doc-config"
 
 export const registerOpenApiDocs = (
   app: OpenAPIHono<AppEnv>,
-  options: { readonly enabled: boolean; readonly tags: readonly ApiTag[] },
+  options: { readonly enabled: boolean; readonly config: OpenApiDocConfig },
 ) => {
   if (!options.enabled) {
     return
   }
 
-  app.doc("/api-docs/json", {
-    openapi: "3.1.0",
-    info: { title: "Hono Poc API", version: "0.0.0" },
-    tags: [...options.tags],
-  })
+  app.doc("/api-docs/json", options.config)
 
   const js = readFileSync(
     new URL("../../../vendor/scalar/standalone.js", import.meta.url),
