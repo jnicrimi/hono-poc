@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router"
+import { Pencil, Trash2 } from "lucide-react"
 import { useState } from "react"
 import type { Book } from "@/shared/api/generated/models"
+import { cn } from "@/shared/lib/utils"
 import { uiLabels } from "@/shared/text/ui-labels"
 import {
   AlertDialog,
@@ -26,16 +28,18 @@ export function BookRowActions({ book }: { readonly book: Book }) {
         to="/books/$bookId"
         params={{ bookId: book.id }}
         search={true}
-        className={buttonVariants({ variant: "outline", size: "sm" })}
+        className={cn(buttonVariants({ variant: "outline", size: "icon-sm" }))}
       >
-        {uiLabels.edit}
+        <Pencil />
+        <span className="sr-only">{uiLabels.edit}</span>
       </Link>
       <Button
         variant="destructive"
-        size="sm"
+        size="icon-sm"
         onClick={() => setConfirmOpen(true)}
       >
-        {uiLabels.delete}
+        <Trash2 />
+        <span className="sr-only">{uiLabels.delete}</span>
       </Button>
       <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <AlertDialogContent>
