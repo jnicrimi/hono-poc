@@ -83,9 +83,6 @@ export class DrizzleBookRepository implements BookRepository {
   }
 
   private async insertBookAuthors(book: Book): Promise<void> {
-    if (book.authorIds.length === 0) {
-      return
-    }
     await this.db.insert(bookAuthors).values(
       book.authorIds.map((authorId) => ({
         bookId: book.id.value,
