@@ -5,9 +5,12 @@
  * OpenAPI spec version: 0.0.0
  */
 
-export type BookAuthorsItem = {
+/**
+ * 著者の要約
+ */
+export interface AuthorSummary {
   /** 著者ID */
   id: string;
   /** 著者名 */
   name: string;
-};
+}

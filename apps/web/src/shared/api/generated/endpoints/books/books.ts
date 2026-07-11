@@ -33,8 +33,7 @@ import type {
   ErrorResponse,
   GetBooksParams,
   PatchBooksIdBody,
-  PostBooksBody,
-  UpdateBookResult
+  PostBooksBody
 } from '../../models';
 
 import { customFetch } from '../../../fetch-mutator';
@@ -462,9 +461,9 @@ export const getPatchBooksIdUrl = (id: string,) => {
  * @summary 書籍を更新
  */
 export const patchBooksId = async (id: string,
-    patchBooksIdBody: PatchBooksIdBody, options?: RequestInit): Promise<UpdateBookResult> => {
+    patchBooksIdBody: PatchBooksIdBody, options?: RequestInit): Promise<Book> => {
 
-  return customFetch<UpdateBookResult>(getPatchBooksIdUrl(id),
+  return customFetch<Book>(getPatchBooksIdUrl(id),
   {
     ...options,
     method: 'PATCH',

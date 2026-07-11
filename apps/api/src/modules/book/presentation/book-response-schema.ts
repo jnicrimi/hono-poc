@@ -1,17 +1,19 @@
 import { z } from "@hono/zod-openapi"
 import { paginationMetaSchema } from "../../../shared/pagination/pagination-meta-schema"
 
+const authorSummarySchema = z
+  .object({
+    id: z.uuid().openapi({ description: "著者ID" }),
+    name: z.string().openapi({ description: "著者名" }),
+  })
+  .openapi("AuthorSummary", { description: "著者の要約" })
+
 export const bookResponseSchema = z
   .object({
     id: z.uuid().openapi({ description: "書籍ID" }),
     title: z.string().openapi({ description: "書籍タイトル" }),
     authors: z
-      .array(
-        z.object({
-          id: z.uuid().openapi({ description: "著者ID" }),
-          name: z.string().openapi({ description: "著者名" }),
-        }),
-      )
+      .array(authorSummarySchema)
       .readonly()
       .openapi({ description: "著者の一覧" }),
     version: z.number().int().openapi({ description: "バージョン" }),
@@ -33,15 +35,3 @@ export const createBookResponseSchema = z
     id: z.uuid().openapi({ description: "作成した書籍のID" }),
   })
   .openapi("CreateBookResult", { description: "書籍の作成結果" })
-
-export const updateBookResponseSchema = z
-  .object({
-    id: z.uuid().openapi({ description: "書籍ID" }),
-    title: z.string().openapi({ description: "書籍タイトル" }),
-    authorIds: z
-      .array(z.uuid())
-      .readonly()
-      .openapi({ description: "著者IDの一覧" }),
-    version: z.number().int().openapi({ description: "バージョン" }),
-  })
-  .openapi("UpdateBookResult", { description: "書籍の更新結果" })

@@ -19,8 +19,7 @@ import type {
 import type {
   Book,
   BookList,
-  CreateBookResult,
-  UpdateBookResult
+  CreateBookResult
 } from '../../models';
 
 
@@ -30,7 +29,7 @@ export const getGetBooksResponseMock = (overrideResponse: Partial<Extract<BookLi
 
 export const getGetBooksIdResponseMock = (overrideResponse: Partial<Extract<Book, object>> = {}): Book => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int(), ...overrideResponse})
 
-export const getPatchBooksIdResponseMock = (overrideResponse: Partial<Extract<UpdateBookResult, object>> = {}): UpdateBookResult => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authorIds: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => (faker.string.uuid())), version: faker.number.int(), ...overrideResponse})
+export const getPatchBooksIdResponseMock = (overrideResponse: Partial<Extract<Book, object>> = {}): Book => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int(), ...overrideResponse})
 
 
 export const getPostBooksMockHandler = (overrideResponse?: CreateBookResult | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<CreateBookResult> | CreateBookResult), options?: RequestHandlerOptions) => {
@@ -69,7 +68,7 @@ export const getGetBooksIdMockHandler = (overrideResponse?: Book | ((info: Param
   }, options)
 }
 
-export const getPatchBooksIdMockHandler = (overrideResponse?: UpdateBookResult | ((info: Parameters<Parameters<typeof http.patch>[1]>[0]) => Promise<UpdateBookResult> | UpdateBookResult), options?: RequestHandlerOptions) => {
+export const getPatchBooksIdMockHandler = (overrideResponse?: Book | ((info: Parameters<Parameters<typeof http.patch>[1]>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
   return http.patch('*/books/:id', async (info: Parameters<Parameters<typeof http.patch>[1]>[0]) => {
 
 

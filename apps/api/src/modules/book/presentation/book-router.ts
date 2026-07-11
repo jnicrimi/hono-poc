@@ -12,7 +12,6 @@ import {
   bookResponseSchema,
   createBookResponseSchema,
   listBooksResponseSchema,
-  updateBookResponseSchema,
 } from "./book-response-schema"
 import { createBookSchema } from "./create-book-schema"
 import { listBooksQuerySchema } from "./list-books-query-schema"
@@ -108,7 +107,7 @@ const updateBookRoute = createRoute({
   },
   responses: {
     200: {
-      content: { "application/json": { schema: updateBookResponseSchema } },
+      content: { "application/json": { schema: bookResponseSchema } },
       description: "更新後の書籍の情報",
     },
     400: jsonError("パスパラメータが不正、または著者が存在しない"),

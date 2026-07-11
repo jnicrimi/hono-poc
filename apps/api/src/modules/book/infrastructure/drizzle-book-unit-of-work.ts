@@ -1,6 +1,7 @@
 import type { Db } from "../../../shared/db/client"
 import type { AuthorExistenceReader } from "../../author/contract/application/author-existence-reader"
 import type { BookUnitOfWork, BookWork } from "../application/book-unit-of-work"
+import { DrizzleBookReader } from "./drizzle-book-reader"
 import { DrizzleBookRepository } from "./drizzle-book-repository"
 
 export class DrizzleBookUnitOfWork implements BookUnitOfWork {
@@ -14,6 +15,7 @@ export class DrizzleBookUnitOfWork implements BookUnitOfWork {
       work({
         repository: new DrizzleBookRepository(tx),
         authorReader: this.authorReaderOf(tx),
+        reader: new DrizzleBookReader(tx),
       }),
     )
   }
