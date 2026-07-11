@@ -8,7 +8,8 @@
       "entry": ["docs/.vitepress/config.mts"]
     },
     "apps/api": {
-      "ignoreDependencies": ["pino-pretty"]
+      "ignoreDependencies": ["pino-pretty"],
+      "ignore": ["vendor/**"]
     },
     "apps/web": {
       "entry": [
