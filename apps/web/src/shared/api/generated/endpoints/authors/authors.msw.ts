@@ -18,12 +18,11 @@ import type {
 
 import type {
   Author,
-  AuthorList,
-  CreateAuthorResult
+  AuthorList
 } from '../../models';
 
 
-export const getPostAuthorsResponseMock = (overrideResponse: Partial<Extract<CreateAuthorResult, object>> = {}): CreateAuthorResult => ({id: faker.string.uuid(), ...overrideResponse})
+export const getPostAuthorsResponseMock = (overrideResponse: Partial<Extract<Author, object>> = {}): Author => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}}), version: faker.number.int(), ...overrideResponse})
 
 export const getGetAuthorsResponseMock = (overrideResponse: Partial<Extract<AuthorList, object>> = {}): AuthorList => ({items: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}}), version: faker.number.int()})), pagination: {page: faker.number.int(), perPage: faker.number.int(), total: faker.number.int(), totalPages: faker.number.int()}, ...overrideResponse})
 
@@ -32,7 +31,7 @@ export const getGetAuthorsIdResponseMock = (overrideResponse: Partial<Extract<Au
 export const getPatchAuthorsIdResponseMock = (overrideResponse: Partial<Extract<Author, object>> = {}): Author => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}}), version: faker.number.int(), ...overrideResponse})
 
 
-export const getPostAuthorsMockHandler = (overrideResponse?: CreateAuthorResult | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<CreateAuthorResult> | CreateAuthorResult), options?: RequestHandlerOptions) => {
+export const getPostAuthorsMockHandler = (overrideResponse?: Author | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<Author> | Author), options?: RequestHandlerOptions) => {
   return http.post('*/authors', async (info: Parameters<Parameters<typeof http.post>[1]>[0]) => {
 
 

@@ -18,12 +18,11 @@ import type {
 
 import type {
   Book,
-  BookList,
-  CreateBookResult
+  BookList
 } from '../../models';
 
 
-export const getPostBooksResponseMock = (overrideResponse: Partial<Extract<CreateBookResult, object>> = {}): CreateBookResult => ({id: faker.string.uuid(), ...overrideResponse})
+export const getPostBooksResponseMock = (overrideResponse: Partial<Extract<Book, object>> = {}): Book => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int(), ...overrideResponse})
 
 export const getGetBooksResponseMock = (overrideResponse: Partial<Extract<BookList, object>> = {}): BookList => ({items: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int()})), pagination: {page: faker.number.int(), perPage: faker.number.int(), total: faker.number.int(), totalPages: faker.number.int()}, ...overrideResponse})
 
@@ -32,7 +31,7 @@ export const getGetBooksIdResponseMock = (overrideResponse: Partial<Extract<Book
 export const getPatchBooksIdResponseMock = (overrideResponse: Partial<Extract<Book, object>> = {}): Book => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int(), ...overrideResponse})
 
 
-export const getPostBooksMockHandler = (overrideResponse?: CreateBookResult | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<CreateBookResult> | CreateBookResult), options?: RequestHandlerOptions) => {
+export const getPostBooksMockHandler = (overrideResponse?: Book | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
   return http.post('*/books', async (info: Parameters<Parameters<typeof http.post>[1]>[0]) => {
 
 

@@ -29,9 +29,19 @@ const createTestApp = (
   })
 
 describe("POST /books", () => {
-  it("201 と採番した id を返す", async () => {
+  it("201 と作成した書籍を返す", async () => {
     const repository = createBookRepositoryStub()
-    const app = createTestApp({ repository })
+    const reader = createBookReaderStub({
+      findById: vi.fn().mockImplementation((id: { readonly value: string }) =>
+        Promise.resolve({
+          id: id.value,
+          title: "書籍タイトル",
+          authors: [{ id: VALID_UUID_V7, name: "著者名" }],
+          version: 0,
+        }),
+      ),
+    })
+    const app = createTestApp({ repository, reader })
     const res = await app.request(
       "/books",
       jsonRequest("POST", {
@@ -42,6 +52,12 @@ describe("POST /books", () => {
     expect(res.status).toBe(201)
     const body = (await res.json()) as { id: string }
     expect(uuidValidate(body.id)).toBe(true)
+    expect(body).toEqual({
+      id: body.id,
+      title: "書籍タイトル",
+      authors: [{ id: VALID_UUID_V7, name: "著者名" }],
+      version: 0,
+    })
     expect(repository.insert).toHaveBeenCalledExactlyOnceWith(
       expect.objectContaining({
         title: expect.objectContaining({ value: "書籍タイトル" }),

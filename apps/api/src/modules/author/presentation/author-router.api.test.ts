@@ -18,12 +18,16 @@ const jsonRequest = (method: string, body: unknown) => ({
 })
 
 describe("POST /authors", () => {
-  it("201 と採番した id を返す", async () => {
+  it("201 と作成した著者を返す", async () => {
     const repository = createAuthorRepositoryStub()
-    const app = createAuthorTestApp({
-      repository,
-      reader: createAuthorReaderStub(),
+    const reader = createAuthorReaderStub({
+      findById: vi
+        .fn()
+        .mockImplementation((id: { readonly value: string }) =>
+          Promise.resolve({ id: id.value, name: "著者名", version: 0 }),
+        ),
     })
+    const app = createAuthorTestApp({ repository, reader })
     const res = await app.request(
       "/authors",
       jsonRequest("POST", { name: "著者名" }),
@@ -31,6 +35,7 @@ describe("POST /authors", () => {
     expect(res.status).toBe(201)
     const body = (await res.json()) as { id: string }
     expect(uuidValidate(body.id)).toBe(true)
+    expect(body).toEqual({ id: body.id, name: "著者名", version: 0 })
     expect(repository.insert).toHaveBeenCalledExactlyOnceWith(
       expect.objectContaining({
         name: expect.objectContaining({ value: "著者名" }),
@@ -175,10 +180,14 @@ describe("PATCH /authors/{id}", () => {
         }),
       ),
     })
-    const app = createAuthorTestApp({
-      repository,
-      reader: createAuthorReaderStub(),
+    const reader = createAuthorReaderStub({
+      findById: vi.fn().mockResolvedValue({
+        id: VALID_UUID_V7,
+        name: "更新後の著者名",
+        version: 1,
+      }),
     })
+    const app = createAuthorTestApp({ repository, reader })
     const res = await app.request(
       `/authors/${VALID_UUID_V7}`,
       jsonRequest("PATCH", { name: "更新後の著者名", version: 0 }),

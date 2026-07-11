@@ -22,8 +22,14 @@ export const PostBooksBody = zod.object({
 })
 
 export const PostBooksResponse = zod.object({
-  "id": zod.uuid().describe('作成した書籍のID')
-}).describe('書籍の作成結果')
+  "id": zod.uuid().describe('書籍ID'),
+  "title": zod.string().describe('書籍タイトル'),
+  "authors": zod.array(zod.object({
+  "id": zod.uuid().describe('著者ID'),
+  "name": zod.string().describe('著者名')
+}).describe('著者の要約')).describe('著者の一覧'),
+  "version": zod.number().describe('バージョン')
+}).describe('書籍')
 
 /**
  * @summary 書籍一覧を取得

@@ -10,7 +10,6 @@ import type { UpdateBook } from "../application/update-book"
 import { bookIdParamSchema } from "./book-id-param-schema"
 import {
   bookResponseSchema,
-  createBookResponseSchema,
   listBooksResponseSchema,
 } from "./book-response-schema"
 import { createBookSchema } from "./create-book-schema"
@@ -50,7 +49,7 @@ const createBookRoute = createRoute({
   },
   responses: {
     201: {
-      content: { "application/json": { schema: createBookResponseSchema } },
+      content: { "application/json": { schema: bookResponseSchema } },
       description: "作成した書籍の情報",
     },
     400: jsonError("著者が存在しない"),
