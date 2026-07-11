@@ -7,10 +7,14 @@ import {
   PaginationItem,
 } from "@/shared/ui/pagination"
 
-export function BookPagination({
+type PaginatedListPath = "/authors" | "/books"
+
+export function ListPagination({
+  to,
   page,
   totalPages,
 }: {
+  readonly to: PaginatedListPath
   readonly page: number
   readonly totalPages: number
 }) {
@@ -26,7 +30,7 @@ export function BookPagination({
         {pages.map((target) => (
           <PaginationItem key={target}>
             <Link
-              to="/books"
+              to={to}
               search={{ page: target }}
               aria-current={target === page ? "page" : undefined}
               className={cn(

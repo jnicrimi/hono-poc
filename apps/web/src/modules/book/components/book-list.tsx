@@ -1,4 +1,5 @@
 import { useListBooksSuspense } from "@/shared/api/generated/endpoints/books/books"
+import { ListPagination } from "@/shared/components/list-pagination"
 import { Card, CardContent } from "@/shared/ui/card"
 import {
   Table,
@@ -9,7 +10,6 @@ import {
   TableRow,
 } from "@/shared/ui/table"
 import { bookLabels } from "../text/book-labels"
-import { BookPagination } from "./book-pagination"
 import { BookRowActions } from "./book-row-actions"
 
 export function BookList({ page }: { readonly page: number }) {
@@ -50,7 +50,8 @@ export function BookList({ page }: { readonly page: number }) {
             ))}
           </TableBody>
         </Table>
-        <BookPagination
+        <ListPagination
+          to="/books"
           page={data.pagination.page}
           totalPages={data.pagination.totalPages}
         />
