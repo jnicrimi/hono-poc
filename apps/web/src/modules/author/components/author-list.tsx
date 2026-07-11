@@ -34,7 +34,7 @@ export function AuthorList({ page }: { readonly page: number }) {
           <TableHeader>
             <TableRow>
               <TableHead>{authorLabels.name}</TableHead>
-              <TableHead className="w-40" />
+              <TableHead className="w-24" />
             </TableRow>
           </TableHeader>
           <TableBody>

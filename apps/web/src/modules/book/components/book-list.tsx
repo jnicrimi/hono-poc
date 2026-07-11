@@ -33,7 +33,7 @@ export function BookList({ page }: { readonly page: number }) {
             <TableRow>
               <TableHead>{bookLabels.title}</TableHead>
               <TableHead>{bookLabels.authors}</TableHead>
-              <TableHead className="w-40" />
+              <TableHead className="w-24" />
             </TableRow>
           </TableHeader>
           <TableBody>
