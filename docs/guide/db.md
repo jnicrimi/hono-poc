@@ -52,10 +52,6 @@ mise run db:migrate
 mise run db:check
 ```
 
-### コミット対象
-
-- `apps/api/drizzle/`(SQL と `meta/` スナップショット)
-
 ## テーブル定義書
 
 スキーマ定義を変更した場合は、テーブル定義書もあわせて更新する。
@@ -75,11 +71,6 @@ mise run db-docs:lint
 ```sh
 mise run db-docs:generate
 ```
-
-### コミット対象
-
-- `.tbls.yml`
-- `docs/db/`
 
 ## ER 図の生成
 
