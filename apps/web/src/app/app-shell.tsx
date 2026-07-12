@@ -1,10 +1,11 @@
 import { Link } from "@tanstack/react-router"
 import { Book, User } from "lucide-react"
 import type { ReactNode } from "react"
+import { navLabels } from "@/shared/text/nav-labels"
 
 const NAV_ITEMS = [
-  { to: "/authors", label: "著者", icon: User },
-  { to: "/books", label: "書籍", icon: Book },
+  { to: "/authors", label: navLabels.authors, icon: User },
+  { to: "/books", label: navLabels.books, icon: Book },
 ] as const
 
 export function AppShell({ children }: { readonly children: ReactNode }) {

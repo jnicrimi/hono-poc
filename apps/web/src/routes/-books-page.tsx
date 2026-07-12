@@ -3,6 +3,7 @@ import { Book } from "lucide-react"
 import { BookList } from "@/modules/book/components/book-list"
 import { PageTitle } from "@/shared/components/page-title"
 import { cn } from "@/shared/lib/utils"
+import { navLabels } from "@/shared/text/nav-labels"
 import { uiLabels } from "@/shared/text/ui-labels"
 import { buttonVariants } from "@/shared/ui/button"
 
@@ -21,7 +22,7 @@ export function BooksPage() {
           </Link>
         }
       >
-        書籍
+        {navLabels.books}
       </PageTitle>
       <BookList page={page} />
       <Outlet />

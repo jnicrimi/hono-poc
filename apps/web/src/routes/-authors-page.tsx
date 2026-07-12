@@ -3,6 +3,7 @@ import { User } from "lucide-react"
 import { AuthorList } from "@/modules/author/components/author-list"
 import { PageTitle } from "@/shared/components/page-title"
 import { cn } from "@/shared/lib/utils"
+import { navLabels } from "@/shared/text/nav-labels"
 import { uiLabels } from "@/shared/text/ui-labels"
 import { buttonVariants } from "@/shared/ui/button"
 
@@ -25,7 +26,7 @@ export function AuthorsPage() {
           </Link>
         }
       >
-        著者
+        {navLabels.authors}
       </PageTitle>
       <AuthorList page={page} />
       <Outlet />
