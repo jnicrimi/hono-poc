@@ -53,6 +53,22 @@ describe("POST /authors", () => {
     expect(res.status).toBe(422)
   })
 
+  it("body が JSON として不正な場合は 400 とエラーレスポンスを返す", async () => {
+    const app = createAuthorTestApp({
+      repository: createAuthorRepositoryStub(),
+      reader: createAuthorReaderStub(),
+    })
+    const res = await app.request("/authors", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: "{invalid",
+    })
+    expect(res.status).toBe(400)
+    expect(await res.json()).toEqual({
+      errors: [{ message: "リクエストの内容が正しくありません" }],
+    })
+  })
+
   it("content-type が JSON でない場合は 422 を返す", async () => {
     const app = createAuthorTestApp({
       repository: createAuthorRepositoryStub(),

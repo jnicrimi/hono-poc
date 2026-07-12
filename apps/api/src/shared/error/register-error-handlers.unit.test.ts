@@ -47,6 +47,23 @@ describe("registerErrorHandlers", () => {
     }
   })
 
+  it("HTTPException(400) はメッセージを日本語の定型文に置き換える", async () => {
+    const logger = createLoggerStub()
+    const app = buildApp(() => {
+      throw new HTTPException(400, {
+        message: "Malformed JSON in request body",
+      })
+    }, logger)
+
+    const res = await app.request("/dummy")
+
+    expect(res.status).toBe(400)
+    expect(await res.json()).toEqual({
+      errors: [{ message: "リクエストの内容が正しくありません" }],
+    })
+    expect(logger.error).not.toHaveBeenCalled()
+  })
+
   it("HTTPException はログを出力しない", async () => {
     const logger = createLoggerStub()
     const app = buildApp(() => {

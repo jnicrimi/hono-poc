@@ -25,7 +25,10 @@ export const registerErrorHandlers = (
       )
     }
     if (err instanceof HTTPException) {
-      return c.json({ errors: [{ message: err.message }] }, err.status)
+      // Hono の validator は JSON パース失敗時に英語メッセージの HTTPException(400) を投げるため定型文へ置き換える
+      const message =
+        err.status === 400 ? httpMessages.invalidRequest : err.message
+      return c.json({ errors: [{ message }] }, err.status)
     }
     const logger = c.get("logger") ?? baseLogger
     logger.error(

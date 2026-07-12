@@ -53,7 +53,7 @@ const createBookRoute = createRoute({
       content: { "application/json": { schema: bookResponseSchema } },
       description: "作成した書籍の情報",
     },
-    400: jsonError("著者が存在しない"),
+    400: jsonError("リクエストの形式が不正、または著者が存在しない"),
     422: jsonError("リクエストボディが不正"),
   },
 })
@@ -72,7 +72,7 @@ const listBooksRoute = createRoute({
       content: { "application/json": { schema: listBooksResponseSchema } },
       description: "書籍の一覧",
     },
-    400: jsonError("クエリパラメータが不正"),
+    400: jsonError("リクエストの形式が不正"),
   },
 })
 
@@ -90,7 +90,7 @@ const getBookRoute = createRoute({
       content: { "application/json": { schema: bookResponseSchema } },
       description: "書籍の情報",
     },
-    400: jsonError("パスパラメータが不正"),
+    400: jsonError("リクエストの形式が不正"),
     404: jsonError("書籍が存在しない"),
   },
 })
@@ -113,7 +113,7 @@ const updateBookRoute = createRoute({
       content: { "application/json": { schema: bookResponseSchema } },
       description: "更新後の書籍の情報",
     },
-    400: jsonError("パスパラメータが不正、または著者が存在しない"),
+    400: jsonError("リクエストの形式が不正、または著者が存在しない"),
     404: jsonError("書籍が存在しない"),
     409: jsonError("バージョンが競合"),
     422: jsonError("リクエストボディが不正"),
@@ -133,7 +133,7 @@ const deleteBookRoute = createRoute({
     204: {
       description: "削除完了",
     },
-    400: jsonError("パスパラメータが不正"),
+    400: jsonError("リクエストの形式が不正"),
     404: jsonError("書籍が存在しない"),
   },
 })
