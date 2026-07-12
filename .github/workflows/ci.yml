@@ -34,7 +34,7 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/setup
       - name: Run stylelint
-        run: pnpm exec stylelint "apps/web/src/**/*.css" --allow-empty-input
+        run: pnpm exec stylelint "apps/web/src/**/*.css"
 
   knip:
     name: knip
