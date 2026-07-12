@@ -21,7 +21,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - name: test
+      - name: Run unit tests
         run: pnpm --filter @hono-poc/api exec vitest run --project unit --coverage --reporter=dot --reporter=blob --outputFile.blob=.vitest-reports/unit.json
       - name: Upload blob report
         if: ${{ !cancelled() }}
@@ -40,7 +40,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - name: test
+      - name: Run integration tests
         run: pnpm --filter @hono-poc/api exec vitest run --project integration --coverage --reporter=dot --reporter=blob --outputFile.blob=.vitest-reports/integration.json
       - name: Upload blob report
         if: ${{ !cancelled() }}
@@ -59,7 +59,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - name: test
+      - name: Run API tests
         run: pnpm --filter @hono-poc/api exec vitest run --project api --coverage --reporter=dot --reporter=blob --outputFile.blob=.vitest-reports/api.json
       - name: Upload blob report
         if: ${{ !cancelled() }}

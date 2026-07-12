@@ -25,9 +25,6 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           mise-install-args: node pnpm tbls
-      - name: Start database
-        run: docker compose up -d --wait
-      - name: Run migrations
-        run: pnpm --filter @hono-poc/api db:migrate
-      - name: tbls lint
+      - uses: ./.github/actions/database
+      - name: Run tbls lint
         run: tbls lint

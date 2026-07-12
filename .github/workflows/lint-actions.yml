@@ -23,7 +23,7 @@ jobs:
       - uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d  # v4.2.0
         with:
           install_args: actionlint
-      - name: actionlint
+      - name: Run actionlint
         run: actionlint -color
 
   zizmor:
@@ -37,7 +37,7 @@ jobs:
       - uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d  # v4.2.0
         with:
           install_args: zizmor
-      - name: zizmor
+      - name: Run zizmor
         run: zizmor --persona=pedantic .
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

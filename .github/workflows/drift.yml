@@ -1,4 +1,4 @@
-name: api-client-drift
+name: drift
 
 on:
   pull_request:
@@ -12,6 +12,25 @@ permissions:
   contents: read
 
 jobs:
+  drizzle-check:
+    name: drizzle-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Run drizzle-kit check
+        run: pnpm --filter @hono-poc/api db:check
+      - name: Generate migrations
+        run: pnpm --filter @hono-poc/api db:generate
+      - name: Check drift
+        # --intent-to-add 未追跡の新規生成ファイルをインデックスに登録
+        run: |
+          git add --intent-to-add apps/api/drizzle
+          git diff --exit-code -- apps/api/drizzle
+
   api-client-drift:
     name: api-client-drift
     runs-on: ubuntu-latest
