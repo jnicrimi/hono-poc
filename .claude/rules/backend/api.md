@@ -39,6 +39,12 @@ paths:
 
 - 境界ルールは `.dependency-cruiser.json` に日本語コメント付きで定義されている
 
+## モジュール間アクセス
+
+- 他モジュールへの依存は、相手モジュールの `contract/` が公開するインターフェースを経由する
+- 実装は `shared/di/register-<name>-module.ts` で注入する
+- import を許可する範囲の詳細は `.dependency-cruiser.json` に定義されている
+
 ## 命名規則
 
 - ファイル名は主要な export 名に対応する kebab-case とする
@@ -100,6 +106,11 @@ paths:
 - ログは shared の HTTP 境界でのみ出す
 - `AppError` はログせず、未処理例外（5xx）のみ error ログを出す
 
+## 環境変数
+
+- 環境変数は `shared/config/env.ts` の zod スキーマで検証して参照する
+- `process.env` は直接参照しない（Biome の `noProcessEnv` で禁止。許可ファイルは `biome.jsonc` に定義されている）
+
 ## HTTP
 
 - メソッドとステータスは以下で統一する
@@ -151,6 +162,7 @@ paths:
   - domain / application をスタブでテストする
 - `*.integration.test.ts`
   - `shared/db/test-support` のヘルパーでテストごとにトランザクションをロールバックする
+  - Testcontainers が PostgreSQL を自動起動するため Docker の起動が必要
 - `*.api.test.ts`
   - `create-<name>-test-app.ts` で構築したアプリへ `app.request()` でリクエストする
 

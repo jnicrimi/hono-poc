@@ -25,6 +25,7 @@ paths:
 ## 命名規則
 
 - ファイル名は主要な export 名に対応する kebab-case とする
+- `src/routes/` のルートファイルは例外で、TanStack Router のファイル規約に従う
 - mutation hook は `use-<動詞>-<エンティティ名>.ts` とする
 
 ## ルーティング
@@ -42,6 +43,11 @@ paths:
 - loading は Suspense、取得エラーは `RouteErrorBoundary` に委譲する
 - 更新系 mutation の onError は 409 を先に判定し、`shared/text` の競合メッセージを表示する
 
+## 環境変数
+
+- 環境変数は `shared/config/env.ts` の zod スキーマで検証して参照する
+- `.env` はリポジトリルートに置く（vite の `envDir` がルートを指すため `apps/web/` には置かない）
+
 ## ページネーション
 
 - 一覧のページングは共有の `ListPagination` で表示する
@@ -50,7 +56,8 @@ paths:
 ## 文言
 
 - UI 文言は日本語で書く
-- UI 文言は `text/` に集約する
+- 横断的な文言は `shared/text/` に集約する
+- 機能固有の文言は `modules/<name>/text/` に集約する
 
 ## UI コンポーネント
 
@@ -60,6 +67,10 @@ paths:
 
 1. ユーザーの承認を得る
 2. shadcn CLI で追加する
+
+## Storybook
+
+- stories は `*.stories.tsx` として実装ファイルと同じディレクトリに配置する
 
 ## リントツール
 

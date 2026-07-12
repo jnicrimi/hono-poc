@@ -9,7 +9,8 @@ paths:
 
 - `mise run test-e2e` で実行する
 - e2e 配下を変更したら実行する（web 本体のみの変更では必須としない）
-- 実行には Postgres の起動（`mise run db:up`）が必要
+- 実行には Postgres の起動（`mise run db:up`）とマイグレーションの適用（`mise run db:migrate`）が必要
+- `mise run db:migrate` は事前にユーザーの承認を得る
 - api / web の開発サーバは Playwright の webServer 設定で自動起動する
 
 ## スペック規約
