@@ -23,3 +23,10 @@ jobs:
       - uses: ./.github/actions/setup
       - name: drizzle-check
         run: pnpm --filter @hono-poc/api db:check
+      - name: Generate migrations
+        run: pnpm --filter @hono-poc/api db:generate
+      - name: Check drift
+        # --intent-to-add 未追跡の新規生成ファイルをインデックスに登録
+        run: |
+          git add --intent-to-add apps/api/drizzle
+          git diff --exit-code -- apps/api/drizzle
