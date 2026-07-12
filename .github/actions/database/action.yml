@@ -1,0 +1,12 @@
+name: database
+description: PostgreSQL を起動し、マイグレーションを適用する
+
+runs:
+  using: composite
+  steps:
+    - name: Start database
+      shell: bash
+      run: docker compose up -d --wait
+    - name: Run migrations
+      shell: bash
+      run: pnpm --filter @hono-poc/api db:migrate

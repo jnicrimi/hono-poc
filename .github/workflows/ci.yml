@@ -1,0 +1,75 @@
+name: ci
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  biome:
+    name: biome
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Run biome
+        run: pnpm exec biome ci
+
+  stylelint:
+    name: stylelint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Run stylelint
+        run: pnpm exec stylelint "apps/web/src/**/*.css" --allow-empty-input
+
+  knip:
+    name: knip
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Run knip
+        run: pnpm exec knip
+
+  typecheck:
+    name: typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Run typecheck
+        run: pnpm typecheck
+
+  dependency-cruiser:
+    name: dependency-cruiser
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Run dependency-cruiser (api)
+        run: pnpm --filter @hono-poc/api depcruise
+      - name: Run dependency-cruiser (web)
+        run: pnpm --filter @hono-poc/web depcruise

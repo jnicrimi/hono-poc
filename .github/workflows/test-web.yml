@@ -24,7 +24,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - name: test
+      - name: Run web tests
         run: pnpm --filter @hono-poc/web test:coverage
       - name: Report coverage
         if: always()

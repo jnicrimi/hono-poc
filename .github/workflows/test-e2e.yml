@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/app
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/app?sslmode=disable
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
         with:
@@ -24,11 +24,8 @@ jobs:
       - uses: ./.github/actions/setup
       - name: Install Playwright browser
         run: pnpm --filter @hono-poc/web exec playwright install --with-deps chromium
-      - name: Start database
-        run: docker compose up -d --wait
-      - name: Run migrations
-        run: pnpm --filter @hono-poc/api db:migrate
-      - name: test
+      - uses: ./.github/actions/database
+      - name: Run E2E tests
         run: pnpm --filter @hono-poc/web e2e
       - name: Upload report
         if: ${{ !cancelled() }}
