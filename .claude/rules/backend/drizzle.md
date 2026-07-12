@@ -20,13 +20,24 @@ paths:
 
 ### スキーマの変更手順
 
+#### 変更
+
 1. `schema.ts` を編集する
 2. `.tbls.yml` の `comments` にテーブル・カラムのコメントを定義する
-3. `mise run db:generate` でマイグレーションを生成する
-4. `mise run db:check` で整合性を検証する
-5. ユーザーの承認を得て `mise run db:migrate` で適用する
-6. `mise run db-docs:generate` で DB ドキュメントを再生成する
-7. `mise run db-docs:lint` でコメントの規約を検証する
+
+#### 反映
+
+1. `mise run db:generate` でマイグレーションを生成する
+2. `mise run db:check` で整合性を検証する
+3. ユーザーの承認を得て `mise run db:migrate` で適用する
+
+#### ドキュメント生成
+
+- `mise run db-docs:generate` で DB ドキュメントを再生成する
+
+#### 検証
+
+- `mise run db-docs:lint` でコメントの規約を検証する
 
 ## リントツール
 
