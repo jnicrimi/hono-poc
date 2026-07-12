@@ -236,6 +236,16 @@
               }
             }
           },
+          "400": {
+            "description": "リクエストの形式が不正",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
           "422": {
             "description": "リクエストボディが不正",
             "content": {
@@ -295,7 +305,7 @@
             }
           },
           "400": {
-            "description": "クエリパラメータが不正",
+            "description": "リクエストの形式が不正",
             "content": {
               "application/json": {
                 "schema": {
@@ -340,7 +350,7 @@
             }
           },
           "400": {
-            "description": "パスパラメータが不正",
+            "description": "リクエストの形式が不正",
             "content": {
               "application/json": {
                 "schema": {
@@ -420,7 +430,7 @@
             }
           },
           "400": {
-            "description": "パスパラメータが不正",
+            "description": "リクエストの形式が不正",
             "content": {
               "application/json": {
                 "schema": {
@@ -486,7 +496,7 @@
             "description": "削除完了"
           },
           "400": {
-            "description": "パスパラメータが不正",
+            "description": "リクエストの形式が不正",
             "content": {
               "application/json": {
                 "schema": {
@@ -569,7 +579,7 @@
             }
           },
           "400": {
-            "description": "著者が存在しない",
+            "description": "リクエストの形式が不正、または著者が存在しない",
             "content": {
               "application/json": {
                 "schema": {
@@ -637,7 +647,7 @@
             }
           },
           "400": {
-            "description": "クエリパラメータが不正",
+            "description": "リクエストの形式が不正",
             "content": {
               "application/json": {
                 "schema": {
@@ -682,7 +692,7 @@
             }
           },
           "400": {
-            "description": "パスパラメータが不正",
+            "description": "リクエストの形式が不正",
             "content": {
               "application/json": {
                 "schema": {
@@ -773,7 +783,7 @@
             }
           },
           "400": {
-            "description": "パスパラメータが不正、または著者が存在しない",
+            "description": "リクエストの形式が不正、または著者が存在しない",
             "content": {
               "application/json": {
                 "schema": {
@@ -839,7 +849,7 @@
             "description": "削除完了"
           },
           "400": {
-            "description": "パスパラメータが不正",
+            "description": "リクエストの形式が不正",
             "content": {
               "application/json": {
                 "schema": {

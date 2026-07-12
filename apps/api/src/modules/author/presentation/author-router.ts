@@ -53,6 +53,7 @@ const createAuthorRoute = createRoute({
       content: { "application/json": { schema: authorResponseSchema } },
       description: "作成した著者の情報",
     },
+    400: jsonError("リクエストの形式が不正"),
     422: jsonError("リクエストボディが不正"),
   },
 })
@@ -71,7 +72,7 @@ const listAuthorsRoute = createRoute({
       content: { "application/json": { schema: listAuthorsResponseSchema } },
       description: "著者の一覧",
     },
-    400: jsonError("クエリパラメータが不正"),
+    400: jsonError("リクエストの形式が不正"),
   },
 })
 
@@ -89,7 +90,7 @@ const getAuthorRoute = createRoute({
       content: { "application/json": { schema: authorResponseSchema } },
       description: "著者の情報",
     },
-    400: jsonError("パスパラメータが不正"),
+    400: jsonError("リクエストの形式が不正"),
     404: jsonError("著者が存在しない"),
   },
 })
@@ -112,7 +113,7 @@ const updateAuthorRoute = createRoute({
       content: { "application/json": { schema: authorResponseSchema } },
       description: "更新後の著者の情報",
     },
-    400: jsonError("パスパラメータが不正"),
+    400: jsonError("リクエストの形式が不正"),
     404: jsonError("著者が存在しない"),
     409: jsonError("バージョンが競合"),
     422: jsonError("リクエストボディが不正"),
@@ -132,7 +133,7 @@ const deleteAuthorRoute = createRoute({
     204: {
       description: "削除完了",
     },
-    400: jsonError("パスパラメータが不正"),
+    400: jsonError("リクエストの形式が不正"),
     404: jsonError("著者が存在しない"),
     409: jsonError("著者が書籍に割り当てられている"),
   },

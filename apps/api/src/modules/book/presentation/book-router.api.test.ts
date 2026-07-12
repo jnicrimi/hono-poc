@@ -67,6 +67,19 @@ describe("POST /books", () => {
     )
   })
 
+  it("body が JSON として不正な場合は 400 とエラーレスポンスを返す", async () => {
+    const app = createTestApp()
+    const res = await app.request("/books", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: "{invalid",
+    })
+    expect(res.status).toBe(400)
+    expect(await res.json()).toEqual({
+      errors: [{ message: "リクエストの内容が正しくありません" }],
+    })
+  })
+
   it("存在しない著者を指定した場合は 400 とエラーレスポンスを返す", async () => {
     const app = createTestApp({
       authorReader: createAuthorExistenceReaderStub({
