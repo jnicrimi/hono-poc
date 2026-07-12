@@ -21,7 +21,7 @@ paths:
   - `schema.ts`
 - `presentation/`
   - @hono/zod-openapi ルーター
-  - エンドポイント別 zod スキーマ
+  - エンドポイント別 Zod スキーマ
 - `contract/`
   - 他モジュールへ公開するインターフェースとその実装
 - `test-support/`
@@ -38,7 +38,6 @@ paths:
 ## 依存境界
 
 - 境界ルールは `.dependency-cruiser.json` に日本語コメント付きで定義されている
-- `mise run depcruise` で検証する
 
 ## 命名規則
 
@@ -75,8 +74,8 @@ paths:
 - 値オブジェクトはプリミティブ値を検証付きでラップし、`.value` で公開する
 - エンティティはコンストラクタを private にし、静的ファクトリで生成する
 - presentation の ID 検証には素の `z.uuid()` ではなく `shared/openapi` の UUID スキーマヘルパーを使う
-- 文字数・件数の上限は domain に定数で定義し、presentation の zod と infrastructure の Drizzle schema はそれを import する
-- 入力検証は presentation の zod と domain の値オブジェクトの両方で行う
+- 文字数・件数の上限は domain に定数で定義し、presentation の Zod と infrastructure の Drizzle schema はそれを import する
+- 入力検証は presentation の Zod と domain の値オブジェクトの両方で行う
 - 更新系と参照系を分離する
   - `*-repository` — エンティティの永続化（登録・更新・削除）と、そのためのエンティティ取得を担う
   - `*-reader` — 参照系ユースケース向けに ReadModel を返す
@@ -117,7 +116,7 @@ paths:
 
 ## OpenAPI
 
-- OpenAPI スペックは presentation の zod スキーマから生成し、`openapi.json` としてコミットする
+- OpenAPI スペックは presentation の Zod スキーマから生成し、`openapi.json` としてコミットする
 - `operationId` はユースケース名と揃えた camelCase とする
 - タグ名は英語の複数形とする
 - `summary` と `description` は日本語で書く
@@ -125,27 +124,26 @@ paths:
 
 ## API クライアントの再生成
 
-- presentation の zod スキーマを変更したら OpenAPI スペックと web の API クライアントを再生成する
+- presentation の Zod スキーマを変更したら OpenAPI スペックと web の API クライアントを再生成する
 
 ### 再生成の手順
 
 1. `mise run api-client:generate` を実行する
 
-## DB・マイグレーション
+## リントツール
 
-- スキーマは各モジュールの `infrastructure/schema.ts` に定義する
-- マイグレーションの実行（`mise run db:migrate`）は事前にユーザーの承認を得る
-- マイグレーション名は変更内容を表す snake_case の英語で指定する
+実装完了後は以下を全て通す。
 
-### スキーマの変更手順
-
-1. `schema.ts` を編集する
-2. `mise run db:generate` でマイグレーションを生成する
-3. `mise run db:check` で整合性を検証する
-4. ユーザーの承認を得て `mise run db:migrate` で適用する
-5. `mise run db-docs:generate` で DB ドキュメントを再生成する
+- Biome — `mise run lint`
+- TypeScript — `mise run typecheck`
+- Knip — `mise run knip`（未使用コード・依存の検出）
+- dependency-cruiser — `mise run depcruise`（依存境界の検証）
 
 ## テスト
+
+### 実行
+
+- 実装完了後は `mise run test-api` で API のテスト全体を実行する
 
 ### テストの種類
 

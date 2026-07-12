@@ -18,7 +18,7 @@
 - @hono/zod-openapi
 - Drizzle ORM
 - PostgreSQL
-- pino
+- Pino
 - Vitest
 
 ### apps/web
@@ -27,18 +27,11 @@
 - Vite
 - TanStack Router / TanStack Query
 - Tailwind CSS
-- shadcn（@base-ui）
+- shadcn/ui（Base UI）
 - orval
 - MSW
 - Playwright
 - Storybook
-
-### 品質ツール
-
-- Biome
-- dependency-cruiser
-- knip
-- lefthook
 
 ## モノレポ構成
 
@@ -47,6 +40,7 @@
 - REST API
 - モジュール別 DDD レイヤー構成
 - 規約は `.claude/rules/backend/api.md` を参照
+- DB・マイグレーションの規約は `.claude/rules/backend/drizzle.md` を参照
 
 ### apps/web
 
@@ -63,12 +57,3 @@
 
 - mise で管理している
 - 一覧は `mise tasks` で確認する
-
-## 品質チェック
-
-- 実装完了後は以下を通す
-  - `mise run lint`
-  - `mise run typecheck`
-  - `mise run knip`
-  - `mise run depcruise`
-- テストは変更したアプリの全体を実行する（`mise run test-api` / `mise run test-web`）

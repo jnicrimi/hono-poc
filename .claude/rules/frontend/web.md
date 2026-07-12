@@ -21,7 +21,6 @@ paths:
 ## 依存境界
 
 - 境界ルールは `.dependency-cruiser.json` に日本語コメント付きで定義されている
-- `mise run depcruise` で検証する
 
 ## 命名規則
 
@@ -62,10 +61,21 @@ paths:
 1. ユーザーの承認を得る
 2. shadcn CLI で追加する
 
+## リントツール
+
+実装完了後は以下を全て通す。
+
+- Biome — `mise run lint`
+- TypeScript — `mise run typecheck`
+- Knip — `mise run knip`（未使用コード・依存の検出）
+- dependency-cruiser — `mise run depcruise`（依存境界の検証）
+- Stylelint — `mise run stylelint`（`src/**/*.css` が対象）
+
 ## テスト
 
+- 実装完了後は `mise run test-web` で Web のテスト全体を実行する
 - `*.test.tsx` は実装ファイルと同じディレクトリに配置する
-- vitest + Testing Library + MSW（`onUnhandledRequest: "error"`）でテストする
+- Vitest + Testing Library + MSW（`onUnhandledRequest: "error"`）でテストする
 - API タグを追加したら orval が生成したモックを `msw-server.ts` の `setupServer` に登録する
 - ルートコンポーネントは `render-with-router.tsx` ヘルパーでレンダリングする
 - describe には対象を書く
