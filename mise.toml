@@ -34,7 +34,7 @@ run = "pnpm typecheck"
 
 [tasks.stylelint]
 description = "CSS を検証"
-run = 'pnpm exec stylelint "apps/web/src/**/*.css" --allow-empty-input'
+run = 'pnpm exec stylelint "apps/web/src/**/*.css"'
 
 [tasks.depcruise]
 description = "依存関係の境界ルールを検証"
