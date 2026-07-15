@@ -8,7 +8,7 @@ file_path=$(jq -r '.tool_input.file_path // empty')
 
 case "$file_path" in
   *apps/web/src/shared/api/generated/*)
-    echo "orval が自動生成するファイルのため直接編集しない" >&2
+    echo "Orval が自動生成するファイルのため直接編集しない" >&2
     exit 2
     ;;
   *apps/web/src/route-tree.gen.ts)
@@ -16,7 +16,7 @@ case "$file_path" in
     exit 2
     ;;
   *apps/api/openapi.json)
-    echo "zod スキーマから自動生成するファイルのため直接編集しない" >&2
+    echo "Zod スキーマから自動生成するファイルのため直接編集しない" >&2
     exit 2
     ;;
   *apps/api/drizzle/*)
