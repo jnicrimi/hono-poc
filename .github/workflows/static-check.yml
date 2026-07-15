@@ -1,4 +1,4 @@
-name: ci
+name: static-check
 
 on:
   pull_request:
