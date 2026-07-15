@@ -108,7 +108,7 @@ paths:
 
 ## 環境変数
 
-- 環境変数は `shared/config/env.ts` の zod スキーマで検証して参照する
+- 環境変数は `shared/config/env.ts` の Zod スキーマで検証して参照する
 - `process.env` は直接参照しない（Biome の `noProcessEnv` で禁止。許可ファイルは `biome.jsonc` に定義されている）
 
 ## HTTP

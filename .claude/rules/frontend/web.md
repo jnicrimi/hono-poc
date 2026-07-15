@@ -31,22 +31,22 @@ paths:
 ## ルーティング
 
 - ページ実体はルートファイルと同階層の `-` プレフィックスファイルに置く
-- search params は `validateSearch` + zod スキーマで検証する
+- search params は `validateSearch` + Zod スキーマで検証する
 - loader で `context.queryClient.ensureQueryData` によりデータをプリフェッチする
 - ナビリンクは `app-shell.tsx` の `NAV_ITEMS` に追加する
 
 ## API アクセス
 
-- API 呼び出しは orval が生成したクライアント（`shared/api/generated/`）を経由する
-- フォームのバリデーションは orval が生成した zod 定数を再利用する
-- 読み取りは orval が生成した Suspense hook を使い、独自の loading / error 分岐を書かない
+- API 呼び出しは Orval が生成したクライアント（`shared/api/generated/`）を経由する
+- フォームのバリデーションは Orval が生成した Zod 定数を再利用する
+- 読み取りは Orval が生成した Suspense hook を使い、独自の loading / error 分岐を書かない
 - loading は Suspense、取得エラーは `RouteErrorBoundary` に委譲する
 - 更新系 mutation の onError は 409 を先に判定し、`shared/text` の競合メッセージを表示する
 
 ## 環境変数
 
-- 環境変数は `shared/config/env.ts` の zod スキーマで検証して参照する
-- `.env` はリポジトリルートに置く（vite の `envDir` がルートを指すため `apps/web/` には置かない）
+- 環境変数は `shared/config/env.ts` の Zod スキーマで検証して参照する
+- `.env` はリポジトリルートに置く（Vite の `envDir` がルートを指すため `apps/web/` には置かない）
 
 ## ページネーション
 
@@ -87,7 +87,7 @@ paths:
 - 実装完了後は `mise run test-web` で Web のテスト全体を実行する
 - `*.test.tsx` は実装ファイルと同じディレクトリに配置する
 - Vitest + Testing Library + MSW（`onUnhandledRequest: "error"`）でテストする
-- API タグを追加したら orval が生成したモックを `msw-server.ts` の `setupServer` に登録する
+- API タグを追加したら Orval が生成したモックを `msw-server.ts` の `setupServer` に登録する
 - ルートコンポーネントは `render-with-router.tsx` ヘルパーでレンダリングする
 - describe には対象を書く
 - タイトルには日本語の常体で操作と期待する結果を書く
