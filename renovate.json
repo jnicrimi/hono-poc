@@ -23,6 +23,16 @@
       "matchUpdateTypes": ["pin", "pinDigest", "digest"],
       "minimumReleaseAge": "0 days",
       "automerge": true
+    },
+    {
+      "matchDepNames": ["pnpm"],
+      "groupName": "pnpm",
+      "groupSlug": "pnpm"
+    },
+    {
+      "matchDepNames": ["@biomejs/biome"],
+      "groupName": "biome",
+      "groupSlug": "biome"
     }
   ],
   "customManagers": [
