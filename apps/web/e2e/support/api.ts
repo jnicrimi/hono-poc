@@ -71,7 +71,9 @@ export const deleteAuthor = async (request: APIRequestContext, id: string) => {
 export const findAuthorIdByName = async (
   request: APIRequestContext,
   name: string,
-) => findIdByName(request, "authors", name)
+) => {
+  return await findIdByName(request, "authors", name)
+}
 
 export const createBook = async (
   request: APIRequestContext,
@@ -115,7 +117,9 @@ export const deleteBook = async (request: APIRequestContext, id: string) => {
 export const findBookIdByName = async (
   request: APIRequestContext,
   title: string,
-) => findIdByName(request, "books", title)
+) => {
+  return await findIdByName(request, "books", title)
+}
 
 export const resolveListPage = async (
   request: APIRequestContext,

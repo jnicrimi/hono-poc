@@ -5,13 +5,17 @@ export const gotoAuthorRow = async (
   page: Page,
   request: APIRequestContext,
   target: { id: string; rowName: string },
-) => gotoListPageWithRow(page, request, "authors", target)
+) => {
+  await gotoListPageWithRow(page, request, "authors", target)
+}
 
 export const gotoBookRow = async (
   page: Page,
   request: APIRequestContext,
   target: { id: string; rowName: string },
-) => gotoListPageWithRow(page, request, "books", target)
+) => {
+  await gotoListPageWithRow(page, request, "books", target)
+}
 
 const gotoListPageWithRow = async (
   page: Page,
