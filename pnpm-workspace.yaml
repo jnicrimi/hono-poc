@@ -3,6 +3,11 @@ minimumReleaseAge: 1440
 packages:
   - 'apps/*'
   - 'packages/*'
+# dependency-cruiser が typescript@>=7 に対応したら削除する
+packageExtensions:
+  dependency-cruiser@18:
+    dependencies:
+      typescript: 6.0.3
 allowBuilds:
   cpu-features: false
   esbuild: true
