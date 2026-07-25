@@ -6,7 +6,8 @@
     "customManagers:biomeVersions"
   ],
   "timezone": "Asia/Tokyo",
-  "schedule": ["* 12-17 * * *"],
+  "schedule": ["* 6-11 * * 6"],
+  "prHourlyLimit": 0,
   "minimumReleaseAge": "3 days",
   "packageRules": [
     {
