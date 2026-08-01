@@ -73,7 +73,7 @@ export const getCreateBookUrl = () => {
 /**
  * @summary 書籍を作成
  */
-export const createBook = async (createBookBody: CreateBookBody, options?: RequestInit): Promise<Book> => {
+export const createBook = async (createBookBody: CreateBookBody, options?: Parameters<typeof customFetch>[1]): Promise<Book> => {
 
   return customFetch<Book>(getCreateBookUrl(),
   {
@@ -150,7 +150,7 @@ export const useCreateBook = <TError = ErrorType<ErrorResponse>,
 /**
  * @summary 書籍一覧を取得
  */
-export const listBooks = async (params?: ListBooksParams, options?: RequestInit): Promise<BookList> => {
+export const listBooks = async (params?: ListBooksParams, options?: Parameters<typeof customFetch>[1]): Promise<BookList> => {
 
   return customFetch<BookList>(getListBooksUrl(params),
   {
@@ -305,7 +305,7 @@ export const getShowBookUrl = (id: string,) => {
 /**
  * @summary 書籍を取得
  */
-export const showBook = async (id: string, options?: RequestInit): Promise<Book> => {
+export const showBook = async (id: string, options?: Parameters<typeof customFetch>[1]): Promise<Book> => {
 
   return customFetch<Book>(getShowBookUrl(id),
   {
@@ -461,7 +461,7 @@ export const getUpdateBookUrl = (id: string,) => {
  * @summary 書籍を更新
  */
 export const updateBook = async (id: string,
-    updateBookBody: UpdateBookBody, options?: RequestInit): Promise<Book> => {
+    updateBookBody: UpdateBookBody, options?: Parameters<typeof customFetch>[1]): Promise<Book> => {
 
   return customFetch<Book>(getUpdateBookUrl(id),
   {
@@ -531,7 +531,7 @@ export const useUpdateBook = <TError = ErrorType<ErrorResponse>,
 /**
  * @summary 書籍を削除
  */
-export const deleteBook = async (id: string, options?: RequestInit): Promise<void> => {
+export const deleteBook = async (id: string, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
 
   return customFetch<void>(getDeleteBookUrl(id),
   {

@@ -28,7 +28,7 @@ export const CreateBookResponse = zod.object({
   "id": zod.uuid().describe('著者ID'),
   "name": zod.string().describe('著者名')
 }).describe('著者の要約')).describe('著者の一覧'),
-  "version": zod.number().describe('バージョン')
+  "version": zod.int().describe('バージョン')
 }).describe('書籍')
 
 /**
@@ -42,8 +42,8 @@ export const listBooksQueryPerPageMax = 100;
 
 
 export const ListBooksQueryParams = zod.object({
-  "page": zod.number().min(1).default(listBooksQueryPageDefault).describe('ページ番号'),
-  "perPage": zod.number().min(1).max(listBooksQueryPerPageMax).default(listBooksQueryPerPageDefault).describe('1 ページあたりの件数')
+  "page": zod.int().min(1).default(listBooksQueryPageDefault).describe('ページ番号'),
+  "perPage": zod.int().min(1).max(listBooksQueryPerPageMax).default(listBooksQueryPerPageDefault).describe('1 ページあたりの件数')
 })
 
 export const ListBooksResponse = zod.object({
@@ -54,13 +54,13 @@ export const ListBooksResponse = zod.object({
   "id": zod.uuid().describe('著者ID'),
   "name": zod.string().describe('著者名')
 }).describe('著者の要約')).describe('著者の一覧'),
-  "version": zod.number().describe('バージョン')
+  "version": zod.int().describe('バージョン')
 }).describe('書籍')).describe('書籍の一覧'),
   "pagination": zod.object({
-  "page": zod.number().describe('現在のページ番号'),
-  "perPage": zod.number().describe('1 ページあたりの件数'),
-  "total": zod.number().describe('総件数'),
-  "totalPages": zod.number().describe('総ページ数')
+  "page": zod.int().describe('現在のページ番号'),
+  "perPage": zod.int().describe('1 ページあたりの件数'),
+  "total": zod.int().describe('総件数'),
+  "totalPages": zod.int().describe('総ページ数')
 }).describe('ページネーションのメタ情報')
 }).describe('書籍一覧のレスポンス')
 
@@ -78,7 +78,7 @@ export const ShowBookResponse = zod.object({
   "id": zod.uuid().describe('著者ID'),
   "name": zod.string().describe('著者名')
 }).describe('著者の要約')).describe('著者の一覧'),
-  "version": zod.number().describe('バージョン')
+  "version": zod.int().describe('バージョン')
 }).describe('書籍')
 
 /**
@@ -99,7 +99,7 @@ export const updateBookBodyVersionMin = 0;
 export const UpdateBookBody = zod.object({
   "title": zod.string().min(1).max(updateBookBodyTitleMax).describe('書籍タイトル'),
   "authorIds": zod.array(zod.uuid()).min(1).max(updateBookBodyAuthorIdsMax).describe('著者IDの一覧'),
-  "version": zod.number().min(updateBookBodyVersionMin).describe('バージョン')
+  "version": zod.int().min(updateBookBodyVersionMin).describe('バージョン')
 })
 
 export const UpdateBookResponse = zod.object({
@@ -109,7 +109,7 @@ export const UpdateBookResponse = zod.object({
   "id": zod.uuid().describe('著者ID'),
   "name": zod.string().describe('著者名')
 }).describe('著者の要約')).describe('著者の一覧'),
-  "version": zod.number().describe('バージョン')
+  "version": zod.int().describe('バージョン')
 }).describe('書籍')
 
 /**
