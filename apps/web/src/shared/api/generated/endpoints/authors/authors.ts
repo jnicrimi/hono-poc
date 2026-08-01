@@ -73,7 +73,7 @@ export const getCreateAuthorUrl = () => {
 /**
  * @summary 著者を作成
  */
-export const createAuthor = async (createAuthorBody: CreateAuthorBody, options?: RequestInit): Promise<Author> => {
+export const createAuthor = async (createAuthorBody: CreateAuthorBody, options?: Parameters<typeof customFetch>[1]): Promise<Author> => {
 
   return customFetch<Author>(getCreateAuthorUrl(),
   {
@@ -150,7 +150,7 @@ export const useCreateAuthor = <TError = ErrorType<ErrorResponse>,
 /**
  * @summary 著者一覧を取得
  */
-export const listAuthors = async (params?: ListAuthorsParams, options?: RequestInit): Promise<AuthorList> => {
+export const listAuthors = async (params?: ListAuthorsParams, options?: Parameters<typeof customFetch>[1]): Promise<AuthorList> => {
 
   return customFetch<AuthorList>(getListAuthorsUrl(params),
   {
@@ -305,7 +305,7 @@ export const getShowAuthorUrl = (id: string,) => {
 /**
  * @summary 著者を取得
  */
-export const showAuthor = async (id: string, options?: RequestInit): Promise<Author> => {
+export const showAuthor = async (id: string, options?: Parameters<typeof customFetch>[1]): Promise<Author> => {
 
   return customFetch<Author>(getShowAuthorUrl(id),
   {
@@ -461,7 +461,7 @@ export const getUpdateAuthorUrl = (id: string,) => {
  * @summary 著者を更新
  */
 export const updateAuthor = async (id: string,
-    updateAuthorBody: UpdateAuthorBody, options?: RequestInit): Promise<Author> => {
+    updateAuthorBody: UpdateAuthorBody, options?: Parameters<typeof customFetch>[1]): Promise<Author> => {
 
   return customFetch<Author>(getUpdateAuthorUrl(id),
   {
@@ -531,7 +531,7 @@ export const useUpdateAuthor = <TError = ErrorType<ErrorResponse>,
 /**
  * @summary 著者を削除
  */
-export const deleteAuthor = async (id: string, options?: RequestInit): Promise<void> => {
+export const deleteAuthor = async (id: string, options?: Parameters<typeof customFetch>[1]): Promise<void> => {
 
   return customFetch<void>(getDeleteAuthorUrl(id),
   {
