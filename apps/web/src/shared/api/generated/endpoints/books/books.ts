@@ -75,11 +75,17 @@ export const getCreateBookUrl = () => {
  */
 export const createBook = async (createBookBody: CreateBookBody, options?: Parameters<typeof customFetch>[1]): Promise<Book> => {
 
-  return customFetch<Book>(getCreateBookUrl(),
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Array.isArray(h)) return Object.fromEntries(h);
+    return h;
+  };
+return customFetch<Book>(getCreateBookUrl(),
   {
     ...options,
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
     body: JSON.stringify(createBookBody)
   }
 );}
@@ -89,8 +95,8 @@ export const createBook = async (createBookBody: CreateBookBody, options?: Param
 
 
 export const getCreateBookMutationOptions = <TError = ErrorType<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createBook>>, TError,{data: CreateBookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof createBook>>, TError,{data: CreateBookBody}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createBook>>, TError,CreateBookMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createBook>>, TError,CreateBookMutationVariables, TContext> => {
 
 const mutationKey = ['createBook'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -102,7 +108,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createBook>>, {data: CreateBookBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createBook>>, CreateBookMutationVariables> = (props) => {
           const {data} = props ?? {};
 
           return  createBook(data,requestOptions)
@@ -118,16 +124,17 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type CreateBookMutationResult = NonNullable<Awaited<ReturnType<typeof createBook>>>
     export type CreateBookMutationBody = CreateBookBody
     export type CreateBookMutationError = ErrorType<ErrorResponse>
+    export type CreateBookMutationVariables = {data: CreateBookBody}
 
     /**
  * @summary 書籍を作成
  */
 export const useCreateBook = <TError = ErrorType<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createBook>>, TError,{data: CreateBookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createBook>>, TError,CreateBookMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof createBook>>,
         TError,
-        {data: CreateBookBody},
+        CreateBookMutationVariables,
         TContext
       > => {
       return useMutation(getCreateBookMutationOptions(options), queryClient);
@@ -463,11 +470,17 @@ export const getUpdateBookUrl = (id: string,) => {
 export const updateBook = async (id: string,
     updateBookBody: UpdateBookBody, options?: Parameters<typeof customFetch>[1]): Promise<Book> => {
 
-  return customFetch<Book>(getUpdateBookUrl(id),
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Array.isArray(h)) return Object.fromEntries(h);
+    return h;
+  };
+return customFetch<Book>(getUpdateBookUrl(id),
   {
     ...options,
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
     body: JSON.stringify(updateBookBody)
   }
 );}
@@ -477,8 +490,8 @@ export const updateBook = async (id: string,
 
 
 export const getUpdateBookMutationOptions = <TError = ErrorType<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateBook>>, TError,{id: string;data: UpdateBookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof updateBook>>, TError,{id: string;data: UpdateBookBody}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateBook>>, TError,UpdateBookMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateBook>>, TError,UpdateBookMutationVariables, TContext> => {
 
 const mutationKey = ['updateBook'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -490,7 +503,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateBook>>, {id: string;data: UpdateBookBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateBook>>, UpdateBookMutationVariables> = (props) => {
           const {id,data} = props ?? {};
 
           return  updateBook(id,data,requestOptions)
@@ -506,16 +519,17 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type UpdateBookMutationResult = NonNullable<Awaited<ReturnType<typeof updateBook>>>
     export type UpdateBookMutationBody = UpdateBookBody
     export type UpdateBookMutationError = ErrorType<ErrorResponse>
+    export type UpdateBookMutationVariables = {id: string;data: UpdateBookBody}
 
     /**
  * @summary 書籍を更新
  */
 export const useUpdateBook = <TError = ErrorType<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateBook>>, TError,{id: string;data: UpdateBookBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateBook>>, TError,UpdateBookMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof updateBook>>,
         TError,
-        {id: string;data: UpdateBookBody},
+        UpdateBookMutationVariables,
         TContext
       > => {
       return useMutation(getUpdateBookMutationOptions(options), queryClient);
@@ -547,8 +561,8 @@ export const deleteBook = async (id: string, options?: Parameters<typeof customF
 
 
 export const getDeleteBookMutationOptions = <TError = ErrorType<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteBook>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteBook>>, TError,{id: string}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteBook>>, TError,DeleteBookMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteBook>>, TError,DeleteBookMutationVariables, TContext> => {
 
 const mutationKey = ['deleteBook'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -560,7 +574,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteBook>>, {id: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteBook>>, DeleteBookMutationVariables> = (props) => {
           const {id} = props ?? {};
 
           return  deleteBook(id,requestOptions)
@@ -576,16 +590,17 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type DeleteBookMutationResult = NonNullable<Awaited<ReturnType<typeof deleteBook>>>
 
     export type DeleteBookMutationError = ErrorType<ErrorResponse>
+    export type DeleteBookMutationVariables = {id: string}
 
     /**
  * @summary 書籍を削除
  */
 export const useDeleteBook = <TError = ErrorType<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteBook>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteBook>>, TError,DeleteBookMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof deleteBook>>,
         TError,
-        {id: string},
+        DeleteBookMutationVariables,
         TContext
       > => {
       return useMutation(getDeleteBookMutationOptions(options), queryClient);
