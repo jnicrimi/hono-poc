@@ -34,6 +34,11 @@
       "matchDepNames": ["@biomejs/biome"],
       "groupName": "biome",
       "groupSlug": "biome"
+    },
+    {
+      "matchDepNames": ["orval"],
+      "groupName": "orval",
+      "groupSlug": "orval"
     }
   ],
   "customManagers": [
