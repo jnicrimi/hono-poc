@@ -75,11 +75,17 @@ export const getCreateAuthorUrl = () => {
  */
 export const createAuthor = async (createAuthorBody: CreateAuthorBody, options?: Parameters<typeof customFetch>[1]): Promise<Author> => {
 
-  return customFetch<Author>(getCreateAuthorUrl(),
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Array.isArray(h)) return Object.fromEntries(h);
+    return h;
+  };
+return customFetch<Author>(getCreateAuthorUrl(),
   {
     ...options,
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
     body: JSON.stringify(createAuthorBody)
   }
 );}
@@ -89,8 +95,8 @@ export const createAuthor = async (createAuthorBody: CreateAuthorBody, options?:
 
 
 export const getCreateAuthorMutationOptions = <TError = ErrorType<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createAuthor>>, TError,{data: CreateAuthorBody}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof createAuthor>>, TError,{data: CreateAuthorBody}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createAuthor>>, TError,CreateAuthorMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createAuthor>>, TError,CreateAuthorMutationVariables, TContext> => {
 
 const mutationKey = ['createAuthor'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -102,7 +108,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createAuthor>>, {data: CreateAuthorBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createAuthor>>, CreateAuthorMutationVariables> = (props) => {
           const {data} = props ?? {};
 
           return  createAuthor(data,requestOptions)
@@ -118,16 +124,17 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type CreateAuthorMutationResult = NonNullable<Awaited<ReturnType<typeof createAuthor>>>
     export type CreateAuthorMutationBody = CreateAuthorBody
     export type CreateAuthorMutationError = ErrorType<ErrorResponse>
+    export type CreateAuthorMutationVariables = {data: CreateAuthorBody}
 
     /**
  * @summary 著者を作成
  */
 export const useCreateAuthor = <TError = ErrorType<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createAuthor>>, TError,{data: CreateAuthorBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createAuthor>>, TError,CreateAuthorMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof createAuthor>>,
         TError,
-        {data: CreateAuthorBody},
+        CreateAuthorMutationVariables,
         TContext
       > => {
       return useMutation(getCreateAuthorMutationOptions(options), queryClient);
@@ -463,11 +470,17 @@ export const getUpdateAuthorUrl = (id: string,) => {
 export const updateAuthor = async (id: string,
     updateAuthorBody: UpdateAuthorBody, options?: Parameters<typeof customFetch>[1]): Promise<Author> => {
 
-  return customFetch<Author>(getUpdateAuthorUrl(id),
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Array.isArray(h)) return Object.fromEntries(h);
+    return h;
+  };
+return customFetch<Author>(getUpdateAuthorUrl(id),
   {
     ...options,
     method: 'PATCH',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
     body: JSON.stringify(updateAuthorBody)
   }
 );}
@@ -477,8 +490,8 @@ export const updateAuthor = async (id: string,
 
 
 export const getUpdateAuthorMutationOptions = <TError = ErrorType<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateAuthor>>, TError,{id: string;data: UpdateAuthorBody}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof updateAuthor>>, TError,{id: string;data: UpdateAuthorBody}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateAuthor>>, TError,UpdateAuthorMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateAuthor>>, TError,UpdateAuthorMutationVariables, TContext> => {
 
 const mutationKey = ['updateAuthor'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -490,7 +503,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateAuthor>>, {id: string;data: UpdateAuthorBody}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateAuthor>>, UpdateAuthorMutationVariables> = (props) => {
           const {id,data} = props ?? {};
 
           return  updateAuthor(id,data,requestOptions)
@@ -506,16 +519,17 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type UpdateAuthorMutationResult = NonNullable<Awaited<ReturnType<typeof updateAuthor>>>
     export type UpdateAuthorMutationBody = UpdateAuthorBody
     export type UpdateAuthorMutationError = ErrorType<ErrorResponse>
+    export type UpdateAuthorMutationVariables = {id: string;data: UpdateAuthorBody}
 
     /**
  * @summary 著者を更新
  */
 export const useUpdateAuthor = <TError = ErrorType<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateAuthor>>, TError,{id: string;data: UpdateAuthorBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateAuthor>>, TError,UpdateAuthorMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof updateAuthor>>,
         TError,
-        {id: string;data: UpdateAuthorBody},
+        UpdateAuthorMutationVariables,
         TContext
       > => {
       return useMutation(getUpdateAuthorMutationOptions(options), queryClient);
@@ -547,8 +561,8 @@ export const deleteAuthor = async (id: string, options?: Parameters<typeof custo
 
 
 export const getDeleteAuthorMutationOptions = <TError = ErrorType<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAuthor>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteAuthor>>, TError,{id: string}, TContext> => {
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAuthor>>, TError,DeleteAuthorMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteAuthor>>, TError,DeleteAuthorMutationVariables, TContext> => {
 
 const mutationKey = ['deleteAuthor'];
 const {mutation: mutationOptions, request: requestOptions} = options ?
@@ -560,7 +574,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteAuthor>>, {id: string}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteAuthor>>, DeleteAuthorMutationVariables> = (props) => {
           const {id} = props ?? {};
 
           return  deleteAuthor(id,requestOptions)
@@ -576,16 +590,17 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type DeleteAuthorMutationResult = NonNullable<Awaited<ReturnType<typeof deleteAuthor>>>
 
     export type DeleteAuthorMutationError = ErrorType<ErrorResponse>
+    export type DeleteAuthorMutationVariables = {id: string}
 
     /**
  * @summary 著者を削除
  */
 export const useDeleteAuthor = <TError = ErrorType<ErrorResponse>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAuthor>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAuthor>>, TError,DeleteAuthorMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof deleteAuthor>>,
         TError,
-        {id: string},
+        DeleteAuthorMutationVariables,
         TContext
       > => {
       return useMutation(getDeleteAuthorMutationOptions(options), queryClient);
