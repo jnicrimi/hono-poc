@@ -1,6 +1,6 @@
 [tools]
 pnpm = "11.24.0"
-node = "24.19.0"
+node = "24.20.0"
 actionlint = "1.7.12"
 zizmor = "1.29.0"
 gitleaks = "8.30.1"
