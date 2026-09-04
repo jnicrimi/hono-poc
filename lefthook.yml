@@ -32,7 +32,7 @@ pre-commit:
       run: zizmor --persona=pedantic --offline {staged_files}
     taplo:
       glob: "*.toml"
-      run: pnpm exec taplo fmt --check {staged_files}
+      run: taplo fmt --check {staged_files}
     drizzle-check:
       glob: "apps/api/drizzle/*"
       run: pnpm --filter @hono-poc/api db:check
