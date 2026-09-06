@@ -14,6 +14,3 @@ allowBuilds:
   msw: false
   protobufjs: false
   ssh2: false
-minimumReleaseAgeExclude:
-  # Renovate security update: hono@4.12.34
-  - hono@4.12.34
