@@ -94,11 +94,13 @@ return customFetch<Book>(getCreateBookUrl(),
 
 
 
+export const getCreateBookMutationKey = () => ['createBook'] as const;
+
 export const getCreateBookMutationOptions = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createBook>>, TError,CreateBookMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof createBook>>, TError,CreateBookMutationVariables, TContext> => {
 
-const mutationKey = ['createBook'];
+const mutationKey = getCreateBookMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -489,11 +491,13 @@ return customFetch<Book>(getUpdateBookUrl(id),
 
 
 
+export const getUpdateBookMutationKey = () => ['updateBook'] as const;
+
 export const getUpdateBookMutationOptions = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateBook>>, TError,UpdateBookMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof updateBook>>, TError,UpdateBookMutationVariables, TContext> => {
 
-const mutationKey = ['updateBook'];
+const mutationKey = getUpdateBookMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -560,11 +564,13 @@ export const deleteBook = async (id: string, options?: Parameters<typeof customF
 
 
 
+export const getDeleteBookMutationKey = () => ['deleteBook'] as const;
+
 export const getDeleteBookMutationOptions = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteBook>>, TError,DeleteBookMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof deleteBook>>, TError,DeleteBookMutationVariables, TContext> => {
 
-const mutationKey = ['deleteBook'];
+const mutationKey = getDeleteBookMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
