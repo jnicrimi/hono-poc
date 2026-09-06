@@ -94,11 +94,13 @@ return customFetch<Author>(getCreateAuthorUrl(),
 
 
 
+export const getCreateAuthorMutationKey = () => ['createAuthor'] as const;
+
 export const getCreateAuthorMutationOptions = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createAuthor>>, TError,CreateAuthorMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof createAuthor>>, TError,CreateAuthorMutationVariables, TContext> => {
 
-const mutationKey = ['createAuthor'];
+const mutationKey = getCreateAuthorMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -489,11 +491,13 @@ return customFetch<Author>(getUpdateAuthorUrl(id),
 
 
 
+export const getUpdateAuthorMutationKey = () => ['updateAuthor'] as const;
+
 export const getUpdateAuthorMutationOptions = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateAuthor>>, TError,UpdateAuthorMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof updateAuthor>>, TError,UpdateAuthorMutationVariables, TContext> => {
 
-const mutationKey = ['updateAuthor'];
+const mutationKey = getUpdateAuthorMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
@@ -560,11 +564,13 @@ export const deleteAuthor = async (id: string, options?: Parameters<typeof custo
 
 
 
+export const getDeleteAuthorMutationKey = () => ['deleteAuthor'] as const;
+
 export const getDeleteAuthorMutationOptions = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAuthor>>, TError,DeleteAuthorMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
 ): UseMutationOptions<Awaited<ReturnType<typeof deleteAuthor>>, TError,DeleteAuthorMutationVariables, TContext> => {
 
-const mutationKey = ['deleteAuthor'];
+const mutationKey = getDeleteAuthorMutationKey();
 const {mutation: mutationOptions, request: requestOptions} = options ?
       options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
       options
