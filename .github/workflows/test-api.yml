@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/setup
+      - uses: ./.github/actions/setup  # zizmor: ignore[self-repository] actionlint 1.7.12 が $/ 構文に未対応のため
       - name: Run unit tests
         run: pnpm --filter @hono-poc/api exec vitest run --project unit --coverage --reporter=dot --reporter=blob --outputFile.blob=.vitest-reports/unit.json
       - name: Upload blob report
@@ -39,7 +39,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/setup
+      - uses: ./.github/actions/setup  # zizmor: ignore[self-repository] actionlint 1.7.12 が $/ 構文に未対応のため
       - name: Run integration tests
         run: pnpm --filter @hono-poc/api exec vitest run --project integration --coverage --reporter=dot --reporter=blob --outputFile.blob=.vitest-reports/integration.json
       - name: Upload blob report
@@ -58,7 +58,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/setup
+      - uses: ./.github/actions/setup  # zizmor: ignore[self-repository] actionlint 1.7.12 が $/ 構文に未対応のため
       - name: Run API tests
         run: pnpm --filter @hono-poc/api exec vitest run --project api --coverage --reporter=dot --reporter=blob --outputFile.blob=.vitest-reports/api.json
       - name: Upload blob report
@@ -82,7 +82,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           persist-credentials: false
-      - uses: ./.github/actions/setup
+      - uses: ./.github/actions/setup  # zizmor: ignore[self-repository] actionlint 1.7.12 が $/ 構文に未対応のため
       - name: Download blob reports
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  # v8.0.1
         with:
