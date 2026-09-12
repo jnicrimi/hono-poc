@@ -22,13 +22,13 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/setup  # zizmor: ignore[self-repository] actionlint 1.7.12 が $/ 構文に未対応のため
       - name: Run unit tests
-        run: pnpm --filter @hono-poc/api exec vitest run --project unit --coverage --reporter=dot --reporter=blob --outputFile.blob=.vitest-reports/unit.json
+        run: pnpm --filter @hono-poc/api exec vitest run --project unit --coverage --reporter=dot --reporter=blob --outputFile.blob=.vitest/blob/unit.json
       - name: Upload blob report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         with:
           name: blob-unit
-          path: apps/api/.vitest-reports/*
+          path: apps/api/.vitest/blob/*
           include-hidden-files: true
           retention-days: 1
   integration:
@@ -41,13 +41,13 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/setup  # zizmor: ignore[self-repository] actionlint 1.7.12 が $/ 構文に未対応のため
       - name: Run integration tests
-        run: pnpm --filter @hono-poc/api exec vitest run --project integration --coverage --reporter=dot --reporter=blob --outputFile.blob=.vitest-reports/integration.json
+        run: pnpm --filter @hono-poc/api exec vitest run --project integration --coverage --reporter=dot --reporter=blob --outputFile.blob=.vitest/blob/integration.json
       - name: Upload blob report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         with:
           name: blob-integration
-          path: apps/api/.vitest-reports/*
+          path: apps/api/.vitest/blob/*
           include-hidden-files: true
           retention-days: 1
   api:
@@ -60,13 +60,13 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/setup  # zizmor: ignore[self-repository] actionlint 1.7.12 が $/ 構文に未対応のため
       - name: Run API tests
-        run: pnpm --filter @hono-poc/api exec vitest run --project api --coverage --reporter=dot --reporter=blob --outputFile.blob=.vitest-reports/api.json
+        run: pnpm --filter @hono-poc/api exec vitest run --project api --coverage --reporter=dot --reporter=blob --outputFile.blob=.vitest/blob/api.json
       - name: Upload blob report
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         with:
           name: blob-api
-          path: apps/api/.vitest-reports/*
+          path: apps/api/.vitest/blob/*
           include-hidden-files: true
           retention-days: 1
   coverage:
@@ -86,7 +86,7 @@ jobs:
       - name: Download blob reports
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  # v8.0.1
         with:
-          path: apps/api/.vitest-reports
+          path: apps/api/.vitest/blob
           pattern: blob-*
           merge-multiple: true
       - name: Merge coverage

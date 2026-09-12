@@ -12,9 +12,9 @@ node_modules/
 
 # Test coverage
 /apps/api/coverage/
-/apps/api/.vitest-reports/
+/apps/api/.vitest/
 /apps/web/coverage/
-/apps/web/.vitest-reports/
+/apps/web/.vitest/
 
 # Playwright
 /apps/web/playwright-report/
