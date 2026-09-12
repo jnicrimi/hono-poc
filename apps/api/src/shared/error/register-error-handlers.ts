@@ -1,6 +1,6 @@
 import type { Hono } from "hono"
 import { HTTPException } from "hono/http-exception"
-import type { ContentfulStatusCode } from "hono/utils/http-status"
+import type { ContentfulStatusCode, StatusCode } from "hono/utils/http-status"
 import type { AppEnv } from "../app-env"
 import type { AppLogger } from "../logger/logger"
 import { AppError, type ErrorCategory } from "./app-error"
@@ -11,6 +11,11 @@ const STATUS: Record<ErrorCategory, ContentfulStatusCode> = {
   CONFLICT: 409,
   NOT_FOUND: 404,
   VALIDATION: 422,
+}
+
+const VALIDATOR_MESSAGES: Partial<Record<StatusCode, string>> = {
+  400: httpMessages.invalidRequest,
+  415: httpMessages.unsupportedMediaType,
 }
 
 export const registerErrorHandlers = (
@@ -25,9 +30,9 @@ export const registerErrorHandlers = (
       )
     }
     if (err instanceof HTTPException) {
-      // Hono の validator は JSON パース失敗時に英語メッセージの HTTPException(400) を投げるため定型文へ置き換える
-      const message =
-        err.status === 400 ? httpMessages.invalidRequest : err.message
+      // validator が投げる HTTPException は英語メッセージのため定型文へ置き換える
+      // 400: JSON パース失敗 / 415: 宣言済み media type と一致しない Content-Type
+      const message = VALIDATOR_MESSAGES[err.status] ?? err.message
       return c.json({ errors: [{ message }] }, err.status)
     }
     const logger = c.get("logger") ?? baseLogger

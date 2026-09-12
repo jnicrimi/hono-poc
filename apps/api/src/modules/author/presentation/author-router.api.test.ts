@@ -69,7 +69,7 @@ describe("POST /authors", () => {
     })
   })
 
-  it("content-type が JSON でない場合は 422 を返す", async () => {
+  it("content-type が JSON でない場合は 415 とエラーレスポンスを返す", async () => {
     const app = createAuthorTestApp({
       repository: createAuthorRepositoryStub(),
       reader: createAuthorReaderStub(),
@@ -79,7 +79,10 @@ describe("POST /authors", () => {
       headers: { "content-type": "text/plain" },
       body: JSON.stringify({ name: "著者名" }),
     })
-    expect(res.status).toBe(422)
+    expect(res.status).toBe(415)
+    expect(await res.json()).toEqual({
+      errors: [{ message: "リクエストの Content-Type に対応していません" }],
+    })
   })
 })
 

@@ -20,6 +20,9 @@ export default {
         ],
       },
     ],
+    // Tailwind の @apply は prelude が CSS の構文定義と一致しないため検証対象外にする
+    // stylelint-config-standard の既定値 media を引き継ぐ
+    "at-rule-prelude-no-invalid": [true, { ignoreAtRules: ["media", "apply"] }],
     // Tailwind v4 の @import は文字列表記が前提
     "import-notation": "string",
     // shadcn の oklch トークン表記を許容する
