@@ -164,7 +164,7 @@ describe("POST /books", () => {
     expect(res.status).toBe(422)
   })
 
-  it("content-type が JSON でない場合は 422 を返す", async () => {
+  it("content-type が JSON でない場合は 415 とエラーレスポンスを返す", async () => {
     const app = createTestApp()
     const res = await app.request("/books", {
       method: "POST",
@@ -174,7 +174,10 @@ describe("POST /books", () => {
         authorIds: [VALID_UUID_V7],
       }),
     })
-    expect(res.status).toBe(422)
+    expect(res.status).toBe(415)
+    expect(await res.json()).toEqual({
+      errors: [{ message: "リクエストの Content-Type に対応していません" }],
+    })
   })
 })
 
