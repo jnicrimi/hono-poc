@@ -5,6 +5,7 @@
  * OpenAPI spec version: 0.0.0
  */
 import {
+  queryOptions as queryOptionsBuilder,
   useMutation,
   useQuery,
   useSuspenseQuery
@@ -271,7 +272,7 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  queryOptionsBuilder({ queryKey, ...queryOptions, queryFn: queryOptions?.queryFn ?? queryFn}) as UseSuspenseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> } & { throwOnError?: ((this: never, error: TError) => boolean) & { readonly __inferenceOnly: never } }
 }
 
 export type ListAuthorsSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof listAuthors>>>
@@ -426,7 +427,7 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
 
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+   return  queryOptionsBuilder({ queryKey, ...queryOptions, queryFn: queryOptions?.queryFn ?? queryFn}) as UseSuspenseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> } & { throwOnError?: ((this: never, error: TError) => boolean) & { readonly __inferenceOnly: never } }
 }
 
 export type ShowAuthorSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof showAuthor>>>
