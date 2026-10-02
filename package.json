@@ -15,11 +15,11 @@
     "@biomejs/biome": "2.5.14",
     "@commitlint/cli": "21.2.3",
     "@commitlint/config-conventional": "21.2.3",
-    "knip": "6.37.0",
+    "knip": "6.38.0",
     "markdownlint-cli2": "0.23.3",
     "stylelint": "17.15.0",
     "stylelint-config-standard": "40.0.0",
-    "turbo": "2.11.3",
+    "turbo": "2.11.5",
     "typescript": "7.0.2",
     "vitepress": "1.6.4"
   }
