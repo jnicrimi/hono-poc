@@ -33,6 +33,10 @@
 - Playwright
 - Storybook
 
+## Turborepo
+
+- 設定やコマンドはバージョンで変わるため、インストール済み `turbo` パッケージ同梱の `docs/` を参照する
+
 ## モノレポ構成
 
 ### apps/api
