@@ -86,7 +86,7 @@ paths:
 
 - 実装完了後は `mise run test-web` で Web のテスト全体を実行する
 - `*.test.tsx` は実装ファイルと同じディレクトリに配置する
-- Vitest + Testing Library + MSW（`onUnhandledRequest: "error"`）でテストする
+- Vitest + Testing Library + MSW（`onUnhandledFrame: "error"`）でテストする
 - API タグを追加したら Orval が生成したモックを `msw-server.ts` の `setupServer` に登録する
 - ルートコンポーネントは `render-with-router.tsx` ヘルパーでレンダリングする
 - describe には対象を書く

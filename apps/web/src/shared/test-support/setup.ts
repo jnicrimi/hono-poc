@@ -33,7 +33,7 @@ class ResizeObserverStub {
 window.ResizeObserver = ResizeObserverStub
 
 beforeAll(() => {
-  server.listen({ onUnhandledRequest: "error" })
+  server.listen({ onUnhandledFrame: "error" })
 })
 
 afterEach(() => {
