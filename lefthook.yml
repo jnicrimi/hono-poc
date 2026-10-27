@@ -30,9 +30,12 @@ pre-commit:
     - name: zizmor
       glob: ".github/workflows/*.{yml,yaml}"
       run: zizmor --persona=pedantic --offline {staged_files}
-    - name: taplo
+    - name: tombi-format
       glob: "*.toml"
-      run: taplo fmt --check {staged_files}
+      run: tombi format --check {staged_files}
+    - name: tombi-lint
+      glob: "*.toml"
+      run: tombi lint {staged_files}
     - name: drizzle-check
       glob: "apps/api/drizzle/*"
       run: pnpm --filter @hono-poc/api db:check
