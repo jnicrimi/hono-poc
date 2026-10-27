@@ -1,59 +1,59 @@
 commit-msg:
-  commands:
-    commitlint:
+  jobs:
+    - name: commitlint
       run: pnpm exec commitlint --edit {1}
 
 pre-commit:
   parallel: true
-  commands:
-    gitleaks:
+  jobs:
+    - name: gitleaks
       run: gitleaks git --pre-commit --staged
-    biome:
+    - name: biome
       run: pnpm exec biome check --staged --no-errors-on-unmatched
-    knip:
+    - name: knip
       glob: "*.{ts,tsx}"
       run: pnpm exec knip
-    markdownlint:
+    - name: markdownlint
       glob: "*.md"
       exclude:
         - "docs/db/*.md"
       run: pnpm exec markdownlint-cli2 {staged_files}
-    stylelint:
+    - name: stylelint
       glob: "*.css"
       run: pnpm exec stylelint {staged_files}
-    yamllint:
+    - name: yamllint
       glob: "*.{yml,yaml}"
       run: mise run yamllint --strict {staged_files}
-    actionlint:
+    - name: actionlint
       glob: ".github/workflows/*.{yml,yaml}"
       run: actionlint {staged_files}
-    zizmor:
+    - name: zizmor
       glob: ".github/workflows/*.{yml,yaml}"
       run: zizmor --persona=pedantic --offline {staged_files}
-    taplo:
+    - name: taplo
       glob: "*.toml"
       run: taplo fmt --check {staged_files}
-    drizzle-check:
+    - name: drizzle-check
       glob: "apps/api/drizzle/*"
       run: pnpm --filter @hono-poc/api db:check
-    typecheck:
+    - name: typecheck
       glob: "*.{ts,tsx}"
       run: pnpm typecheck
-    depcruise-api:
+    - name: depcruise-api
       glob: "apps/api/src/*.ts"
       run: pnpm --filter @hono-poc/api depcruise
-    depcruise-web:
+    - name: depcruise-web
       glob: "apps/web/src/*.{ts,tsx}"
       run: pnpm --filter @hono-poc/web depcruise
 
 pre-push:
   parallel: true
-  commands:
-    gitleaks:
+  jobs:
+    - name: gitleaks
       run: gitleaks git --log-opts "origin/main..HEAD"
-    test-unit:
+    - name: test-unit
       run: pnpm --filter @hono-poc/api test:unit
-    test-api:
+    - name: test-api
       run: pnpm --filter @hono-poc/api test:api
-    test-web:
+    - name: test-web
       run: pnpm --filter @hono-poc/web test
