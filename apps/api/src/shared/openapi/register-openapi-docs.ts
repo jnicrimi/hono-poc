@@ -12,7 +12,7 @@ export const registerOpenApiDocs = (
     return
   }
 
-  app.doc("/api-docs/json", options.config)
+  app.doc31("/api-docs/json", options.config)
 
   const js = readFileSync(
     new URL("../../../vendor/scalar/standalone.js", import.meta.url),

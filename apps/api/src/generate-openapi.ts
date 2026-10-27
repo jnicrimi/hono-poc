@@ -18,7 +18,7 @@ const app = createApp(db, logger, {
   httpBoundary: { bodyLimitBytes: 1, requestTimeoutMs: 1 },
 })
 
-const document = app.getOpenAPIDocument(openApiDocConfig)
+const document = app.getOpenAPI31Document(openApiDocConfig)
 writeFileSync(
   new URL("../openapi.json", import.meta.url),
   `${JSON.stringify(document, null, 2)}\n`,
