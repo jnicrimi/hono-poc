@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import * as z from "zod"
 import { AuthorMultiSelect } from "@/modules/author/components/author-multi-select"
 import { useAuthorOptions } from "@/modules/author/hooks/use-author-options"
@@ -83,15 +83,16 @@ export function BookEditForm({ book }: { readonly book: Book }) {
       </div>
       <div className="flex flex-col gap-2">
         <Label>{bookLabels.authors}</Label>
-        <AuthorMultiSelect
-          options={authors}
-          value={form.watch("authorIds")}
-          onChange={(next) =>
-            form.setValue("authorIds", [...next], {
-              shouldValidate: form.formState.isSubmitted,
-              shouldDirty: true,
-            })
-          }
+        <Controller
+          control={form.control}
+          name="authorIds"
+          render={({ field }) => (
+            <AuthorMultiSelect
+              options={authors}
+              value={field.value}
+              onChange={(next) => field.onChange([...next])}
+            />
+          )}
         />
         <FieldError message={authorIdsError?.message} />
       </div>
