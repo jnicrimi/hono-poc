@@ -9,17 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as BooksRouteImport } from './routes/books'
-import { Route as AuthorsRouteImport } from './routes/authors'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as BooksNewRouteImport } from './routes/books.new'
-import { Route as BooksBookIdRouteImport } from './routes/books.$bookId'
-import { Route as AuthorsNewRouteImport } from './routes/authors.new'
+import { Route as AuthorsRouteImport } from './routes/authors'
+import { Route as BooksRouteImport } from './routes/books'
 import { Route as AuthorsAuthorIdRouteImport } from './routes/authors.$authorId'
+import { Route as AuthorsNewRouteImport } from './routes/authors.new'
+import { Route as BooksBookIdRouteImport } from './routes/books.$bookId'
+import { Route as BooksNewRouteImport } from './routes/books.new'
 
-const BooksRoute = BooksRouteImport.update({
-  id: '/books',
-  path: '/books',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthorsRoute = AuthorsRouteImport.update({
@@ -27,30 +27,30 @@ const AuthorsRoute = AuthorsRouteImport.update({
   path: '/authors',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const BooksRoute = BooksRouteImport.update({
+  id: '/books',
+  path: '/books',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BooksNewRoute = BooksNewRouteImport.update({
-  id: '/new',
-  path: '/new',
-  getParentRoute: () => BooksRoute,
-} as any)
-const BooksBookIdRoute = BooksBookIdRouteImport.update({
-  id: '/$bookId',
-  path: '/$bookId',
-  getParentRoute: () => BooksRoute,
+const AuthorsAuthorIdRoute = AuthorsAuthorIdRouteImport.update({
+  id: '/$authorId',
+  path: '/$authorId',
+  getParentRoute: () => AuthorsRoute,
 } as any)
 const AuthorsNewRoute = AuthorsNewRouteImport.update({
   id: '/new',
   path: '/new',
   getParentRoute: () => AuthorsRoute,
 } as any)
-const AuthorsAuthorIdRoute = AuthorsAuthorIdRouteImport.update({
-  id: '/$authorId',
-  path: '/$authorId',
-  getParentRoute: () => AuthorsRoute,
+const BooksBookIdRoute = BooksBookIdRouteImport.update({
+  id: '/$bookId',
+  path: '/$bookId',
+  getParentRoute: () => BooksRoute,
+} as any)
+const BooksNewRoute = BooksNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => BooksRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -119,11 +119,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/books': {
-      id: '/books'
-      path: '/books'
-      fullPath: '/books'
-      preLoaderRoute: typeof BooksRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/authors': {
@@ -133,26 +133,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthorsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/books': {
+      id: '/books'
+      path: '/books'
+      fullPath: '/books'
+      preLoaderRoute: typeof BooksRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/books/new': {
-      id: '/books/new'
-      path: '/new'
-      fullPath: '/books/new'
-      preLoaderRoute: typeof BooksNewRouteImport
-      parentRoute: typeof BooksRoute
-    }
-    '/books/$bookId': {
-      id: '/books/$bookId'
-      path: '/$bookId'
-      fullPath: '/books/$bookId'
-      preLoaderRoute: typeof BooksBookIdRouteImport
-      parentRoute: typeof BooksRoute
+    '/authors/$authorId': {
+      id: '/authors/$authorId'
+      path: '/$authorId'
+      fullPath: '/authors/$authorId'
+      preLoaderRoute: typeof AuthorsAuthorIdRouteImport
+      parentRoute: typeof AuthorsRoute
     }
     '/authors/new': {
       id: '/authors/new'
@@ -161,12 +154,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthorsNewRouteImport
       parentRoute: typeof AuthorsRoute
     }
-    '/authors/$authorId': {
-      id: '/authors/$authorId'
-      path: '/$authorId'
-      fullPath: '/authors/$authorId'
-      preLoaderRoute: typeof AuthorsAuthorIdRouteImport
-      parentRoute: typeof AuthorsRoute
+    '/books/$bookId': {
+      id: '/books/$bookId'
+      path: '/$bookId'
+      fullPath: '/books/$bookId'
+      preLoaderRoute: typeof BooksBookIdRouteImport
+      parentRoute: typeof BooksRoute
+    }
+    '/books/new': {
+      id: '/books/new'
+      path: '/new'
+      fullPath: '/books/new'
+      preLoaderRoute: typeof BooksNewRouteImport
+      parentRoute: typeof BooksRoute
     }
   }
 }
