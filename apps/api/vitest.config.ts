@@ -2,6 +2,7 @@ import { defineConfig } from "vitest/config"
 
 export default defineConfig({
   test: {
+    restoreMocks: true,
     coverage: {
       provider: "v8",
       reporter: ["text-summary", "html", "json-summary", "json"],
@@ -22,29 +23,23 @@ export default defineConfig({
       {
         test: {
           name: "unit",
-          environment: "node",
           include: ["src/**/*.unit.test.ts"],
-          restoreMocks: true,
         },
       },
       {
         test: {
           name: "integration",
-          environment: "node",
           include: ["src/**/*.integration.test.ts"],
           globalSetup: [
             "src/shared/db/test-support/integration-global-setup.ts",
           ],
           setupFiles: ["src/shared/db/test-support/integration-setup.ts"],
-          restoreMocks: true,
         },
       },
       {
         test: {
           name: "api",
-          environment: "node",
           include: ["src/**/*.api.test.ts"],
-          restoreMocks: true,
         },
       },
     ],
