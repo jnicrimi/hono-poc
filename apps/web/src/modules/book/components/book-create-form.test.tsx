@@ -53,6 +53,7 @@ describe("BookCreateForm", () => {
     await user.type(input, "書籍-1")
     await user.click(screen.getByRole("combobox"))
     await user.click(await screen.findByRole("option", { name: "著者-1" }))
+    await user.keyboard("{Escape}")
     await user.click(screen.getByRole("button", { name: "登録" }))
 
     expect(await screen.findByText("書籍一覧ページ")).toBeInTheDocument()
@@ -75,6 +76,7 @@ describe("BookCreateForm", () => {
 
     await user.click(await screen.findByRole("combobox"))
     await user.click(await screen.findByRole("option", { name: "著者-1" }))
+    await user.keyboard("{Escape}")
     await user.click(screen.getByRole("button", { name: "登録" }))
 
     expect(

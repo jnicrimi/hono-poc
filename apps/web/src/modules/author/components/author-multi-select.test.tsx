@@ -10,24 +10,12 @@ const options = [
 ]
 
 describe("AuthorMultiSelect", () => {
-  it("未選択の場合はプレースホルダを表示する", () => {
+  it("検索入力のプレースホルダを表示する", () => {
     render(
       <AuthorMultiSelect options={options} value={[]} onChange={() => {}} />,
     )
 
-    expect(screen.getByText("著者を選択")).toBeInTheDocument()
-  })
-
-  it("選択済みの件数を表示する", () => {
-    render(
-      <AuthorMultiSelect
-        options={options}
-        value={["a1", "a2"]}
-        onChange={() => {}}
-      />,
-    )
-
-    expect(screen.getByText("2名の著者")).toBeInTheDocument()
+    expect(screen.getByPlaceholderText("著者を検索")).toBeInTheDocument()
   })
 
   it("選択済みの著者名を表示する", () => {
@@ -82,6 +70,26 @@ describe("AuthorMultiSelect", () => {
     await user.click(await screen.findByRole("option", { name: "著者-1" }))
 
     expect(onChange).toHaveBeenCalledWith([])
+  })
+
+  it("ポップアップが閉じた状態で Escape を押しても選択を解除しない", async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    render(
+      <AuthorMultiSelect
+        options={options}
+        value={["a1", "a2"]}
+        onChange={onChange}
+      />,
+    )
+
+    await user.click(screen.getByRole("combobox"))
+    await user.keyboard("{Escape}")
+    await user.keyboard("{Escape}")
+
+    expect(onChange).not.toHaveBeenCalled()
+    expect(screen.getByText("著者-1")).toBeInTheDocument()
+    expect(screen.getByText("著者-2")).toBeInTheDocument()
   })
 
   it("検索入力でオプションを絞り込む", async () => {

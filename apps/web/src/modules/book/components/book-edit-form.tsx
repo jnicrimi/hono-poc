@@ -82,12 +82,13 @@ export function BookEditForm({ book }: { readonly book: Book }) {
         <FieldError message={titleError?.message} />
       </div>
       <div className="flex flex-col gap-2">
-        <Label>{bookLabels.authors}</Label>
+        <Label htmlFor="book-authors">{bookLabels.authors}</Label>
         <Controller
           control={form.control}
           name="authorIds"
           render={({ field }) => (
             <AuthorMultiSelect
+              id="book-authors"
               options={authors}
               value={field.value}
               onChange={(next) => field.onChange([...next])}
