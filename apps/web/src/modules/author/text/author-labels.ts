@@ -4,6 +4,7 @@ export const authorLabels = {
   notFound: "著者が存在しません",
   searchPlaceholder: "著者を検索",
   searchEmpty: "著者が見つかりません",
+  deselect: (name: string) => `${name}の選択を解除`,
   createTitle: "著者の登録",
   editTitle: "著者の編集",
   deleteConfirmTitle: "著者を削除しますか？",

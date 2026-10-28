@@ -58,7 +58,10 @@ export function AuthorMultiSelect({
         <ComboboxValue>
           {(selected: string[]) =>
             selected.map((authorId) => (
-              <ComboboxChip key={authorId}>
+              <ComboboxChip
+                key={authorId}
+                removeLabel={authorLabels.deselect(resolveLabel(authorId))}
+              >
                 {resolveLabel(authorId)}
               </ComboboxChip>
             ))

@@ -72,6 +72,22 @@ describe("AuthorMultiSelect", () => {
     expect(onChange).toHaveBeenCalledWith([])
   })
 
+  it("チップの解除ボタンを押すとその著者を除外した id 配列を onChange に渡す", async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    render(
+      <AuthorMultiSelect
+        options={options}
+        value={["a1", "a2"]}
+        onChange={onChange}
+      />,
+    )
+
+    await user.click(screen.getByRole("button", { name: "著者-1の選択を解除" }))
+
+    expect(onChange).toHaveBeenCalledWith(["a2"])
+  })
+
   it("ポップアップが閉じた状態で Escape を押しても選択を解除しない", async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
