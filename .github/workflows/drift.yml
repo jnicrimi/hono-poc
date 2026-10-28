@@ -62,4 +62,7 @@ jobs:
       - name: Generate route tree
         run: pnpm --filter @hono-poc/web build
       - name: Check drift
-        run: git diff --exit-code -- apps/web/src/route-tree.gen.ts
+        # --intent-to-add 未追跡の新規生成ファイルをインデックスに登録
+        run: |
+          git add --intent-to-add apps/web/src/route-tree.gen.ts
+          git diff --exit-code -- apps/web/src/route-tree.gen.ts
