@@ -49,3 +49,17 @@ jobs:
         run: |
           git add --intent-to-add apps/api/openapi.json apps/web/src/shared/api/generated
           git diff --exit-code -- apps/api/openapi.json apps/web/src/shared/api/generated
+
+  route-tree-drift:
+    name: route-tree-drift
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup  # zizmor: ignore[self-repository] actionlint 1.7.12 が $/ 構文に未対応のため
+      - name: Generate route tree
+        run: pnpm --filter @hono-poc/web build
+      - name: Check drift
+        run: git diff --exit-code -- apps/web/src/route-tree.gen.ts
