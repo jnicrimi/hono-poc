@@ -26,7 +26,6 @@ test.describe("書籍", () => {
     await page.getByRole("combobox").click()
     await page.getByPlaceholder("著者を検索").fill(authorName)
     await page.getByRole("option", { name: authorName }).click()
-    await page.keyboard.press("Escape")
     await page.getByRole("button", { name: "登録" }).click()
 
     await expect(

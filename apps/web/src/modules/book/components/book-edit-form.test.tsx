@@ -89,6 +89,7 @@ describe("BookEditForm", () => {
 
     await user.click(await screen.findByRole("combobox"))
     await user.click(await screen.findByRole("option", { name: "著者-2" }))
+    await user.keyboard("{Escape}")
     await user.click(screen.getByRole("button", { name: "更新" }))
 
     expect(await screen.findByText("書籍一覧ページ")).toBeInTheDocument()
@@ -114,6 +115,7 @@ describe("BookEditForm", () => {
 
     await user.click(await screen.findByRole("combobox"))
     await user.click(await screen.findByRole("option", { name: "著者-1" }))
+    await user.keyboard("{Escape}")
     await user.click(screen.getByRole("button", { name: "更新" }))
 
     expect(
