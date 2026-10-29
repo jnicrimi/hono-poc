@@ -10,6 +10,7 @@ import {
   updateBook,
 } from "./support/api"
 import { gotoBookRow } from "./support/list-row"
+import { toastRegion } from "./support/toast"
 
 test.describe("書籍", () => {
   test("著者を選択して書籍を登録すると成功トーストが表示され一覧に載る", async ({
@@ -29,7 +30,7 @@ test.describe("書籍", () => {
     await page.getByRole("button", { name: "登録" }).click()
 
     await expect(
-      page.locator("[data-sonner-toaster]").getByText("書籍を登録しました"),
+      toastRegion(page).getByText("書籍を登録しました"),
     ).toBeVisible()
 
     const id = await findBookIdByName(request, title)
@@ -57,7 +58,7 @@ test.describe("書籍", () => {
     await page.getByRole("button", { name: "更新" }).click()
 
     await expect(
-      page.locator("[data-sonner-toaster]").getByText("書籍を更新しました"),
+      toastRegion(page).getByText("書籍を更新しました"),
     ).toBeVisible()
 
     await gotoBookRow(page, request, { id, rowName: updatedTitle })
@@ -85,7 +86,7 @@ test.describe("書籍", () => {
       .click()
 
     await expect(
-      page.locator("[data-sonner-toaster]").getByText("書籍を削除しました"),
+      toastRegion(page).getByText("書籍を削除しました"),
     ).toBeVisible()
     await expect(page.getByRole("alertdialog")).toBeHidden()
     await expect(page.getByRole("cell", { name: title })).toBeHidden()
@@ -120,9 +121,9 @@ test.describe("書籍", () => {
     await page.getByRole("button", { name: "更新" }).click()
 
     await expect(
-      page
-        .locator("[data-sonner-toaster]")
-        .getByText("他の操作で更新されました。ページを再読み込みしてください"),
+      toastRegion(page).getByText(
+        "他の操作で更新されました。ページを再読み込みしてください",
+      ),
     ).toBeVisible()
     await expect(page.getByRole("dialog")).toBeVisible()
     await expect(input).toHaveValue(inputTitle)

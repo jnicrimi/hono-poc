@@ -4,4 +4,5 @@ export const uiLabels = {
   edit: "編集",
   delete: "削除",
   cancel: "キャンセル",
+  notifications: "通知",
 } as const

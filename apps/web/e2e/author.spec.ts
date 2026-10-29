@@ -16,6 +16,7 @@ import {
   updateAuthor,
 } from "./support/api"
 import { gotoAuthorRow, gotoBookRow } from "./support/list-row"
+import { toastRegion } from "./support/toast"
 
 const gotoRowViaClientNav = async (
   page: Page,
@@ -62,7 +63,7 @@ test.describe("著者", () => {
     await page.getByRole("button", { name: "登録" }).click()
 
     await expect(
-      page.locator("[data-sonner-toaster]").getByText("著者を登録しました"),
+      toastRegion(page).getByText("著者を登録しました"),
     ).toBeVisible()
 
     const id = await findAuthorIdByName(request, name)
@@ -88,7 +89,7 @@ test.describe("著者", () => {
     await page.getByRole("button", { name: "更新" }).click()
 
     await expect(
-      page.locator("[data-sonner-toaster]").getByText("著者を更新しました"),
+      toastRegion(page).getByText("著者を更新しました"),
     ).toBeVisible()
 
     await gotoAuthorRow(page, request, { id, rowName: updatedName })
@@ -127,7 +128,7 @@ test.describe("著者", () => {
     await page.getByRole("textbox", { name: "著者名" }).fill(updatedName)
     await page.getByRole("button", { name: "更新" }).click()
     await expect(
-      page.locator("[data-sonner-toaster]").getByText("著者を更新しました"),
+      toastRegion(page).getByText("著者を更新しました"),
     ).toBeVisible()
 
     await gotoRowViaClientNav(page, request, {
@@ -160,7 +161,7 @@ test.describe("著者", () => {
       .click()
 
     await expect(
-      page.locator("[data-sonner-toaster]").getByText("著者を削除しました"),
+      toastRegion(page).getByText("著者を削除しました"),
     ).toBeVisible()
     await expect(page.getByRole("alertdialog")).toBeHidden()
     await expect(page.getByRole("cell", { name })).toBeHidden()
@@ -191,9 +192,9 @@ test.describe("著者", () => {
     await page.getByRole("button", { name: "更新" }).click()
 
     await expect(
-      page
-        .locator("[data-sonner-toaster]")
-        .getByText("他の操作で更新されました。ページを再読み込みしてください"),
+      toastRegion(page).getByText(
+        "他の操作で更新されました。ページを再読み込みしてください",
+      ),
     ).toBeVisible()
     await expect(page.getByRole("dialog")).toBeVisible()
     await expect(input).toHaveValue(inputName)
@@ -223,9 +224,9 @@ test.describe("著者", () => {
       .click()
 
     await expect(
-      page
-        .locator("[data-sonner-toaster]")
-        .getByText("書籍に割り当てられている著者は削除できません"),
+      toastRegion(page).getByText(
+        "書籍に割り当てられている著者は削除できません",
+      ),
     ).toBeVisible()
     await page
       .getByRole("alertdialog")
