@@ -33,7 +33,7 @@
   "devDependencies": {
     "@hono-poc/typescript-config": "workspace:*",
     "@testcontainers/postgresql": "12.2.1",
-    "@types/node": "25.9.9",
+    "@types/node": "26.6.5",
     "@vitest/coverage-v8": "5.0.5",
     "dependency-cruiser": "18.7.0",
     "drizzle-kit": "0.31.11",
