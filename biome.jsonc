@@ -24,6 +24,16 @@
     "indentWidth": 2,
     "lineEnding": "lf"
   },
+  "yaml": {
+    "formatter": {
+      "enabled": false
+    }
+  },
+  "markdown": {
+    "formatter": {
+      "enabled": false
+    }
+  },
   "linter": {
     "enabled": true,
     "rules": {
