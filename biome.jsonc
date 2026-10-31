@@ -33,10 +33,6 @@
         "noUndeclaredDependencies": "error"
       },
       "nursery": {
-        // where 句なしの drizzle delete(全件削除)を禁止
-        "noDrizzleDeleteWithoutWhere": "error",
-        // where 句なしの drizzle update(全件更新)を禁止
-        "noDrizzleUpdateWithoutWhere": "error",
         // await/return されない放置 Promise(握り潰し)を検出
         "noFloatingPromises": "error",
         // if 条件や論理演算など Promise を誤用する箇所を検出
@@ -68,6 +64,10 @@
         "useErrorCause": "error"
       },
       "suspicious": {
+        // where 句なしの drizzle delete(全件削除)を禁止
+        "noDrizzleDeleteWithoutWhere": "error",
+        // where 句なしの drizzle update(全件更新)を禁止
+        "noDrizzleUpdateWithoutWhere": "error",
         // console の使用を禁止
         "noConsole": "error",
         // import の循環参照を検出
