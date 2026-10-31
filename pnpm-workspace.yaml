@@ -14,3 +14,5 @@ allowBuilds:
   msw: false
   protobufjs: false
   ssh2: false
+skills:
+  dirs: []
