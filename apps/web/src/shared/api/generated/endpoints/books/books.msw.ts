@@ -13,12 +13,16 @@ import {
   http
 } from 'msw';
 import type {
+  HttpResponseResolver,
+  PathParams,
   RequestHandlerOptions
 } from 'msw';
 
 import type {
   Book,
-  BookList
+  BookList,
+  CreateBookBody,
+  UpdateBookBody
 } from '../../models';
 
 
@@ -31,8 +35,8 @@ export const getShowBookResponseMock = (overrideResponse: Partial<Extract<Book, 
 export const getUpdateBookResponseMock = (overrideResponse: Partial<Extract<Book, object>> = {}): Book => ({id: faker.string.uuid(), title: faker.string.alpha({length: {min: 10, max: 20}}), authors: Array.from({ length: faker.number.int({min: 1, max: 10}) }, (_, i) => i + 1).map(() => ({id: faker.string.uuid(), name: faker.string.alpha({length: {min: 10, max: 20}})})), version: faker.number.int(), ...overrideResponse})
 
 
-export const getCreateBookMockHandler = (overrideResponse?: Book | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
-  return http.post('*/books', async (info: Parameters<Parameters<typeof http.post>[1]>[0]) => {
+export const getCreateBookMockHandler = (overrideResponse?: Book | ((info: Parameters<HttpResponseResolver<PathParams, CreateBookBody>>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
+  return http.post<PathParams, CreateBookBody>('*/books', async (info: Parameters<HttpResponseResolver<PathParams, CreateBookBody>>[0]) => {
 
 
     return HttpResponse.json(overrideResponse !== undefined
@@ -43,8 +47,8 @@ export const getCreateBookMockHandler = (overrideResponse?: Book | ((info: Param
   }, options)
 }
 
-export const getListBooksMockHandler = (overrideResponse?: BookList | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<BookList> | BookList), options?: RequestHandlerOptions) => {
-  return http.get('*/books', async (info: Parameters<Parameters<typeof http.get>[1]>[0]) => {
+export const getListBooksMockHandler = (overrideResponse?: BookList | ((info: Parameters<HttpResponseResolver>[0]) => Promise<BookList> | BookList), options?: RequestHandlerOptions) => {
+  return http.get('*/books', async (info: Parameters<HttpResponseResolver>[0]) => {
 
 
     return HttpResponse.json(overrideResponse !== undefined
@@ -55,8 +59,8 @@ export const getListBooksMockHandler = (overrideResponse?: BookList | ((info: Pa
   }, options)
 }
 
-export const getShowBookMockHandler = (overrideResponse?: Book | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
-  return http.get('*/books/:id', async (info: Parameters<Parameters<typeof http.get>[1]>[0]) => {
+export const getShowBookMockHandler = (overrideResponse?: Book | ((info: Parameters<HttpResponseResolver<{ id: string }>>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
+  return http.get<{ id: string }>('*/books/:id', async (info: Parameters<HttpResponseResolver<{ id: string }>>[0]) => {
 
 
     return HttpResponse.json(overrideResponse !== undefined
@@ -67,8 +71,8 @@ export const getShowBookMockHandler = (overrideResponse?: Book | ((info: Paramet
   }, options)
 }
 
-export const getUpdateBookMockHandler = (overrideResponse?: Book | ((info: Parameters<Parameters<typeof http.patch>[1]>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
-  return http.patch('*/books/:id', async (info: Parameters<Parameters<typeof http.patch>[1]>[0]) => {
+export const getUpdateBookMockHandler = (overrideResponse?: Book | ((info: Parameters<HttpResponseResolver<{ id: string }, UpdateBookBody>>[0]) => Promise<Book> | Book), options?: RequestHandlerOptions) => {
+  return http.patch<{ id: string }, UpdateBookBody>('*/books/:id', async (info: Parameters<HttpResponseResolver<{ id: string }, UpdateBookBody>>[0]) => {
 
 
     return HttpResponse.json(overrideResponse !== undefined
@@ -79,8 +83,8 @@ export const getUpdateBookMockHandler = (overrideResponse?: Book | ((info: Param
   }, options)
 }
 
-export const getDeleteBookMockHandler = (overrideResponse?: void | ((info: Parameters<Parameters<typeof http.delete>[1]>[0]) => Promise<void> | void), options?: RequestHandlerOptions) => {
-  return http.delete('*/books/:id', async (info: Parameters<Parameters<typeof http.delete>[1]>[0]) => {
+export const getDeleteBookMockHandler = (overrideResponse?: void | ((info: Parameters<HttpResponseResolver<{ id: string }>>[0]) => Promise<void> | void), options?: RequestHandlerOptions) => {
+  return http.delete<{ id: string }>('*/books/:id', async (info: Parameters<HttpResponseResolver<{ id: string }>>[0]) => {
   if (typeof overrideResponse === 'function') {await overrideResponse(info); }
 
     return new HttpResponse(null,
