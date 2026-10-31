@@ -1,0 +1,15 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+paths = [
+  # 同梱したサードパーティのバンドル
+  '''^apps/api/vendor/''',
+  # ダミー値のみを置くサンプル環境変数ファイル
+  '''^\.env\.example$''',
+]
+
+# ローカルと CI の使い捨て DB コンテナ向けの接続文字列
+[[allowlists]]
+regexTarget = "match"
+regexes = ['''postgres(?:ql)?://postgres:[^@\s]+@localhost[:/]''']

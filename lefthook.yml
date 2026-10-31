@@ -6,8 +6,8 @@ commit-msg:
 pre-commit:
   parallel: true
   jobs:
-    - name: gitleaks
-      run: gitleaks git --pre-commit --staged
+    - name: betterleaks
+      run: betterleaks git --pre-commit --staged
     - name: biome
       run: pnpm exec biome check --staged --no-errors-on-unmatched
     - name: knip
@@ -52,8 +52,8 @@ pre-commit:
 pre-push:
   parallel: true
   jobs:
-    - name: gitleaks
-      run: gitleaks git --log-opts "origin/main..HEAD"
+    - name: betterleaks
+      run: betterleaks git --log-opts "origin/main..HEAD"
     - name: test-unit
       run: pnpm --filter @hono-poc/api test:unit
     - name: test-api
