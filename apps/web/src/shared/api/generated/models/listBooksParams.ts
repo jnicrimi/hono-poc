@@ -6,15 +6,15 @@
  */
 
 export type ListBooksParams = {
-/**
- * ページ番号
- * @minimum 1
- */
-page?: number;
-/**
- * 1 ページあたりの件数
- * @minimum 1
- * @maximum 100
- */
-perPage?: number;
+  /**
+   * ページ番号
+   * @minimum 1
+   */
+  page?: number;
+  /**
+   * 1 ページあたりの件数
+   * @minimum 1
+   * @maximum 100
+   */
+  perPage?: number;
 };
