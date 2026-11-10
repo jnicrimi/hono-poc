@@ -105,6 +105,7 @@ describe("registerErrorHandlers", () => {
       const res = await app.request("/dummy")
 
       expect(res.status).toBe(503)
+      expect(res.headers.get("Retry-After")).toBe("5")
       expect(await res.json()).toEqual({
         errors: [
           {
@@ -141,6 +142,7 @@ describe("registerErrorHandlers", () => {
     const res = await app.request("/dummy")
 
     expect(res.status).toBe(500)
+    expect(res.headers.get("Retry-After")).toBeNull()
     expect(logger.error).toHaveBeenCalledTimes(1)
   })
 

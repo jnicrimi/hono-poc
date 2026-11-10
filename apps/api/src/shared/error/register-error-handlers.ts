@@ -14,6 +14,8 @@ const STATUS: Record<ErrorCategory, ContentfulStatusCode> = {
   VALIDATION: 422,
 }
 
+const RETRY_AFTER_SEC = 5
+
 const VALIDATOR_MESSAGES: Partial<Record<StatusCode, string>> = {
   400: httpMessages.invalidRequest,
   415: httpMessages.unsupportedMediaType,
@@ -45,6 +47,7 @@ export const registerErrorHandlers = (
       return c.json(
         { errors: [{ message: httpMessages.serviceUnavailable }] },
         503,
+        { "Retry-After": String(RETRY_AFTER_SEC) },
       )
     }
     logger.error(
