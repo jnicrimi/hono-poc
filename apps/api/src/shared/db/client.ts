@@ -3,19 +3,27 @@ import type { PostgresJsQueryResultHKT } from "drizzle-orm/postgres-js"
 import { drizzle } from "drizzle-orm/postgres-js"
 import postgres from "postgres"
 
-export type DBPoolConfig = {
+export type DBConfig = {
   readonly max: number
   readonly idleTimeoutSec: number
   readonly connectTimeoutSec: number
   readonly maxLifetimeSec: number
+  readonly queueTimeoutSec: number
+  readonly statementTimeoutMs: number
+  readonly lockTimeoutMs: number
 }
 
-export const createDb = (databaseUrl: string, poolConfig: DBPoolConfig) => {
+export const createDb = (databaseUrl: string, config: DBConfig) => {
   const sql = postgres(databaseUrl, {
-    max: poolConfig.max,
-    idle_timeout: poolConfig.idleTimeoutSec,
-    connect_timeout: poolConfig.connectTimeoutSec,
-    max_lifetime: poolConfig.maxLifetimeSec,
+    max: config.max,
+    idle_timeout: config.idleTimeoutSec,
+    connect_timeout: config.connectTimeoutSec,
+    max_lifetime: config.maxLifetimeSec,
+    queue_timeout: config.queueTimeoutSec,
+    connection: {
+      statement_timeout: config.statementTimeoutMs,
+      lock_timeout: config.lockTimeoutMs,
+    },
   })
   return drizzle(sql)
 }

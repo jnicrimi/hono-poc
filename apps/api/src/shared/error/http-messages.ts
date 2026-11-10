@@ -5,4 +5,6 @@ export const httpMessages = {
   unsupportedMediaType: "リクエストの Content-Type に対応していません",
   payloadTooLarge: "リクエストのサイズが大きすぎます",
   gatewayTimeout: "リクエストがタイムアウトしました",
+  serviceUnavailable:
+    "現在リクエストを処理できません。しばらくしてから再度お試しください",
 } as const

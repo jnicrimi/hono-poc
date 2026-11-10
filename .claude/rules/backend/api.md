@@ -105,6 +105,7 @@ paths:
 
 - ログは shared の HTTP 境界でのみ出す
 - `AppError` はログせず、未処理例外（5xx）のみ error ログを出す
+- DB のタイムアウト（接続待ち・statement_timeout・lock_timeout）は 503 を返し、warn ログを出す
 
 ## 環境変数
 
