@@ -11,6 +11,7 @@ export type DBConfig = {
   readonly queueTimeoutSec: number
   readonly statementTimeoutMs: number
   readonly lockTimeoutMs: number
+  readonly transactionTimeoutMs: number
 }
 
 export const createDb = (databaseUrl: string, config: DBConfig) => {
@@ -23,6 +24,7 @@ export const createDb = (databaseUrl: string, config: DBConfig) => {
     connection: {
       statement_timeout: config.statementTimeoutMs,
       lock_timeout: config.lockTimeoutMs,
+      transaction_timeout: config.transactionTimeoutMs,
     },
   })
   return drizzle(sql)

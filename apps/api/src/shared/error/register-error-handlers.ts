@@ -4,7 +4,7 @@ import type { ContentfulStatusCode, StatusCode } from "hono/utils/http-status"
 import type { AppEnv } from "../app-env"
 import type { AppLogger } from "../logger/logger"
 import { AppError, type ErrorCategory } from "./app-error"
-import { isDbTimeoutError } from "./db-timeout-error"
+import { isDbUnavailableError } from "./db-unavailable-error"
 import { httpMessages } from "./http-messages"
 
 const STATUS: Record<ErrorCategory, ContentfulStatusCode> = {
@@ -37,10 +37,10 @@ export const registerErrorHandlers = (
       return c.json({ errors: [{ message }] }, err.status)
     }
     const logger = c.get("logger") ?? baseLogger
-    if (isDbTimeoutError(err)) {
+    if (isDbUnavailableError(err)) {
       logger.warn(
         { err, method: c.req.method, path: c.req.path },
-        "database timeout",
+        "database unavailable",
       )
       return c.json(
         { errors: [{ message: httpMessages.serviceUnavailable }] },

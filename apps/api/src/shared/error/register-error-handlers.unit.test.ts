@@ -94,8 +94,8 @@ describe("registerErrorHandlers", () => {
     expect(logger.error).toHaveBeenCalledTimes(1)
   })
 
-  it.each(["QUEUE_TIMEOUT", "57014", "55P03"])(
-    "DB のタイムアウト（%s）は 503 を返し warn ログを出力する",
+  it.each(["QUEUE_TIMEOUT", "CONNECTION_CLOSED", "57014", "55P03", "25P04"])(
+    "DB が一時的に使えないエラー（%s）は 503 を返し warn ログを出力する",
     async (code) => {
       const logger = createLoggerStub()
       const app = buildApp(() => {
@@ -118,7 +118,7 @@ describe("registerErrorHandlers", () => {
     },
   )
 
-  it("エラーの cause にタイムアウトのコードがある場合も 503 を返す", async () => {
+  it("エラーの cause に対象のコードがある場合も 503 を返す", async () => {
     const app = buildApp(() => {
       throw new Error("Failed query", {
         cause: Object.assign(new Error("timeout"), { code: "57014" }),
@@ -130,7 +130,7 @@ describe("registerErrorHandlers", () => {
     expect(res.status).toBe(503)
   })
 
-  it("タイムアウト以外の DB エラーは 500 を返す", async () => {
+  it("対象外の DB エラーは 500 を返す", async () => {
     const logger = createLoggerStub()
     const app = buildApp(() => {
       throw new Error("Failed query", {
