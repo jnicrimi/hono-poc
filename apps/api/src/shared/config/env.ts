@@ -22,6 +22,9 @@ const envSchema = z.object({
   DB_POOL_IDLE_TIMEOUT_SEC: z.coerce.number().int().positive().default(30),
   DB_POOL_CONNECT_TIMEOUT_SEC: z.coerce.number().int().positive().default(10),
   DB_POOL_MAX_LIFETIME_SEC: z.coerce.number().int().positive().default(1800),
+  DB_POOL_QUEUE_TIMEOUT_SEC: z.coerce.number().int().positive().default(10),
+  DB_STATEMENT_TIMEOUT_MS: z.coerce.number().int().positive().default(15_000),
+  DB_LOCK_TIMEOUT_MS: z.coerce.number().int().positive().default(5000),
 })
 
 export type Env = z.infer<typeof envSchema>

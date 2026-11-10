@@ -9,6 +9,9 @@ const db = createDb("postgres://placeholder@localhost:5432/placeholder", {
   idleTimeoutSec: 1,
   connectTimeoutSec: 1,
   maxLifetimeSec: 1,
+  queueTimeoutSec: 1,
+  statementTimeoutMs: 1,
+  lockTimeoutMs: 1,
 })
 const logger: AppLogger = pino({ level: "silent" })
 

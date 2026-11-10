@@ -94,6 +94,56 @@ describe("registerErrorHandlers", () => {
     expect(logger.error).toHaveBeenCalledTimes(1)
   })
 
+  it.each(["QUEUE_TIMEOUT", "57014", "55P03"])(
+    "DB のタイムアウト（%s）は 503 を返し warn ログを出力する",
+    async (code) => {
+      const logger = createLoggerStub()
+      const app = buildApp(() => {
+        throw Object.assign(new Error("timeout"), { code })
+      }, logger)
+
+      const res = await app.request("/dummy")
+
+      expect(res.status).toBe(503)
+      expect(await res.json()).toEqual({
+        errors: [
+          {
+            message:
+              "現在リクエストを処理できません。しばらくしてから再度お試しください",
+          },
+        ],
+      })
+      expect(logger.warn).toHaveBeenCalledTimes(1)
+      expect(logger.error).not.toHaveBeenCalled()
+    },
+  )
+
+  it("エラーの cause にタイムアウトのコードがある場合も 503 を返す", async () => {
+    const app = buildApp(() => {
+      throw new Error("Failed query", {
+        cause: Object.assign(new Error("timeout"), { code: "57014" }),
+      })
+    })
+
+    const res = await app.request("/dummy")
+
+    expect(res.status).toBe(503)
+  })
+
+  it("タイムアウト以外の DB エラーは 500 を返す", async () => {
+    const logger = createLoggerStub()
+    const app = buildApp(() => {
+      throw new Error("Failed query", {
+        cause: Object.assign(new Error("duplicate"), { code: "23505" }),
+      })
+    }, logger)
+
+    const res = await app.request("/dummy")
+
+    expect(res.status).toBe(500)
+    expect(logger.error).toHaveBeenCalledTimes(1)
+  })
+
   it("リソースが存在しない場合はログを出力しない", async () => {
     const app = new Hono<AppEnv>()
     registerErrorHandlers(app, createLoggerStub())

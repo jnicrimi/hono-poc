@@ -15,6 +15,9 @@ const db = createDb(env.DATABASE_URL, {
   idleTimeoutSec: env.DB_POOL_IDLE_TIMEOUT_SEC,
   connectTimeoutSec: env.DB_POOL_CONNECT_TIMEOUT_SEC,
   maxLifetimeSec: env.DB_POOL_MAX_LIFETIME_SEC,
+  queueTimeoutSec: env.DB_POOL_QUEUE_TIMEOUT_SEC,
+  statementTimeoutMs: env.DB_STATEMENT_TIMEOUT_MS,
+  lockTimeoutMs: env.DB_LOCK_TIMEOUT_MS,
 })
 
 try {
