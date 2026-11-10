@@ -27,6 +27,7 @@
         "DB_POOL_QUEUE_TIMEOUT_SEC",
         "DB_STATEMENT_TIMEOUT_MS",
         "DB_LOCK_TIMEOUT_MS",
+        "DB_TRANSACTION_TIMEOUT_MS",
         "SHUTDOWN_TIMEOUT_MS"
       ]
     }

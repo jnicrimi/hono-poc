@@ -15,6 +15,7 @@ const db = createDb(env.DATABASE_URL, {
   queueTimeoutSec: env.DB_POOL_QUEUE_TIMEOUT_SEC,
   statementTimeoutMs: env.DB_STATEMENT_TIMEOUT_MS,
   lockTimeoutMs: env.DB_LOCK_TIMEOUT_MS,
+  transactionTimeoutMs: env.DB_TRANSACTION_TIMEOUT_MS,
 })
 const app = createApp(db, logger, {
   enableApiDocs: env.NODE_ENV !== "production",
