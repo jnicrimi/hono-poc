@@ -137,9 +137,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type CreateAuthorMutationError = ErrorType<ErrorResponse>
     export type CreateAuthorMutationVariables = {data: CreateAuthorBody}
 
-    /**
- * @summary 著者を作成
- */
+    /** @summary 著者を作成 */
 export const useCreateAuthor = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createAuthor>>, TError,CreateAuthorMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -212,6 +210,7 @@ export type ListAuthorsQueryResult = NonNullable<Awaited<ReturnType<typeof listA
 export type ListAuthorsQueryError = ErrorType<ErrorResponse>
 
 
+/** @summary 著者一覧を取得 */
 export function useListAuthors<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorType<ErrorResponse>>(
  params: undefined |  ListAuthorsParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -222,6 +221,7 @@ export function useListAuthors<TData = Awaited<ReturnType<typeof listAuthors>>, 
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 著者一覧を取得 */
 export function useListAuthors<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorType<ErrorResponse>>(
  params?: ListAuthorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -232,14 +232,12 @@ export function useListAuthors<TData = Awaited<ReturnType<typeof listAuthors>>, 
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 著者一覧を取得 */
 export function useListAuthors<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorType<ErrorResponse>>(
  params?: ListAuthorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary 著者一覧を取得
- */
-
+/** @summary 著者一覧を取得 */
 export function useListAuthors<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorType<ErrorResponse>>(
  params?: ListAuthorsParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -279,22 +277,22 @@ export type ListAuthorsSuspenseQueryResult = NonNullable<Awaited<ReturnType<type
 export type ListAuthorsSuspenseQueryError = ErrorType<ErrorResponse>
 
 
+/** @summary 著者一覧を取得 */
 export function useListAuthorsSuspense<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorType<ErrorResponse>>(
  params: undefined |  ListAuthorsParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 著者一覧を取得 */
 export function useListAuthorsSuspense<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorType<ErrorResponse>>(
  params?: ListAuthorsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 著者一覧を取得 */
 export function useListAuthorsSuspense<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorType<ErrorResponse>>(
  params?: ListAuthorsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary 著者一覧を取得
- */
-
+/** @summary 著者一覧を取得 */
 export function useListAuthorsSuspense<TData = Awaited<ReturnType<typeof listAuthors>>, TError = ErrorType<ErrorResponse>>(
  params?: ListAuthorsParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listAuthors>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -367,6 +365,7 @@ export type ShowAuthorQueryResult = NonNullable<Awaited<ReturnType<typeof showAu
 export type ShowAuthorQueryError = ErrorType<ErrorResponse>
 
 
+/** @summary 著者を取得 */
 export function useShowAuthor<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorType<ErrorResponse>>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -377,6 +376,7 @@ export function useShowAuthor<TData = Awaited<ReturnType<typeof showAuthor>>, TE
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 著者を取得 */
 export function useShowAuthor<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -387,14 +387,12 @@ export function useShowAuthor<TData = Awaited<ReturnType<typeof showAuthor>>, TE
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 著者を取得 */
 export function useShowAuthor<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary 著者を取得
- */
-
+/** @summary 著者を取得 */
 export function useShowAuthor<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -434,22 +432,22 @@ export type ShowAuthorSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeo
 export type ShowAuthorSuspenseQueryError = ErrorType<ErrorResponse>
 
 
+/** @summary 著者を取得 */
 export function useShowAuthorSuspense<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorType<ErrorResponse>>(
  id: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 著者を取得 */
 export function useShowAuthorSuspense<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 著者を取得 */
 export function useShowAuthorSuspense<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary 著者を取得
- */
-
+/** @summary 著者を取得 */
 export function useShowAuthorSuspense<TData = Awaited<ReturnType<typeof showAuthor>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showAuthor>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -542,9 +540,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type UpdateAuthorMutationError = ErrorType<ErrorResponse>
     export type UpdateAuthorMutationVariables = {id: string;data: UpdateAuthorBody}
 
-    /**
- * @summary 著者を更新
- */
+    /** @summary 著者を更新 */
 export const useUpdateAuthor = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateAuthor>>, TError,UpdateAuthorMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -615,9 +611,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type DeleteAuthorMutationError = ErrorType<ErrorResponse>
     export type DeleteAuthorMutationVariables = {id: string}
 
-    /**
- * @summary 著者を削除
- */
+    /** @summary 著者を削除 */
 export const useDeleteAuthor = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteAuthor>>, TError,DeleteAuthorMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<

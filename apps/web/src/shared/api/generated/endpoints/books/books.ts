@@ -137,9 +137,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type CreateBookMutationError = ErrorType<ErrorResponse>
     export type CreateBookMutationVariables = {data: CreateBookBody}
 
-    /**
- * @summary 書籍を作成
- */
+    /** @summary 書籍を作成 */
 export const useCreateBook = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createBook>>, TError,CreateBookMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -212,6 +210,7 @@ export type ListBooksQueryResult = NonNullable<Awaited<ReturnType<typeof listBoo
 export type ListBooksQueryError = ErrorType<ErrorResponse>
 
 
+/** @summary 書籍一覧を取得 */
 export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params: undefined |  ListBooksParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -222,6 +221,7 @@ export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TErr
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 書籍一覧を取得 */
 export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params?: ListBooksParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -232,14 +232,12 @@ export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TErr
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 書籍一覧を取得 */
 export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params?: ListBooksParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary 書籍一覧を取得
- */
-
+/** @summary 書籍一覧を取得 */
 export function useListBooks<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params?: ListBooksParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -279,22 +277,22 @@ export type ListBooksSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof
 export type ListBooksSuspenseQueryError = ErrorType<ErrorResponse>
 
 
+/** @summary 書籍一覧を取得 */
 export function useListBooksSuspense<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params: undefined |  ListBooksParams, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 書籍一覧を取得 */
 export function useListBooksSuspense<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params?: ListBooksParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 書籍一覧を取得 */
 export function useListBooksSuspense<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params?: ListBooksParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary 書籍一覧を取得
- */
-
+/** @summary 書籍一覧を取得 */
 export function useListBooksSuspense<TData = Awaited<ReturnType<typeof listBooks>>, TError = ErrorType<ErrorResponse>>(
  params?: ListBooksParams, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof listBooks>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -367,6 +365,7 @@ export type ShowBookQueryResult = NonNullable<Awaited<ReturnType<typeof showBook
 export type ShowBookQueryError = ErrorType<ErrorResponse>
 
 
+/** @summary 書籍を取得 */
 export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -377,6 +376,7 @@ export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 書籍を取得 */
 export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -387,14 +387,12 @@ export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError
       >, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 書籍を取得 */
 export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary 書籍を取得
- */
-
+/** @summary 書籍を取得 */
 export function useShowBook<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -434,22 +432,22 @@ export type ShowBookSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof 
 export type ShowBookSuspenseQueryError = ErrorType<ErrorResponse>
 
 
+/** @summary 書籍を取得 */
 export function useShowBookSuspense<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 書籍を取得 */
 export function useShowBookSuspense<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/** @summary 書籍を取得 */
 export function useShowBookSuspense<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary 書籍を取得
- */
-
+/** @summary 書籍を取得 */
 export function useShowBookSuspense<TData = Awaited<ReturnType<typeof showBook>>, TError = ErrorType<ErrorResponse>>(
  id: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof showBook>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient
@@ -542,9 +540,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type UpdateBookMutationError = ErrorType<ErrorResponse>
     export type UpdateBookMutationVariables = {id: string;data: UpdateBookBody}
 
-    /**
- * @summary 書籍を更新
- */
+    /** @summary 書籍を更新 */
 export const useUpdateBook = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateBook>>, TError,UpdateBookMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
@@ -615,9 +611,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type DeleteBookMutationError = ErrorType<ErrorResponse>
     export type DeleteBookMutationVariables = {id: string}
 
-    /**
- * @summary 書籍を削除
- */
+    /** @summary 書籍を削除 */
 export const useDeleteBook = <TError = ErrorType<ErrorResponse>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteBook>>, TError,DeleteBookMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
  , queryClient?: QueryClient): UseMutationResult<
