@@ -1,12 +1,12 @@
 [tools]
 pnpm = "12.17.0"
-node = "26.13.0"
+node = "26.13.1"
 actionlint = "1.7.12"
 shellcheck = "0.11.0"
 zizmor = "1.32.0"
-betterleaks = "1.9.0"
+betterleaks = "1.10.0"
 lefthook = "2.2.2"
-tombi = "1.9.9"
+tombi = "1.11.2"
 tbls = "1.96.1"
 "npm:@liam-hq/cli" = { version = "0.7.24", trust_policy_excludes = [
   "@swc/core",
