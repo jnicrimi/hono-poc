@@ -31,7 +31,7 @@ describe("isDbUnavailableError", () => {
         })
         .catch((e: unknown) => e)
 
-      expect(error).toMatchObject({ code: "CONNECTION_CLOSED" })
+      expect(error).toMatchObject({ code: "25P04" })
       expect(isDbUnavailableError(error)).toBe(true)
     } finally {
       await client.end()

@@ -1,6 +1,5 @@
 // QUEUE_TIMEOUT: postgres.js が空き接続を待ちきれなかったときのコード
 // CONNECTION_CLOSED: postgres.js が接続の切断を検知したときのコード
-//   transaction_timeout でトランザクション中に切断されると原因が付かないため、切断全般を対象にする
 // 57014: statement_timeout 超過（SQLSTATE query_canceled）
 // 55P03: lock_timeout 超過（SQLSTATE lock_not_available）
 // 25P04: transaction_timeout 超過（SQLSTATE transaction_timeout）
